@@ -2,30 +2,19 @@ import { ReactNode } from "react";
 import NavigationRow from "../../components/navigation-row";
 import { Menu } from "../../types";
 
-const menu: Menu = [
-  {
-    id: "overview",
-    label: "Overview",
-    href: "/dashboard/overview",
-  },
-  {
-    id: "integrations",
-    label: "Integrations",
-    href: "/dashboard/integrations",
-  },
-  { id: "activity", label: "Activity", href: "/dashboard/activity" },
-  { id: "settings", label: "Settings", href: "/dashboard/settings" },
-];
+export type DashboardLayoutProps = {
+  children: ReactNode;
+  stickyNav?: boolean;
+  active: string;
+  menu: Menu;
+};
 
 const DashboardLayout = ({
   children,
   stickyNav = true,
   active,
-}: {
-  children: ReactNode;
-  stickyNav?: boolean;
-  active: string;
-}) => {
+  menu,
+}: DashboardLayoutProps) => {
   return (
     <>
       <NavigationRow sticky={stickyNav} menu={menu} active={active} />

@@ -1,6 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
 import FullScreenMenu from "../../../components/full-screen-menu";
 import { accountSettingsMenu } from "../../../data/account-settings-menu";
+import { userDashboardMenu } from "../../../data/user-dashboard-menu";
 import AppLayout from "../../../layouts/app-layout";
 import DashboardLayout from "../../../layouts/dashbaord-layout";
 import SettingsLayout from "../../../layouts/settings-layout";
@@ -38,13 +39,8 @@ export default SettingsPage;
 SettingsPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
-      <DashboardLayout active="settings">
-        <div className="md:hidden">{page}</div>
-        <SettingsLayout
-          className="hidden md:block"
-          menu={accountSettingsMenu}
-          active="overview"
-        >
+      <DashboardLayout menu={userDashboardMenu} active="settings">
+        <SettingsLayout menu={accountSettingsMenu} active="overview">
           {page}
         </SettingsLayout>
       </DashboardLayout>

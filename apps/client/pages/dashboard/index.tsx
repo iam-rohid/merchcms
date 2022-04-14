@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { userDashboardMenu } from "../../data/user-dashboard-menu";
 import AppLayout from "../../layouts/app-layout";
 import DashboardLayout from "../../layouts/dashbaord-layout";
 import { CustomNextPage, Store } from "../../types";
@@ -41,7 +42,9 @@ export default DashbaordPage;
 DashbaordPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
-      <DashboardLayout active="overview">{page}</DashboardLayout>
+      <DashboardLayout menu={userDashboardMenu} active="overview">
+        {page}
+      </DashboardLayout>
     </AppLayout>
   );
 };
