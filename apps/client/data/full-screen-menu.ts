@@ -1,4 +1,6 @@
 import { Menu } from "types";
+import { appDashboardPath } from "./app-dashboard-menu";
+import { appSettingsPath } from "./app-settings-menu";
 
 export const fullScreenMenu: {
   id: string;
@@ -11,7 +13,7 @@ export const fullScreenMenu: {
       {
         id: "overview",
         label: "Dashboard",
-        href: "/dashboard",
+        href: appDashboardPath,
       },
       {
         id: "create-new-store",
@@ -21,7 +23,7 @@ export const fullScreenMenu: {
       {
         id: "settings",
         label: "Settings",
-        href: "/account",
+        href: appSettingsPath,
       },
       {
         id: "logout",

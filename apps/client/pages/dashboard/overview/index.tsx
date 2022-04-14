@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { ReactElement, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   MdAdd,
   MdArrowDropDown,
@@ -9,40 +9,28 @@ import {
 } from "react-icons/md";
 import StoreCard from "components/cards/store-card";
 import Container from "components/container";
-import { userDashboardMenu } from "data/user-dashboard-menu";
-import AppLayout from "layouts/app-layout";
-import DashboardLayout from "layouts/dashbaord-layout";
-import { Store } from "types";
+import { CustomNextPage, Store } from "types";
+import AppDashboardLayout from "layouts/common-layouts/app-dashboard-layout";
 
 const stores: Store[] = [
   {
-    id: "store-1",
+    id: "my-store-1",
     name: "Store 1",
     description: "This is my store description",
   },
   {
-    id: "store-2",
+    id: "my-store-2",
     name: "Store 2",
     description: "This is my store description",
   },
   {
-    id: "store-3",
+    id: "my-store-3",
     name: "Store 3",
-    description: "This is my store description",
-  },
-  {
-    id: "store-4",
-    name: "Store 4",
-    description: "This is my store description",
-  },
-  {
-    id: "store-5",
-    name: "Store 5",
     description: "This is my store description",
   },
 ];
 
-const OverviewPage = () => {
+const OverviewPage: CustomNextPage = () => {
   const [gridView, setGridView] = useState(true);
   const [searchText, setSearchText] = useState("");
 
@@ -138,12 +126,6 @@ const OverviewPage = () => {
 
 export default OverviewPage;
 
-OverviewPage.getLayout = (page: ReactElement) => {
-  return (
-    <AppLayout>
-      <DashboardLayout menu={userDashboardMenu} active="overview">
-        {page}
-      </DashboardLayout>
-    </AppLayout>
-  );
-};
+OverviewPage.getLayout = (page) => (
+  <AppDashboardLayout children={page} id="overview" />
+);

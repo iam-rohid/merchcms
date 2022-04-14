@@ -15,7 +15,7 @@ const StoreCard = ({
   ...props
 }: StoreCardProps) => {
   return (
-    <Link href={`/stores/${store.id}`}>
+    <Link href={`/${store.id}`}>
       <a
         className={classNames(
           "bg-white border border-gray-200 p-4 items-center flex flex-col gap-4 hover:border-gray-400 cursor-pointer hover:z-[1] focus:z-[1]",

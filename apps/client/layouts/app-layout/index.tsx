@@ -5,12 +5,13 @@ import AppHeader from "components/app-header";
 export type AppLayoutProps = {
   children: ReactNode;
   stickyHeader?: boolean;
+  paths?: string[];
 };
 
-const AppLayout = ({ children, stickyHeader }: AppLayoutProps) => {
+const AppLayout = ({ children, stickyHeader, paths }: AppLayoutProps) => {
   return (
     <>
-      <AppHeader sticky={stickyHeader} />
+      <AppHeader paths={paths} sticky={stickyHeader} />
       <main className="min-h-screen">{children}</main>
       <AppFooter />
     </>

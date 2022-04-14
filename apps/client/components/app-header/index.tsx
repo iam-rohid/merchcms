@@ -9,9 +9,10 @@ import MenuList from "components/menu-list";
 
 export type AppHeaderProps = HTMLAttributes<HTMLDivElement> & {
   sticky?: boolean;
+  paths?: string[];
 };
 
-const AppHeader = ({ sticky, className, ...props }: AppHeaderProps) => {
+const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
   const [menuOpenOnMobile, setMenuOpenOnMobile] = useState(false);
 
   const handleMenuOpenChange = useCallback((open: boolean) => {
@@ -48,12 +49,15 @@ const AppHeader = ({ sticky, className, ...props }: AppHeaderProps) => {
               <a className="text-lg font-semibold">MerchCMS</a>
             </Link>
           </li>
-          {/* <li className="text-gray-400 dark:text-gray-600">/</li>
-        <li>
-          <Link href={`/`}>
-            <a className="text-lg font-semibold">my-store</a>
-          </Link>
-        </li> */}
+          {paths &&
+            paths.map((path, i) => (
+              <li key={i}>
+                <span className="mr-2 text-gray-400 text-lg">/</span>
+                <Link href={`/${path}`}>
+                  <a className="text-lg font-semibold">{path}</a>
+                </Link>
+              </li>
+            ))}
         </ul>
         <div className="h-full justify-end gap-6 hidden md:flex">
           <ul className="w-full flex items-center justify-end gap-4">

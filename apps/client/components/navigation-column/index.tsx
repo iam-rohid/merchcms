@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { HTMLAttributes } from "react";
 import { Menu } from "types";
 
@@ -16,6 +17,7 @@ const NavigationColumn = ({
   className,
   ...props
 }: NavigationColumnProps) => {
+  const { query } = useRouter();
   return (
     <nav
       className={classNames(
@@ -31,7 +33,14 @@ const NavigationColumn = ({
         const isActive = item.id === active;
 
         return (
-          <Link key={item.id} href={item.href} passHref>
+          <Link
+            key={item.id}
+            href={{
+              pathname: item.href,
+              query,
+            }}
+            passHref
+          >
             <a
               className={classNames(
                 "w-full h-10 flex items-center justify-start text-left px-4 border-r",

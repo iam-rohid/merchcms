@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { HTMLAttributes } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
 import { Menu } from "types";
@@ -15,6 +16,7 @@ const MenuList = ({
   onItemClick,
   ...props
 }: FullScreenMenuProps) => {
+  const { query } = useRouter();
   return (
     <nav
       className={classNames("w-full grid -space-y-[1px]", className)}
@@ -22,7 +24,14 @@ const MenuList = ({
     >
       {menu.map((item) => {
         return (
-          <Link key={item.id} href={item.href} passHref>
+          <Link
+            key={item.id}
+            href={{
+              pathname: item.href,
+              query,
+            }}
+            passHref
+          >
             <a
               className={classNames(
                 "w-full flex items-center justify-start text-left p-4 bg-white border border-gray-200 hover:z-[2] hover:border-gray-400"

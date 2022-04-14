@@ -5,6 +5,7 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import Container from "components/container";
 import NavigationColumn from "components/navigation-column";
 import { Menu } from "types";
+import { useRouter } from "next/router";
 
 export type SettingsLayoutProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
@@ -23,6 +24,7 @@ const SettingsLayout = ({
   className,
   ...props
 }: SettingsLayoutProps) => {
+  const { query } = useRouter();
   return (
     <Container className={classNames("px-0", className)} {...props}>
       <div className="relative min-h-screen">
@@ -32,7 +34,12 @@ const SettingsLayout = ({
         </div>
         <div className="md:ml-64 p-4 md:p-8">
           {backLink && (
-            <Link href={backLink}>
+            <Link
+              href={{
+                pathname: backLink,
+                query,
+              }}
+            >
               <a className="md:hidden font-medium mb-4 flex items-center gap-2">
                 <MdArrowBackIosNew className="text-xl" />
                 {backLabel || "Back"}

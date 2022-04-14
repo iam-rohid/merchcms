@@ -1,8 +1,5 @@
-import React, { ReactElement } from "react";
-import { userDashboardMenu } from "data/user-dashboard-menu";
-import AppLayout from "layouts/app-layout";
-import DashboardLayout from "layouts/dashbaord-layout";
 import { CustomNextPage } from "types";
+import AppDashboardLayout from "layouts/common-layouts/app-dashboard-layout";
 
 const ActivityPage: CustomNextPage = () => {
   return <p>ActivityPage</p>;
@@ -10,12 +7,6 @@ const ActivityPage: CustomNextPage = () => {
 
 export default ActivityPage;
 
-ActivityPage.getLayout = (page: ReactElement) => {
-  return (
-    <AppLayout>
-      <DashboardLayout menu={userDashboardMenu} active="activity">
-        {page}
-      </DashboardLayout>
-    </AppLayout>
-  );
-};
+ActivityPage.getLayout = (page) => (
+  <AppDashboardLayout children={page} id="activity" />
+);

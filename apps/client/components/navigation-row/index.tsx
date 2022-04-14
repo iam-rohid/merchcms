@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { HTMLAttributes } from "react";
 import { Menu } from "types";
 import Container from "components/container";
+import { useRouter } from "next/router";
 
 export interface NavigationRowProps extends HTMLAttributes<HTMLDivElement> {
   menu: Menu;
@@ -17,6 +18,7 @@ const NavigationRow = ({
   sticky,
   ...props
 }: NavigationRowProps) => {
+  const { query } = useRouter();
   return (
     <nav
       className={classNames(
@@ -35,7 +37,12 @@ const NavigationRow = ({
 
             return (
               <li className="h-full" key={item.href}>
-                <Link href={item.href}>
+                <Link
+                  href={{
+                    pathname: item.href,
+                    query,
+                  }}
+                >
                   <a
                     className={classNames(
                       "h-full flex items-center justify-center border-b",
