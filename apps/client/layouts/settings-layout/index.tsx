@@ -2,9 +2,9 @@ import classNames from "classnames";
 import Link from "next/link";
 import React, { HTMLAttributes, ReactNode } from "react";
 import { MdArrowBackIosNew } from "react-icons/md";
-import Container from "../../components/container";
-import NavigationColumn from "../../components/navigation-column";
-import { Menu } from "../../types";
+import Container from "components/container";
+import NavigationColumn from "components/navigation-column";
+import { Menu } from "types";
 
 export type SettingsLayoutProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;

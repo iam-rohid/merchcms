@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react";
-import { accountSettingsMenu } from "../../../data/account-settings-menu";
-import { userDashboardMenu } from "../../../data/user-dashboard-menu";
-import AppLayout from "../../../layouts/app-layout";
-import DashboardLayout from "../../../layouts/dashbaord-layout";
-import SettingsLayout from "../../../layouts/settings-layout";
-import { CustomNextPage } from "../../../types";
+import { accountSettingsMenu } from "data/account-settings-menu";
+import { userDashboardMenu } from "data/user-dashboard-menu";
+import AppLayout from "layouts/app-layout";
+import DashboardLayout from "layouts/dashbaord-layout";
+import SettingsLayout from "layouts/settings-layout";
+import { CustomNextPage } from "types";
 
-const OverviewPage: CustomNextPage = () => {
+const GeneralPage: CustomNextPage = () => {
   return (
     <div className="space-y-8">
       <div className="w-full h-64 bg-white border border-gray-200"></div>
@@ -18,17 +18,17 @@ const OverviewPage: CustomNextPage = () => {
   );
 };
 
-export default OverviewPage;
+export default GeneralPage;
 
-OverviewPage.getLayout = (page: ReactElement) => {
+GeneralPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
       <DashboardLayout menu={userDashboardMenu} active="settings">
         <SettingsLayout
           backLabel="Settings"
-          backLink="/dashboard/settings"
+          backLink="/account"
           menu={accountSettingsMenu}
-          active="overview"
+          active="general"
         >
           {page}
         </SettingsLayout>

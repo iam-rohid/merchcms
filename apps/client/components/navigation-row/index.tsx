@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import Link from "next/link";
 import React, { HTMLAttributes } from "react";
-import { Menu } from "../../types";
-import Container from "../container";
+import { Menu } from "types";
+import Container from "components/container";
 
 export interface NavigationRowProps extends HTMLAttributes<HTMLDivElement> {
   menu: Menu;

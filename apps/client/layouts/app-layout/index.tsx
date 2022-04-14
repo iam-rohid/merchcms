@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
-import AppFooter from "../../components/app-footer";
-import AppHeader from "../../components/app-header";
+import AppFooter from "components/app-footer";
+import AppHeader from "components/app-header";
 
 export type AppLayoutProps = {
   children: ReactNode;

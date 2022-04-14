@@ -1,4 +1,4 @@
-import { CustomAppProps } from "../types";
+import { CustomAppProps } from "types";
 import "./app.css";
 
 const App = ({ Component, pageProps }: CustomAppProps) => {

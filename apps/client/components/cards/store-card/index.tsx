@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import React, { HTMLAttributes } from "react";
-import { Store } from "../../../types";
+import { Store } from "types";
 
 export type StoreCardProps = HTMLAttributes<HTMLAnchorElement> & {
   store: Store;

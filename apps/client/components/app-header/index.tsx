@@ -1,11 +1,11 @@
 import React, { HTMLAttributes, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Container from "../container";
+import Container from "components/container";
 import classNames from "classnames";
-import { MdArrowForwardIos, MdClose, MdMenu } from "react-icons/md";
-import { fullScreenMenu } from "../../data/full-screen-menu";
-import MenuList from "../menu-list";
+import { MdClose, MdMenu } from "react-icons/md";
+import { fullScreenMenu } from "data/full-screen-menu";
+import MenuList from "components/menu-list";
 
 export type AppHeaderProps = HTMLAttributes<HTMLDivElement> & {
   sticky?: boolean;

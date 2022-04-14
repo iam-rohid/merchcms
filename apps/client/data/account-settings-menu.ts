@@ -1,29 +1,29 @@
-import { Menu } from "../types";
+import { Menu } from "types";
 
 export const accountSettingsMenu: Menu = [
   {
-    id: "overview",
-    label: "Overview",
-    href: "/dashboard/settings/overview",
+    id: "general",
+    label: "General",
+    href: "/account/general",
   },
   {
-    id: "account",
-    label: "Account",
-    href: "/dashboard/settings/account",
+    id: "security",
+    label: "Security",
+    href: "/account/security",
   },
   {
     id: "notifications",
     label: "Notifications",
-    href: "/dashboard/settings/notifications",
+    href: "/account/notifications",
   },
   {
     id: "billing",
     label: "Billing",
-    href: "/dashboard/settings/billing",
+    href: "/account/billing",
   },
   {
     id: "invoices",
     label: "Invoices",
-    href: "/dashboard/settings/invoices",
+    href: "/account/invoices",
   },
 ];

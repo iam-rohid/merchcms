@@ -7,12 +7,12 @@ import {
   MdList,
   MdSearch,
 } from "react-icons/md";
-import StoreCard from "../../../components/cards/store-card";
-import Container from "../../../components/container";
-import { userDashboardMenu } from "../../../data/user-dashboard-menu";
-import AppLayout from "../../../layouts/app-layout";
-import DashboardLayout from "../../../layouts/dashbaord-layout";
-import { Store } from "../../../types";
+import StoreCard from "components/cards/store-card";
+import Container from "components/container";
+import { userDashboardMenu } from "data/user-dashboard-menu";
+import AppLayout from "layouts/app-layout";
+import DashboardLayout from "layouts/dashbaord-layout";
+import { Store } from "types";
 
 const stores: Store[] = [
   {

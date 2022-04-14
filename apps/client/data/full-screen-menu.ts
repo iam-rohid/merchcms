@@ -1,4 +1,4 @@
-import { Menu } from "../types";
+import { Menu } from "types";
 
 export const fullScreenMenu: {
   id: string;
@@ -21,7 +21,7 @@ export const fullScreenMenu: {
       {
         id: "settings",
         label: "Settings",
-        href: "/dashboard/settings",
+        href: "/account",
       },
       {
         id: "logout",

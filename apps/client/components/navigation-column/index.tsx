@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import { HTMLAttributes } from "react";
-import { Menu } from "../../types";
+import { Menu } from "types";
 
 export interface NavigationColumnProps extends HTMLAttributes<HTMLDivElement> {
   menu: Menu;

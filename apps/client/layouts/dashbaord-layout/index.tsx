@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import NavigationRow from "../../components/navigation-row";
-import { Menu } from "../../types";
+import NavigationRow from "components/navigation-row";
+import { Menu } from "types";
 
 export type DashboardLayoutProps = {
   children: ReactNode;

@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
-import { userDashboardMenu } from "../../data/user-dashboard-menu";
-import AppLayout from "../../layouts/app-layout";
-import DashboardLayout from "../../layouts/dashbaord-layout";
-import { CustomNextPage, Store } from "../../types";
+import { userDashboardMenu } from "data/user-dashboard-menu";
+import AppLayout from "layouts/app-layout";
+import DashboardLayout from "layouts/dashbaord-layout";
+import { CustomNextPage, Store } from "types";
 import OverviewPage from "./overview";
 
 const stores: Store[] = [

@@ -1,10 +1,10 @@
-import { Menu } from "../types";
+import { Menu } from "types";
 
 export const userDashboardMenu: Menu = [
   {
     id: "overview",
     label: "Overview",
-    href: "/dashboard/overview",
+    href: "/dashboard",
   },
   {
     id: "integrations",
@@ -12,5 +12,5 @@ export const userDashboardMenu: Menu = [
     href: "/dashboard/integrations",
   },
   { id: "activity", label: "Activity", href: "/dashboard/activity" },
-  { id: "settings", label: "Settings", href: "/dashboard/settings" },
+  { id: "settings", label: "Settings", href: "/account" },
 ];

@@ -1,12 +1,12 @@
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
-import MenuList from "../../../components/menu-list";
-import { accountSettingsMenu } from "../../../data/account-settings-menu";
-import { userDashboardMenu } from "../../../data/user-dashboard-menu";
-import AppLayout from "../../../layouts/app-layout";
-import DashboardLayout from "../../../layouts/dashbaord-layout";
-import SettingsLayout from "../../../layouts/settings-layout";
-import { CustomNextPage } from "../../../types";
-import OverviewPage from "./overview";
+import MenuList from "components/menu-list";
+import { accountSettingsMenu } from "data/account-settings-menu";
+import { userDashboardMenu } from "data/user-dashboard-menu";
+import AppLayout from "layouts/app-layout";
+import DashboardLayout from "layouts/dashbaord-layout";
+import SettingsLayout from "layouts/settings-layout";
+import { CustomNextPage } from "types";
+import GeneralPage from "./general";
 
 const SettingsPage: CustomNextPage = () => {
   const isMobile = useCallback(
@@ -31,7 +31,7 @@ const SettingsPage: CustomNextPage = () => {
     return <MenuList menu={accountSettingsMenu} />;
   }
 
-  return <OverviewPage />;
+  return <GeneralPage />;
 };
 
 export default SettingsPage;
@@ -40,7 +40,7 @@ SettingsPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
       <DashboardLayout menu={userDashboardMenu} active="settings">
-        <SettingsLayout menu={accountSettingsMenu} active="overview">
+        <SettingsLayout menu={accountSettingsMenu} active="general">
           {page}
         </SettingsLayout>
       </DashboardLayout>
