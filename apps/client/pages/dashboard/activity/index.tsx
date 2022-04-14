@@ -1,8 +1,9 @@
 import React, { ReactElement } from "react";
 import AppLayout from "../../../layouts/app-layout";
 import DashboardLayout from "../../../layouts/dashbaord-layout";
+import { CustomNextPage } from "../../../types";
 
-const ActivityPage = () => {
+const ActivityPage: CustomNextPage = () => {
   return <p>ActivityPage</p>;
 };
 
@@ -12,5 +13,6 @@ ActivityPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
       <DashboardLayout>{page}</DashboardLayout>
-    </AppLayout>)
+    </AppLayout>
+  );
 };

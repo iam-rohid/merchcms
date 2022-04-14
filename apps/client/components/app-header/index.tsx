@@ -4,7 +4,6 @@ import Link from "next/link";
 import Container from "../container";
 import classNames from "classnames";
 
-// TODO: Add functionality to make the header sticky by changing the props.
 export type AppHeaderProps = HTMLAttributes<HTMLDivElement> & {
   sticky?: boolean;
 };

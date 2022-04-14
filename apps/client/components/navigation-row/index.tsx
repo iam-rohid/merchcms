@@ -21,7 +21,9 @@ const NavigationRow = ({
     <nav
       className={classNames(
         "bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 -mt-3 h-12 w-full",
-        { "sticky top-0 left-0 right-0 z-20": sticky },
+        {
+          "sticky top-0 left-0 right-0 z-20": sticky,
+        },
         className
       )}
       {...props}

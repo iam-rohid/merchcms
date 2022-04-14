@@ -1,8 +1,9 @@
 import React, { ReactElement } from "react";
 import AppLayout from "../../../layouts/app-layout";
 import DashboardLayout from "../../../layouts/dashbaord-layout";
+import { CustomNextPage } from "../../../types";
 
-const IntegrationsPage = () => {
+const IntegrationsPage: CustomNextPage = () => {
   return <>IntegrationsPage</>;
 };
 

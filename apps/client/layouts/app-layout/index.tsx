@@ -12,7 +12,7 @@ const AppLayout = ({
   return (
     <>
       <AppHeader sticky={stickyHeader} />
-      <main className="min-h-[calc(100vh-56px)]">{children}</main>
+      <main className="min-h-screen">{children}</main>
       <AppFooter />
     </>
   );
