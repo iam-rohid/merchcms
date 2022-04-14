@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useState } from "react";
-import FullScreenMenu from "../../../components/full-screen-menu";
+import MenuList from "../../../components/menu-list";
 import { accountSettingsMenu } from "../../../data/account-settings-menu";
 import { userDashboardMenu } from "../../../data/user-dashboard-menu";
 import AppLayout from "../../../layouts/app-layout";
@@ -28,7 +28,7 @@ const SettingsPage: CustomNextPage = () => {
   }, [onWindwoResize]);
 
   if (mobile) {
-    return <FullScreenMenu menu={accountSettingsMenu} />;
+    return <MenuList menu={accountSettingsMenu} />;
   }
 
   return <OverviewPage />;

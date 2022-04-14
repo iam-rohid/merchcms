@@ -8,12 +8,12 @@ import { CustomNextPage } from "../../../types";
 
 const OverviewPage: CustomNextPage = () => {
   return (
-    <div className="space-y-4">
-      <div className="w-full h-96 bg-red-500"></div>
-      <div className="w-full h-96 bg-red-500"></div>
-      <div className="w-full h-96 bg-red-500"></div>
-      <div className="w-full h-96 bg-red-500"></div>
-      <div className="w-full h-96 bg-red-500"></div>
+    <div className="space-y-8">
+      <div className="w-full h-64 bg-white border border-gray-200"></div>
+      <div className="w-full h-64 bg-white border border-gray-200"></div>
+      <div className="w-full h-64 bg-white border border-gray-200"></div>
+      <div className="w-full h-64 bg-white border border-gray-200"></div>
+      <div className="w-full h-64 bg-white border border-gray-200"></div>
     </div>
   );
 };
