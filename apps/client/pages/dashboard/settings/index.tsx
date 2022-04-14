@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import AppLayout from "../../../layouts/app-layout";
 import DashboardLayout from "../../../layouts/dashbaord-layout";
 
 const SettingsPage = () => {
@@ -8,5 +9,9 @@ const SettingsPage = () => {
 export default SettingsPage;
 
 SettingsPage.getLayout = (page: ReactElement) => {
-  return <DashboardLayout>{page}</DashboardLayout>;
+  return (
+    <AppLayout>
+      <DashboardLayout>{page}</DashboardLayout>
+    </AppLayout>
+  );
 };

@@ -1,19 +1,9 @@
-import { NextPage } from "next";
-import { AppProps } from "next/app";
-import { ReactElement, ReactNode } from "react";
-import AppLayout from "../layouts/app-layout";
+import { CustomAppProps } from "../types";
 import "./app.css";
 
-type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode;
-};
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
-
-const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+const App = ({ Component, pageProps }: CustomAppProps) => {
   const getLayout = Component.getLayout ?? ((page) => page);
-  return <AppLayout>{getLayout(<Component {...pageProps} />)}</AppLayout>;
+  return getLayout(<Component {...pageProps} />);
 };
+
 export default App;

@@ -2,15 +2,16 @@ import React, { ReactElement } from "react";
 import AppLayout from "../../../layouts/app-layout";
 import DashboardLayout from "../../../layouts/dashbaord-layout";
 
-const ActivityPage = () => {
-  return <p>ActivityPage</p>;
+const IntegrationsPage = () => {
+  return <>IntegrationsPage</>;
 };
 
-export default ActivityPage;
+export default IntegrationsPage;
 
-ActivityPage.getLayout = (page: ReactElement) => {
+IntegrationsPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
       <DashboardLayout>{page}</DashboardLayout>
-    </AppLayout>)
+    </AppLayout>
+  );
 };
