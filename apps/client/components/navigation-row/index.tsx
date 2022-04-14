@@ -4,7 +4,7 @@ import React, { HTMLAttributes } from "react";
 import { Menu } from "../../types";
 import Container from "../container";
 
-interface NavigationRowProps extends HTMLAttributes<HTMLDivElement> {
+export interface NavigationRowProps extends HTMLAttributes<HTMLDivElement> {
   menu: Menu;
   active: string;
   sticky?: boolean;

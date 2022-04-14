@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import { accountSettingsMenu } from "../../../data/account-settings-menu";
 import AppLayout from "../../../layouts/app-layout";
 import DashboardLayout from "../../../layouts/dashbaord-layout";
 import SettingsLayout from "../../../layouts/settings-layout";
@@ -14,7 +15,14 @@ BillingPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
       <DashboardLayout active="settings">
-        <SettingsLayout active="billing">{page}</SettingsLayout>
+        <SettingsLayout
+          backLabel="Settings"
+          backLink="/dashboard/settings"
+          menu={accountSettingsMenu}
+          active="billing"
+        >
+          {page}
+        </SettingsLayout>
       </DashboardLayout>
     </AppLayout>
   );

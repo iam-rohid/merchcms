@@ -8,6 +8,7 @@ export interface NavigationColumnProps extends HTMLAttributes<HTMLDivElement> {
   active: string;
   sticky?: boolean;
 }
+
 const NavigationColumn = ({
   menu,
   active,
