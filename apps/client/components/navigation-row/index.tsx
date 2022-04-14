@@ -31,7 +31,8 @@ const NavigationRow = ({
       <Container className="h-full flex items-center gap-6">
         <ul className="flex flex-row gap-6 h-full items-center">
           {menu.map((item) => {
-            const routeMatch = item.href === active;
+            const isActive = item.id === active;
+
             return (
               <li className="h-full" key={item.href}>
                 <Link href={item.href}>
@@ -39,9 +40,9 @@ const NavigationRow = ({
                     className={classNames(
                       "h-full flex items-center justify-center border-b",
                       {
-                        "border-gray-900 text-gray-900": routeMatch,
+                        "border-gray-900 text-gray-900": isActive,
                         "border-white text-gray-600 hover:text-gray-900":
-                          !routeMatch,
+                          !isActive,
                       }
                     )}
                   >

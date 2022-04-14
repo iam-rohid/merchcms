@@ -2,20 +2,18 @@ import React, { ReactElement } from "react";
 import AppLayout from "../../../layouts/app-layout";
 import DashboardLayout from "../../../layouts/dashbaord-layout";
 import SettingsLayout from "../../../layouts/settings-layout";
-import { CustomNextPage } from "../../../types";
-import OverviewPage from "./overview";
 
-const SettingsPage: CustomNextPage = () => {
-  return <OverviewPage />;
+const InvoicesPage = () => {
+  return <div>InvoicesPage</div>;
 };
 
-export default SettingsPage;
+export default InvoicesPage;
 
-SettingsPage.getLayout = (page: ReactElement) => {
+InvoicesPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
       <DashboardLayout active="settings">
-        <SettingsLayout active="overview">{page}</SettingsLayout>
+        <SettingsLayout active="invoices">{page}</SettingsLayout>
       </DashboardLayout>
     </AppLayout>
   );

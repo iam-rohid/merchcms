@@ -1,38 +1,34 @@
-import { useRouter } from "next/router";
+import { ReactNode } from "react";
 import NavigationRow from "../../components/navigation-row";
 import { Menu } from "../../types";
 
 const menu: Menu = [
   {
+    id: "overview",
     label: "Overview",
-    href: "/dashboard",
+    href: "/dashboard/overview",
   },
   {
+    id: "integrations",
     label: "Integrations",
     href: "/dashboard/integrations",
   },
-  {
-    label: "Activity",
-    href: "/dashboard/activity",
-  },
-  {
-    label: "Settings",
-    href: "/dashboard/settings",
-  },
+  { id: "activity", label: "Activity", href: "/dashboard/activity" },
+  { id: "settings", label: "Settings", href: "/dashboard/settings" },
 ];
 
 const DashboardLayout = ({
   children,
   stickyNav = true,
+  active,
 }: {
-  children: JSX.Element;
+  children: ReactNode;
   stickyNav?: boolean;
+  active: string;
 }) => {
-  const { asPath } = useRouter();
-
   return (
     <>
-      <NavigationRow sticky={stickyNav} menu={menu} active={asPath} />
+      <NavigationRow sticky={stickyNav} menu={menu} active={active} />
       {children}
     </>
   );

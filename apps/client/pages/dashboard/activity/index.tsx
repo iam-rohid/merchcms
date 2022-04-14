@@ -12,7 +12,7 @@ export default ActivityPage;
 ActivityPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
-      <DashboardLayout>{page}</DashboardLayout>
+      <DashboardLayout active="activity">{page}</DashboardLayout>
     </AppLayout>
   );
 };

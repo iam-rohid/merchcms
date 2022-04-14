@@ -12,7 +12,7 @@ export default IntegrationsPage;
 IntegrationsPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
-      <DashboardLayout>{page}</DashboardLayout>
+      <DashboardLayout active="integrations">{page}</DashboardLayout>
     </AppLayout>
   );
 };

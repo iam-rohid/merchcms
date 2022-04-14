@@ -3,19 +3,18 @@ import AppLayout from "../../../layouts/app-layout";
 import DashboardLayout from "../../../layouts/dashbaord-layout";
 import SettingsLayout from "../../../layouts/settings-layout";
 import { CustomNextPage } from "../../../types";
-import OverviewPage from "./overview";
 
-const SettingsPage: CustomNextPage = () => {
-  return <OverviewPage />;
+const BillingPage: CustomNextPage = () => {
+  return <div>BillingPage</div>;
 };
 
-export default SettingsPage;
+export default BillingPage;
 
-SettingsPage.getLayout = (page: ReactElement) => {
+BillingPage.getLayout = (page: ReactElement) => {
   return (
     <AppLayout>
       <DashboardLayout active="settings">
-        <SettingsLayout active="overview">{page}</SettingsLayout>
+        <SettingsLayout active="billing">{page}</SettingsLayout>
       </DashboardLayout>
     </AppLayout>
   );
