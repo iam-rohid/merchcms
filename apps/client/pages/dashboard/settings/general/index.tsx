@@ -3,6 +3,7 @@ import AppSettingsLayout from "layouts/common-layouts/app-settings-layout";
 import Button from "components/button";
 import Image from "next/image";
 import { MdCopyAll } from "react-icons/md";
+import SEO from "components/SEO";
 
 const GeneralPage: CustomNextPage = () => {
   return (
@@ -169,5 +170,8 @@ const GeneralPage: CustomNextPage = () => {
 export default GeneralPage;
 
 GeneralPage.getLayout = (page) => (
-  <AppSettingsLayout children={page} id="general" />
+  <>
+    <SEO title="General Settings" />
+    <AppSettingsLayout children={page} id="general" />
+  </>
 );

@@ -1,5 +1,7 @@
+import SEO from "components/SEO";
 import StoreDashboardLayout from "layouts/common-layouts/store-dashboard-layout";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
 import { CustomNextPage } from "types/next.type";
 import StoreOverviewPage from "./overview";
 
@@ -9,9 +11,15 @@ const StorePage: CustomNextPage = () => {
 
 export default StorePage;
 
-StorePage.getLayout = (page) => (
-  <StoreDashboardLayout children={page} id="overview" />
-);
+StorePage.getLayout = (page) => {
+  const { query } = useRouter();
+  return (
+    <>
+      <SEO title={query.storeId as string} />
+      <StoreDashboardLayout children={page} id="overview" />
+    </>
+  );
+};
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
   return {

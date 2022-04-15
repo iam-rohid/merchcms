@@ -1,5 +1,6 @@
 import { CustomNextPage } from "types";
 import AppSettingsLayout from "layouts/common-layouts/app-settings-layout";
+import SEO from "components/SEO";
 
 const SecurityPage: CustomNextPage = () => {
   return <div>AccountPage</div>;
@@ -8,5 +9,8 @@ const SecurityPage: CustomNextPage = () => {
 export default SecurityPage;
 
 SecurityPage.getLayout = (page) => (
-  <AppSettingsLayout children={page} id="security" />
+  <>
+    <SEO title="Security Settings" />
+    <AppSettingsLayout children={page} id="security" />
+  </>
 );

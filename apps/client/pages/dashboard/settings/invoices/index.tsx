@@ -1,3 +1,4 @@
+import SEO from "components/SEO";
 import AppSettingsLayout from "layouts/common-layouts/app-settings-layout";
 import { CustomNextPage } from "types/next.type";
 
@@ -8,5 +9,8 @@ const InvoicesPage: CustomNextPage = () => {
 export default InvoicesPage;
 
 InvoicesPage.getLayout = (page) => (
-  <AppSettingsLayout children={page} id="invoices" />
+  <>
+    <SEO title="Manage Invoices" />
+    <AppSettingsLayout children={page} id="invoices" />
+  </>
 );

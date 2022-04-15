@@ -107,7 +107,6 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
       {
         type: "item",
         label: "Search",
-        disabled: true,
         icon: <MdSearch />,
       },
       {

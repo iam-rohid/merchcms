@@ -1,5 +1,6 @@
 import { CustomNextPage } from "types";
 import AppDashboardLayout from "layouts/common-layouts/app-dashboard-layout";
+import SEO from "components/SEO";
 
 const ActivityPage: CustomNextPage = () => {
   return <p>ActivityPage</p>;
@@ -8,5 +9,8 @@ const ActivityPage: CustomNextPage = () => {
 export default ActivityPage;
 
 ActivityPage.getLayout = (page) => (
-  <AppDashboardLayout children={page} id="activity" />
+  <>
+    <SEO title="Activity" />
+    <AppDashboardLayout children={page} id="activity" />
+  </>
 );

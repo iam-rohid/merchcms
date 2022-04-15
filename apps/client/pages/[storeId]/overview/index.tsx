@@ -3,6 +3,7 @@ import Button from "components/button";
 import ProductCard from "components/cards/product-card";
 import Container from "components/container";
 import Select from "components/select";
+import SEO from "components/SEO";
 import StoreDashboardLayout from "layouts/common-layouts/store-dashboard-layout";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -237,5 +238,8 @@ const StoreOverviewPage: CustomNextPage = () => {
 export default StoreOverviewPage;
 
 StoreOverviewPage.getLayout = (page) => (
-  <StoreDashboardLayout children={page} id="overview" />
+  <>
+    <SEO title="Store Overview" />
+    <StoreDashboardLayout children={page} id="overview" />
+  </>
 );

@@ -1,3 +1,4 @@
+import SEO from "components/SEO";
 import StoreSettingsLayout from "layouts/common-layouts/store-settings-layout";
 import { CustomNextPage } from "types/next.type";
 
@@ -8,5 +9,8 @@ const GeneralPage: CustomNextPage = () => {
 export default GeneralPage;
 
 GeneralPage.getLayout = (page) => (
-  <StoreSettingsLayout children={page} id="general" />
+  <>
+    <SEO title="General Store Settings" />
+    <StoreSettingsLayout children={page} id="general" />
+  </>
 );

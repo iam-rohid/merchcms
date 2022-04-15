@@ -8,6 +8,7 @@ import AppDashboardLayout from "layouts/common-layouts/app-dashboard-layout";
 import Select from "components/select";
 import Button from "components/button";
 import Link from "next/link";
+import SEO from "components/SEO";
 
 const stores: Store[] = [
   {
@@ -162,5 +163,8 @@ const OverviewPage: CustomNextPage = () => {
 export default OverviewPage;
 
 OverviewPage.getLayout = (page) => (
-  <AppDashboardLayout children={page} id="overview" />
+  <>
+    <SEO title="Overview" />
+    <AppDashboardLayout children={page} id="overview" />
+  </>
 );

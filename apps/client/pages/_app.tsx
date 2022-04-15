@@ -1,3 +1,4 @@
+import SEO from "components/SEO";
 import { ColorSchemeProvider } from "hooks/color-scheme";
 import { CustomAppProps } from "types";
 import "./app.css";
@@ -5,9 +6,12 @@ import "./app.css";
 const App = ({ Component, pageProps }: CustomAppProps) => {
   const getLayout = Component.getLayout ?? ((page) => page);
   return (
-    <ColorSchemeProvider>
-      {getLayout(<Component {...pageProps} />)}
-    </ColorSchemeProvider>
+    <>
+      <SEO />
+      <ColorSchemeProvider>
+        {getLayout(<Component {...pageProps} />)}
+      </ColorSchemeProvider>
+    </>
   );
 };
 

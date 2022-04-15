@@ -1,5 +1,6 @@
 import { CustomNextPage } from "types";
 import AppSettingsLayout from "layouts/common-layouts/app-settings-layout";
+import SEO from "components/SEO";
 
 const NotificationsPage: CustomNextPage = () => {
   return <div>NotificationsPage</div>;
@@ -8,5 +9,8 @@ const NotificationsPage: CustomNextPage = () => {
 export default NotificationsPage;
 
 NotificationsPage.getLayout = (page) => (
-  <AppSettingsLayout children={page} id="notifications" />
+  <>
+    <SEO title="Notification Settings" />
+    <AppSettingsLayout children={page} id="notifications" />
+  </>
 );

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import NavigationRow, { NavigationRowProps } from "components/navigation-row";
+import NavigationRow from "components/navigation-row";
 import { Menu } from "types";
 
 export type DashboardLayoutProps = {

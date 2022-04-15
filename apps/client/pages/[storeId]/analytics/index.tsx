@@ -1,3 +1,4 @@
+import SEO from "components/SEO";
 import StoreDashboardLayout from "layouts/common-layouts/store-dashboard-layout";
 import { CustomNextPage } from "types/next.type";
 
@@ -8,5 +9,8 @@ const AnalyticsPage: CustomNextPage = () => {
 export default AnalyticsPage;
 
 AnalyticsPage.getLayout = (page) => (
-  <StoreDashboardLayout children={page} id="analytics" />
+  <>
+    <SEO title="Store Analytics" />
+    <StoreDashboardLayout children={page} id="analytics" />
+  </>
 );

@@ -1,4 +1,5 @@
 import MenuList from "components/menu-list";
+import SEO from "components/SEO";
 import { storeSettingsMenu } from "data/store-settings-menu";
 import StoreSettingsLayout from "layouts/common-layouts/store-settings-layout";
 import React, { useCallback, useEffect, useState } from "react";
@@ -34,5 +35,8 @@ const SettingsPage: CustomNextPage = () => {
 export default SettingsPage;
 
 SettingsPage.getLayout = (page) => (
-  <StoreSettingsLayout showBackLink={false} children={page} id="general" />
+  <>
+    <SEO title="Store Settings" />
+    <StoreSettingsLayout showBackLink={false} children={page} id="general" />
+  </>
 );

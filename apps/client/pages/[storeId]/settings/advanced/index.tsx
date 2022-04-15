@@ -1,3 +1,4 @@
+import SEO from "components/SEO";
 import StoreSettingsLayout from "layouts/common-layouts/store-settings-layout";
 import { CustomNextPage } from "types/next.type";
 
@@ -8,5 +9,8 @@ const AdvancedPage: CustomNextPage = () => {
 export default AdvancedPage;
 
 AdvancedPage.getLayout = (page) => (
-  <StoreSettingsLayout children={page} id="advanced" />
+  <>
+    <SEO title="Advanced Store Settings" />
+    <StoreSettingsLayout children={page} id="advanced" />
+  </>
 );

@@ -4,6 +4,7 @@ import { appSettingsMenu } from "data/app-settings-menu";
 import { CustomNextPage } from "types";
 import GeneralPage from "./general";
 import AppSettingsLayout from "layouts/common-layouts/app-settings-layout";
+import SEO from "components/SEO";
 
 const SettingsPage: CustomNextPage = () => {
   const isMobile = useCallback(
@@ -34,5 +35,8 @@ const SettingsPage: CustomNextPage = () => {
 export default SettingsPage;
 
 SettingsPage.getLayout = (page) => (
-  <AppSettingsLayout showBackLink={false} children={page} id="general" />
+  <>
+    <SEO title="Settings" />
+    <AppSettingsLayout showBackLink={false} children={page} id="general" />
+  </>
 );
