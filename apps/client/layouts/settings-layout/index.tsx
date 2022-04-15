@@ -40,7 +40,7 @@ const SettingsLayout = ({
                 query,
               }}
             >
-              <a className="md:hidden font-medium mb-4 flex items-center gap-2">
+              <a className="md:hidden font-medium mb-4 flex items-center gap-2 py-4">
                 <MdArrowBackIosNew className="text-xl" />
                 {backLabel || "Back"}
               </a>

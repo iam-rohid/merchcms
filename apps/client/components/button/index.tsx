@@ -38,6 +38,12 @@ function Button<T extends ElementType = "button">({
             colorScheme === "primary" && variant === "solid",
           "dark:text-gray-50 text-gray-900":
             colorScheme === "primary" && variant === "outline",
+          "bg-red-500 dark:bg-red-500 border-red-500 dark:border-red-500":
+            colorScheme === "danger",
+          "text-gray-50 dark:text-gray-50":
+            colorScheme === "danger" && variant === "solid",
+          "dark:text-red-500 text-red-500":
+            colorScheme === "danger" && variant === "outline",
         },
         {
           "bg-opacity-100 dark:bg-opacity-100": variant === "solid",

@@ -286,7 +286,7 @@ const FullScreenMenu = ({ onClose, paths }: FullScreenMenuProps) => {
         <section>
           <h3 className="font-medium text-lg mb-2">Quick Settings</h3>
           <div className="flex justify-between items-center h-12">
-            <span>Theme</span>
+            <span>Change Theme</span>
             <Select
               options={themeOptions}
               value={colorScheme}
