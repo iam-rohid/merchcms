@@ -34,7 +34,7 @@ const MenuList = ({
           >
             <a
               className={classNames(
-                "w-full flex items-center justify-start text-left p-4 bg-white border border-gray-200 hover:z-[2] hover:border-gray-400"
+                "w-full flex items-center justify-start text-left px-4 h-12 bg-gray-50 border border-gray-200 hover:z-[2] hover:border-gray-400 dark:bg-gray-800 dark:text-gray-50 dark:border-gray-700 dark:hover:border-gray-500"
               )}
               onClick={() => {
                 if (onItemClick) {

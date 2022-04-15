@@ -22,7 +22,7 @@ const NavigationRow = ({
   return (
     <nav
       className={classNames(
-        "bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 -mt-3 h-12 w-full overflow-x-auto",
+        "bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 -mt-3 h-12 w-full overflow-x-auto",
         {
           "sticky top-0 left-0 right-0 z-20": sticky,
         },
@@ -30,8 +30,8 @@ const NavigationRow = ({
       )}
       {...props}
     >
-      <Container className="h-full flex items-center gap-6">
-        <ul className="flex flex-row gap-6 h-full items-center">
+      <Container className="h-full flex items-center gap-6 px-0">
+        <ul className="flex flex-row gap-6 h-full items-center px-4">
           {menu.map((item) => {
             const isActive = item.id === active;
 
@@ -47,8 +47,9 @@ const NavigationRow = ({
                     className={classNames(
                       "h-full flex items-center justify-center border-b",
                       {
-                        "border-gray-900 text-gray-900": isActive,
-                        "border-white text-gray-600 hover:text-gray-900":
+                        "border-gray-900 text-gray-900 dark:text-gray-50 dark:border-gray-50":
+                          isActive,
+                        "border-white text-gray-500 hover:text-gray-900 dark:border-gray-800 dark:text-gray-400 dark:hover:text-gray-50":
                           !isActive,
                       }
                     )}

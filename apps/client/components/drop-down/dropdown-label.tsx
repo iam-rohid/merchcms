@@ -10,7 +10,7 @@ const DropdownLabel = ({ item, className, ...props }: DropdownLabelProps) => {
   return (
     <Label
       className={classNames(
-        "px-4 text-xs text-gray-400 dark:text-gray-600 mb-0.5 mt-1",
+        "px-4 text-xs text-gray-400 dark:text-gray-500 mb-0.5 mt-1",
         className
       )}
       {...props}

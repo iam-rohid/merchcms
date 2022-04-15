@@ -28,8 +28,8 @@ const SettingsLayout = ({
   return (
     <Container className={classNames("px-0", className)} {...props}>
       <div className="relative min-h-screen">
-        <div className="absolute w-64 left-0 top-0 py-8 h-full border-r border-gray-200 md:block hidden">
-          <div className="bg-white absolute right-0 top-0 h-full w-screen -z-20" />
+        <div className="absolute w-64 left-0 top-0 py-8 h-full border-r border-gray-200 dark:border-gray-700 md:block hidden">
+          <div className="bg-gray-50 dark:bg-gray-800 absolute right-0 top-0 h-full w-screen -z-20" />
           <NavigationColumn menu={menu} active={active} />
         </div>
         <div className="md:ml-64 p-4 md:p-8">

@@ -13,7 +13,7 @@ const Select = ({ options, className, ...props }: SelectProps) => {
     <SelectPrimitives.Root {...props}>
       <SelectPrimitives.Trigger
         className={classNames(
-          "h-10 bg-white dark:bg-gray-900 dark:text-gray-900 border border-gray-200 dark:border-gray-700 px-4 flex items-center gap-2 text-sm",
+          "h-10 bg-gray-50 dark:bg-gray-800 dark:text-gray-50 border border-gray-200 dark:border-gray-700 px-4 flex items-center gap-2 text-sm",
           className
         )}
       >
@@ -22,7 +22,7 @@ const Select = ({ options, className, ...props }: SelectProps) => {
           <MdArrowDropDown className="text-xl" />
         </SelectPrimitives.Icon>
       </SelectPrimitives.Trigger>
-      <SelectPrimitives.Content className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xl py-2">
+      <SelectPrimitives.Content className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-xl py-2">
         <SelectPrimitives.Viewport>
           {options.map((option) => (
             <SelectPrimitives.Item
@@ -30,7 +30,7 @@ const Select = ({ options, className, ...props }: SelectProps) => {
               value={option.id}
               className="flex items-center gap-2 pr-4 pl-8 h-10 w-full hover:bg-gray-100 dark:hover:bg-gray-700 outline-none focus:bg-gray-100 dark:focus:bg-gray-700 relative cursor-pointer select-none"
             >
-              <SelectPrimitives.ItemText className="flex-1 w-full truncate">
+              <SelectPrimitives.ItemText>
                 {option.label}
               </SelectPrimitives.ItemText>
               <SelectPrimitives.ItemIndicator className="absolute left-2 top-1/2 -translate-y-1/2">

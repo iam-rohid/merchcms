@@ -18,11 +18,11 @@ const DropdownItem = ({ item }: { item: DropdownItemType }) => {
           onClick={item.onClick}
           disabled={item.disabled || !item.onClick}
           className={classNames(
-            "relative outline-none flex items-center gap-4 px-4 h-10",
+            "relative outline-none flex items-center gap-4 px-4 h-10 select-none",
             {
-              "bg-transparent dark:bg-transparent text-gray-400 dark:text-gray-600 cursor-not-allowed pointer-events-none":
+              "bg-transparent dark:bg-transparent text-gray-400 dark:text-gray-500 cursor-not-allowed pointer-events-none":
                 item.disabled,
-              "hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700 text-gray-600 dark:text-gray-400 focus:text-gray-900 dark:focus:text-gray-50 cursor-pointer":
+              "hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700 text-gray-500 dark:text-gray-400 focus:text-gray-900 dark:focus:text-gray-50 cursor-pointer":
                 !item.disabled && item.onClick,
             }
           )}
@@ -40,11 +40,12 @@ const DropdownItem = ({ item }: { item: DropdownItemType }) => {
       onClick={item.onClick}
       disabled={item.disabled || !item.onClick}
       className={classNames(
-        "relative outline-none flex items-center gap-4 px-4 h-10",
+        "relative outline-none flex items-center gap-4 px-4 h-10 select-none",
         {
-          "bg-transparent dark:bg-transparent text-gray-400 dark:text-gray-600 cursor-not-allowed pointer-events-none":
+          "bg-transparent dark:bg-transparent text-gray-400 dark:text-gray-500 cursor-not-allowed pointer-events-none":
             item.disabled,
-          "hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700 text-gray-600 dark:text-gray-400 focus:text-gray-900 dark:focus:text-gray-50 cursor-pointer":
+          "text-gray-500 dark:text-gray-400": !item.onClick,
+          "hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700 text-gray-500 dark:text-gray-400 focus:text-gray-900 dark:focus:text-gray-50 cursor-pointer":
             !item.disabled && item.onClick,
         }
       )}

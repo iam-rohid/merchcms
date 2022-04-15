@@ -4,11 +4,11 @@ import AppSettingsLayout from "layouts/common-layouts/app-settings-layout";
 const GeneralPage: CustomNextPage = () => {
   return (
     <div className="space-y-8">
-      <div className="w-full h-64 bg-white border border-gray-200"></div>
-      <div className="w-full h-64 bg-white border border-gray-200"></div>
-      <div className="w-full h-64 bg-white border border-gray-200"></div>
-      <div className="w-full h-64 bg-white border border-gray-200"></div>
-      <div className="w-full h-64 bg-white border border-gray-200"></div>
+      <div className="w-full h-64 bg-gray-50 border border-gray-200 dark:bg-gray-800 dark:border-gray-700"></div>
+      <div className="w-full h-64 bg-gray-50 border border-gray-200 dark:bg-gray-800 dark:border-gray-700"></div>
+      <div className="w-full h-64 bg-gray-50 border border-gray-200 dark:bg-gray-800 dark:border-gray-700"></div>
+      <div className="w-full h-64 bg-gray-50 border border-gray-200 dark:bg-gray-800 dark:border-gray-700"></div>
+      <div className="w-full h-64 bg-gray-50 border border-gray-200 dark:bg-gray-800 dark:border-gray-700"></div>
     </div>
   );
 };

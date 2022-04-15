@@ -25,7 +25,7 @@ const DropdownContent = ({
   return (
     <Content
       className={classNames(
-        "bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-2xl py-2",
+        "bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-2xl py-2",
         className
       )}
       style={{

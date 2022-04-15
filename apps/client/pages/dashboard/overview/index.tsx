@@ -76,29 +76,29 @@ const OverviewPage: CustomNextPage = () => {
   );
 
   return (
-    <Container className="space-y-8 my-8">
+    <Container className="space-y-4 md:space-y-8 my-8">
       <section id="search" className="flex gap-4 h-12">
         <div className="relative flex-1 h-full">
           <label
             htmlFor="search-input"
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-2xl text-gray-400 dark:text-gray-600"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-2xl text-gray-400 dark:text-gray-500"
           >
             <MdSearch />
           </label>
           <input
             id="search-input"
             type="text"
-            className="w-full h-full px-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 pl-10 placeholder-gray-400 dark:placeholder-gray-600"
+            className="w-full h-full px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 pl-10 placeholder-gray-400 dark:placeholder-gray-600"
             placeholder="Search..."
             onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
-        <button className="h-full bg-gray-900 text-white dark:bg-white dark:text-gray-900 border border-gray-200 dark:border-gray-700 px-6 flex items-center gap-2">
+        <button className="h-full bg-gray-900 text-gray-50 dark:bg-gray-50 dark:text-gray-900 border border-gray-200 dark:border-gray-700 px-6 flex items-center gap-2">
           <MdAdd className="text-2xl" />
           New Store
         </button>
       </section>
-      <section id="stores" className="space-y-8">
+      <section>
         <div className="flex gap-4 justify-between items-center">
           <Select
             options={filterOptions}
@@ -114,10 +114,10 @@ const OverviewPage: CustomNextPage = () => {
             <div className="flex -space-x-[1px]">
               <button
                 className={classNames(
-                  "h-10 w-10 flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
+                  "h-10 w-10 flex items-center justify-center bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
                   {
-                    "text-gray-900 dark:text-white": gridView,
-                    "text-gray-400 dark:text-gray-600": !gridView,
+                    "text-gray-900 dark:text-gray-50": gridView,
+                    "text-gray-400 dark:text-gray-500": !gridView,
                   }
                 )}
                 onClick={() => setGridView(true)}
@@ -126,10 +126,10 @@ const OverviewPage: CustomNextPage = () => {
               </button>
               <button
                 className={classNames(
-                  "h-10 w-10 flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
+                  "h-10 w-10 flex items-center justify-center bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
                   {
-                    "text-gray-900 dark:text-white": !gridView,
-                    "text-gray-400 dark:text-gray-600": gridView,
+                    "text-gray-900 dark:text-gray-50": !gridView,
+                    "text-gray-400 dark:text-gray-500": gridView,
                   }
                 )}
                 onClick={() => setGridView(false)}
@@ -139,10 +139,11 @@ const OverviewPage: CustomNextPage = () => {
             </div>
           </div>
         </div>
+      </section>
+      <section id="stores">
         <div
           className={classNames("grid", {
-            "sm:grid-cols-2 lg:grid-cols-3 -space-y-[1px] sm:space-y-0 sm:gap-4 lg:gap-8":
-              gridView,
+            "grid-cols-2 md:grid-cols-3 sm:space-y-0 gap-4 md:gap-8": gridView,
             "-space-y-[1px]": !gridView,
           })}
         >

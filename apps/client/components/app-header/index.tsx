@@ -26,9 +26,10 @@ import MenuList from "components/menu-list";
 import Dropdown from "components/drop-down";
 import { DropdownMenuType } from "types/dropdown-menu.type";
 import { useRouter } from "next/router";
-import { appDashboardPath } from "data/app-dashboard-menu";
+import { appDashboardPath, userDashboardMenu } from "data/app-dashboard-menu";
 import { appSettingsPath } from "data/app-settings-menu";
 import Select from "components/select";
+import { ColorScheme, useColorScheme } from "hooks/color-scheme";
 
 export type AppHeaderProps = HTMLAttributes<HTMLDivElement> & {
   sticky?: boolean;
@@ -43,7 +44,9 @@ const themeOptions = [
 
 const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
   const router = useRouter();
-  const [theme, setTheme] = useState(themeOptions[0].id);
+  const [menuOpenOnMobile, setMenuOpenOnMobile] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const { colorScheme, toggleTheme } = useColorScheme();
   const dropdownMenuItems = useMemo<DropdownMenuType>(
     () => [
       {
@@ -74,9 +77,9 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
         type: "item",
         label: "Theme",
         icon:
-          theme === "light" ? (
+          colorScheme === ColorScheme.LIGHT ? (
             <MdLightMode />
-          ) : theme === "dark" ? (
+          ) : colorScheme === ColorScheme.DARK ? (
             <MdDarkMode />
           ) : (
             <MdComputer />
@@ -85,8 +88,16 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
           <Select
             className="h-8"
             options={themeOptions}
-            value={theme}
-            onValueChange={setTheme}
+            value={colorScheme}
+            onValueChange={(value) => {
+              if (value === "system") {
+                toggleTheme(ColorScheme.SYSTEM);
+              } else if (value === "light") {
+                toggleTheme(ColorScheme.LIGHT);
+              } else if (value === "dark") {
+                toggleTheme(ColorScheme.DARK);
+              }
+            }}
           />
         ),
       },
@@ -109,10 +120,8 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
         onClick: () => router.push("/logout"),
       },
     ],
-    [router, theme]
+    [router, colorScheme]
   );
-
-  const [menuOpenOnMobile, setMenuOpenOnMobile] = useState(false);
 
   const handleMenuOpenChange = useCallback((open: boolean) => {
     document.documentElement.classList.toggle("overflow-hidden", open);
@@ -123,7 +132,10 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
     if (window.innerWidth > 768 && menuOpenOnMobile) {
       handleMenuOpenChange(false);
     }
-  }, [menuOpenOnMobile, handleMenuOpenChange]);
+    if (window.innerWidth < 768 && userDropdownOpen) {
+      setUserDropdownOpen(false);
+    }
+  }, [menuOpenOnMobile, handleMenuOpenChange, userDropdownOpen]);
 
   useEffect(() => {
     window.addEventListener("resize", onWindowResize);
@@ -135,7 +147,7 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
   return (
     <header
       className={classNames(
-        "bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 h-14",
+        "bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-14",
         { "sticky top-0 left-0 right-0 z-20": sticky },
         className
       )}
@@ -162,17 +174,23 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
           <ul className="w-full flex items-center justify-end gap-4">
             <li>
               <Link href={`/`}>
-                <a className="text-gray-600 hover:text-gray-900">Feedback</a>
+                <a className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
+                  Feedback
+                </a>
               </Link>
             </li>
             <li>
               <Link href={`/`}>
-                <a className="text-gray-600 hover:text-gray-900">Support</a>
+                <a className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
+                  Support
+                </a>
               </Link>
             </li>
             <li>
               <Link href={`/`}>
-                <a className="text-gray-600 hover:text-gray-900">Docs</a>
+                <a className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
+                  Docs
+                </a>
               </Link>
             </li>
           </ul>
@@ -181,6 +199,8 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
             side="bottom"
             align="end"
             minWidth={220}
+            open={userDropdownOpen}
+            onOpenChange={setUserDropdownOpen}
           >
             <button>
               <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 relative overflow-hidden">
@@ -218,9 +238,10 @@ type FullScreenMenuProps = {
   paths?: string[];
 };
 const FullScreenMenu = ({ onClose, paths }: FullScreenMenuProps) => {
+  const { colorScheme, toggleTheme } = useColorScheme();
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 z-30 overflow-y-scroll bg-gray-50 dark:bg-gray-900">
-      <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 h-14 sticky top-0 left-0 right-0 z-20">
+    <div className="fixed top-0 left-0 right-0 bottom-0 z-30 overflow-y-scroll bg-gray-100 dark:bg-gray-900">
+      <header className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-14 sticky top-0 left-0 right-0 z-20">
         <Container className="h-full flex items-center">
           <ul className="flex flex-row gap-2 items-center flex-1">
             <li>
@@ -251,7 +272,7 @@ const FullScreenMenu = ({ onClose, paths }: FullScreenMenuProps) => {
           </button>
         </Container>
       </header>
-      <Container className="py-4 space-y-4">
+      <Container className="py-4 space-y-8">
         {fullScreenMenu.map((section) => (
           <section key={section.id}>
             {section.title && (
@@ -260,6 +281,25 @@ const FullScreenMenu = ({ onClose, paths }: FullScreenMenuProps) => {
             <MenuList menu={section.menu} onItemClick={onClose} />
           </section>
         ))}
+        <section>
+          <h3 className="font-medium text-lg mb-2">Quick Settings</h3>
+          <div className="flex justify-between items-center h-12">
+            <span>Theme</span>
+            <Select
+              options={themeOptions}
+              value={colorScheme}
+              onValueChange={(value) => {
+                if (value === "system") {
+                  toggleTheme(ColorScheme.SYSTEM);
+                } else if (value === "light") {
+                  toggleTheme(ColorScheme.LIGHT);
+                } else if (value === "dark") {
+                  toggleTheme(ColorScheme.DARK);
+                }
+              }}
+            />
+          </div>
+        </section>
       </Container>
     </div>
   );

@@ -45,8 +45,10 @@ const NavigationColumn = ({
               className={classNames(
                 "w-full h-10 flex items-center justify-start text-left px-4 border-r",
                 {
-                  "text-gray-900 border-gray-900": isActive,
-                  "text-gray-600 hover:text-gray-900 border-white": !isActive,
+                  "text-gray-900 border-gray-900 dark:text-gray-50 dark:border-gray-50":
+                    isActive,
+                  "text-gray-500 hover:text-gray-900 border-white dark:text-gray-400 dark:hover:text-gray-50 dark:border-gray-800":
+                    !isActive,
                 }
               )}
             >
