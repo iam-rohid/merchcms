@@ -164,8 +164,10 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
             paths.map((path, i) => (
               <li key={i}>
                 <span className="mr-2 text-gray-400 text-lg">/</span>
-                <Link href={`/${path}`}>
-                  <a className="text-lg font-semibold">{path}</a>
+                <Link href={i > 0 ? `/${paths[i - 1]}/${path}` : `/${path}`}>
+                  <a className="text-lg font-semibold">
+                    {i < paths.length - 1 ? `${path.slice(0, 2)}...` : path}
+                  </a>
                 </Link>
               </li>
             ))}

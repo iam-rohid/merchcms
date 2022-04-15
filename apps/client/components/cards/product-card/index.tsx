@@ -10,7 +10,7 @@ export type ProductCardProps = HTMLAttributes<HTMLAnchorElement> & {
 };
 const ProductCard = ({ gridView = true, product }: ProductCardProps) => {
   return (
-    <Link href={`#`}>
+    <Link href={`/my-store-1/${product.id}`}>
       <a
         className={classNames(
           "bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer hover:z-[1] focus:z-[1] overflow-hidden",

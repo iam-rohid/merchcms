@@ -95,8 +95,7 @@ const OverviewPage: CustomNextPage = () => {
             onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
-        {/* TODO: Add create new store route path */}
-        <Link href="#" passHref>
+        <Link href="/new-store" passHref>
           <Button as="a" leftIcon={<MdAdd />} size="large">
             New Store
           </Button>

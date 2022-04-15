@@ -8,7 +8,17 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useState } from "react";
-import { MdAdd, MdGridView, MdList, MdSearch, MdShop } from "react-icons/md";
+import {
+  MdAdd,
+  MdAttachMoney,
+  MdCreditCard,
+  MdGridView,
+  MdList,
+  MdPaid,
+  MdSearch,
+  MdShop,
+  MdShoppingCart,
+} from "react-icons/md";
 import { CustomNextPage } from "types/next.type";
 import { Product } from "types/product.type";
 
@@ -115,30 +125,26 @@ const StoreOverviewPage: CustomNextPage = () => {
       <Container className="space-y-4 md:space-y-8 my-4 md:my-8">
         <section id="stack" className="grid md:grid-cols-3 gap-4 md:gap-8">
           <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-4">
-            <MdShop className="text-4xl" />
+            <MdShoppingCart className="text-4xl" />
             <div>
-              <p className="font-semibold">234</p>
+              <p className="font-semibold">1223</p>
               <p className="text-gray-500 dark:text-gray-400">
                 Products Ordered
               </p>
             </div>
           </div>
           <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-4">
-            <MdShop className="text-4xl" />
+            <MdAttachMoney className="text-4xl" />
             <div>
-              <p className="font-semibold">234</p>
-              <p className="text-gray-500 dark:text-gray-400">
-                Products Ordered
-              </p>
+              <p className="font-semibold">$ 313</p>
+              <p className="text-gray-500 dark:text-gray-400">Profit</p>
             </div>
           </div>
           <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-4">
-            <MdShop className="text-4xl" />
+            <MdCreditCard className="text-4xl" />
             <div>
-              <p className="font-semibold">234</p>
-              <p className="text-gray-500 dark:text-gray-400">
-                Products Ordered
-              </p>
+              <p className="font-semibold">$ 234</p>
+              <p className="text-gray-500 dark:text-gray-400">To be paid</p>
             </div>
           </div>
         </section>

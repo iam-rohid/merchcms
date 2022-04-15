@@ -18,7 +18,7 @@ export const fullScreenMenu: {
       {
         id: "create-new-store",
         label: "New Store",
-        href: "/new",
+        href: "/new-store",
       },
       {
         id: "settings",
