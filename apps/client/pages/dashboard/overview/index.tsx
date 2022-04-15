@@ -96,10 +96,12 @@ const OverviewPage: CustomNextPage = () => {
             onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
-        <Link href="/new-store" passHref>
-          <Button as="a" leftIcon={<MdAdd />} size="large">
-            New Store
-          </Button>
+        <Link href="/new-store">
+          <a>
+            <Button as="span" leftIcon={<MdAdd />} size="large">
+              New Store
+            </Button>
+          </a>
         </Link>
       </section>
       <section>

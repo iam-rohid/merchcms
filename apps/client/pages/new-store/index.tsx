@@ -1,5 +1,6 @@
 import Button from "components/button";
 import Container from "components/container";
+import SEO from "components/SEO";
 import AppLayout from "layouts/app-layout";
 import React from "react";
 import { CustomNextPage } from "types/next.type";
@@ -76,4 +77,9 @@ const NewStorePage: CustomNextPage = () => {
 
 export default NewStorePage;
 
-NewStorePage.getLayout = (page) => <AppLayout stickyHeader>{page}</AppLayout>;
+NewStorePage.getLayout = (page) => (
+  <>
+    <SEO title="Create a new store" />
+    <AppLayout stickyHeader>{page}</AppLayout>
+  </>
+);

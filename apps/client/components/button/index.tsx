@@ -1,8 +1,6 @@
 import classNames from "classnames";
 import React, { ComponentPropsWithoutRef, ElementType } from "react";
-import { FC } from "react";
 import { ReactNode } from "react";
-import { HTMLAttributes } from "react";
 
 export interface ButtonProps<T extends ElementType> {
   as?: T;
@@ -14,7 +12,7 @@ export interface ButtonProps<T extends ElementType> {
   truncate?: boolean;
 }
 
-function Button<T extends ElementType = "button">({
+const Button = <T extends ElementType = "button">({
   as,
   leftIcon,
   rightIcon,
@@ -25,7 +23,8 @@ function Button<T extends ElementType = "button">({
   children,
   truncate,
   ...props
-}: ButtonProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>) {
+}: ButtonProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>) => {
   const Component = as || "button";
   return (
     <Component
@@ -85,6 +84,6 @@ function Button<T extends ElementType = "button">({
       )}
     </Component>
   );
-}
+};
 
 export default Button;

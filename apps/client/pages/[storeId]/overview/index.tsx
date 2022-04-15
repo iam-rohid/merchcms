@@ -15,9 +15,7 @@ import {
   MdCreditCard,
   MdGridView,
   MdList,
-  MdPaid,
   MdSearch,
-  MdShop,
   MdShoppingCart,
 } from "react-icons/md";
 import { CustomNextPage } from "types/next.type";
@@ -116,10 +114,10 @@ const StoreOverviewPage: CustomNextPage = () => {
               {storeId}.merchcms.com
             </p>
           </div>
-          <Link href={`/`} passHref>
-            <Button as="a" target="_blank">
-              Visit Store
-            </Button>
+          <Link href={`/`}>
+            <a target="_blank">
+              <Button as="span">Visit Store</Button>
+            </a>
           </Link>
         </Container>
       </div>
@@ -166,10 +164,12 @@ const StoreOverviewPage: CustomNextPage = () => {
             />
           </div>
           {/* TODO: Add new product route path */}
-          <Link href="#" passHref>
-            <Button leftIcon={<MdAdd />} size="large" as="a">
-              New Product
-            </Button>
+          <Link href="#">
+            <a>
+              <Button leftIcon={<MdAdd />} size="large" as="span">
+                New Product
+              </Button>
+            </a>
           </Link>
         </section>
         <section id="filter">
