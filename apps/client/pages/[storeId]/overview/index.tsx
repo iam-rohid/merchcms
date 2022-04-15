@@ -6,6 +6,7 @@ import Select from "components/select";
 import StoreDashboardLayout from "layouts/common-layouts/store-dashboard-layout";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useMemo } from "react";
 import { useState } from "react";
 import { MdAdd, MdGridView, MdList, MdSearch, MdShop } from "react-icons/md";
 import { CustomNextPage } from "types/next.type";
@@ -78,6 +79,21 @@ const StoreOverviewPage: CustomNextPage = () => {
   const {
     query: { storeId },
   } = useRouter();
+
+  const filteredProducts = useMemo(
+    () =>
+      searchText
+        ? products.filter(
+            (prod) =>
+              prod.name.toLowerCase().includes(searchText.toLowerCase()) ||
+              prod.description
+                .toLowerCase()
+                .includes(searchText.toLowerCase()) ||
+              prod.id === searchText
+          )
+        : products,
+    [searchText, filterBy, orderBy]
+  );
 
   return (
     <>
@@ -198,7 +214,7 @@ const StoreOverviewPage: CustomNextPage = () => {
               "-space-y-[1px]": !gridView,
             })}
           >
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
