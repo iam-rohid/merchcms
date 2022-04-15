@@ -12,10 +12,9 @@ const StorePage: CustomNextPage = () => {
 export default StorePage;
 
 StorePage.getLayout = (page) => {
-  const { query } = useRouter();
   return (
     <>
-      <SEO title={query.storeId as string} />
+      <SEO title="Store Dashboard" />
       <StoreDashboardLayout children={page} id="overview" />
     </>
   );

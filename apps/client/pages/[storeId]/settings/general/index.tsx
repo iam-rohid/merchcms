@@ -10,7 +10,7 @@ export default GeneralPage;
 
 GeneralPage.getLayout = (page) => (
   <>
-    <SEO title="General Store Settings" />
+    <SEO title="Store General Settings" />
     <StoreSettingsLayout children={page} id="general" />
   </>
 );

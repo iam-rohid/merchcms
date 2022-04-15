@@ -10,7 +10,7 @@ export default AdvancedPage;
 
 AdvancedPage.getLayout = (page) => (
   <>
-    <SEO title="Advanced Store Settings" />
+    <SEO title="Store Advanced Settings" />
     <StoreSettingsLayout children={page} id="advanced" />
   </>
 );
