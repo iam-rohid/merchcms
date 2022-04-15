@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Button from "components/button";
 import ProductCard from "components/cards/product-card";
 import Container from "components/container";
 import Select from "components/select";
@@ -88,13 +89,10 @@ const StoreOverviewPage: CustomNextPage = () => {
               {storeId}.merchcms.com
             </p>
           </div>
-          <Link href={`/`}>
-            <a
-              target="_blank"
-              className="bg-gray-900 text-gray-50 dark:bg-gray-50 dark:text-gray-900 border border-gray-200 dark:border-gray-700 px-6 flex items-center gap-2 h-12"
-            >
+          <Link href={`/`} passHref>
+            <Button as="a" target="_blank">
               Visit Store
-            </a>
+            </Button>
           </Link>
         </Container>
       </div>
@@ -139,15 +137,17 @@ const StoreOverviewPage: CustomNextPage = () => {
             <input
               id="search-input"
               type="text"
-              className="w-full h-full px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 pl-10 placeholder-gray-400 dark:placeholder-gray-600"
+              className="w-full h-full px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 pl-10 placeholder-gray-400 dark:placeholder-gray-600 outline-none focus:border-gray-400 dark:focus:border-gray-500"
               placeholder="Search..."
               onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
-          <button className="h-full bg-gray-900 text-gray-50 dark:bg-gray-50 dark:text-gray-900 border border-gray-200 dark:border-gray-700 px-6 flex items-center gap-2">
-            <MdAdd className="text-2xl" />
-            New Product
-          </button>
+          {/* TODO: Add new product route path */}
+          <Link href="#" passHref>
+            <Button leftIcon={<MdAdd />} size="large" as="a">
+              New Product
+            </Button>
+          </Link>
         </section>
         <section id="filter">
           <div className="flex gap-4 justify-between items-center">

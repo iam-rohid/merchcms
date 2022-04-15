@@ -6,6 +6,8 @@ import Container from "components/container";
 import { CustomNextPage, Store } from "types";
 import AppDashboardLayout from "layouts/common-layouts/app-dashboard-layout";
 import Select from "components/select";
+import Button from "components/button";
+import Link from "next/link";
 
 const stores: Store[] = [
   {
@@ -88,15 +90,17 @@ const OverviewPage: CustomNextPage = () => {
           <input
             id="search-input"
             type="text"
-            className="w-full h-full px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 pl-10 placeholder-gray-400 dark:placeholder-gray-600"
+            className="w-full h-full px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 pl-10 placeholder-gray-400 dark:placeholder-gray-600 outline-none focus:border-gray-400 dark:focus:border-gray-500"
             placeholder="Search..."
             onChange={(e) => setSearchText(e.target.value)}
           />
         </div>
-        <button className="h-full bg-gray-900 text-gray-50 dark:bg-gray-50 dark:text-gray-900 border border-gray-200 dark:border-gray-700 px-6 flex items-center gap-2">
-          <MdAdd className="text-2xl" />
-          New Store
-        </button>
+        {/* TODO: Add create new store route path */}
+        <Link href="#" passHref>
+          <Button as="a" leftIcon={<MdAdd />} size="large">
+            New Store
+          </Button>
+        </Link>
       </section>
       <section>
         <div className="flex gap-4 justify-between items-center">
