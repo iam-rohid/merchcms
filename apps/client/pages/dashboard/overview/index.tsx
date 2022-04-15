@@ -1,16 +1,11 @@
 import classNames from "classnames";
 import React, { useMemo, useState } from "react";
-import {
-  MdAdd,
-  MdArrowDropDown,
-  MdGridView,
-  MdList,
-  MdSearch,
-} from "react-icons/md";
+import { MdAdd, MdGridView, MdList, MdSearch } from "react-icons/md";
 import StoreCard from "components/cards/store-card";
 import Container from "components/container";
 import { CustomNextPage, Store } from "types";
 import AppDashboardLayout from "layouts/common-layouts/app-dashboard-layout";
+import Select from "components/select";
 
 const stores: Store[] = [
   {
@@ -29,10 +24,43 @@ const stores: Store[] = [
     description: "This is my store description",
   },
 ];
-
+const filterOptions = [
+  {
+    id: "all",
+    label: "All Stores",
+  },
+  {
+    id: "public",
+    label: "Public",
+  },
+  {
+    id: "private",
+    label: "Private",
+  },
+];
+const orderOptions = [
+  {
+    id: "date-created",
+    label: "Date Created",
+  },
+  {
+    id: "date-updated",
+    label: "Date Updated",
+  },
+  {
+    id: "a-z",
+    label: "A-Z",
+  },
+  {
+    id: "z-a",
+    label: "Z-A",
+  },
+];
 const OverviewPage: CustomNextPage = () => {
   const [gridView, setGridView] = useState(true);
   const [searchText, setSearchText] = useState("");
+  const [filterBy, setFilterBy] = useState(filterOptions[0].id);
+  const [orderBy, setOrderBy] = useState(orderOptions[0].id);
 
   const filteredStoreList = useMemo(
     () =>
@@ -72,40 +100,43 @@ const OverviewPage: CustomNextPage = () => {
       </section>
       <section id="stores" className="space-y-8">
         <div className="flex gap-4 justify-between items-center">
-          <button className="h-10 bg-white dark:bg-gray-900 dark:text-gray-900 border border-gray-200 dark:border-gray-700 px-4 flex items-center gap-2 text-sm">
-            All Stores
-            <MdArrowDropDown className="text-xl" />
-          </button>
-          <div className="flex-1"></div>
-          <button className="h-10 bg-white dark:bg-gray-900 dark:text-gray-900 border border-gray-200 dark:border-gray-700 px-4 flex items-center gap-2 text-sm">
-            Date Created
-            <MdArrowDropDown className="text-xl" />
-          </button>
-          <div className="flex -space-x-[1px]">
-            <button
-              className={classNames(
-                "h-10 w-10 flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
-                {
-                  "text-gray-900 dark:text-white": gridView,
-                  "text-gray-400 dark:text-gray-600": !gridView,
-                }
-              )}
-              onClick={() => setGridView(true)}
-            >
-              <MdGridView className="text-xl" />
-            </button>
-            <button
-              className={classNames(
-                "h-10 w-10 flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
-                {
-                  "text-gray-900 dark:text-white": !gridView,
-                  "text-gray-400 dark:text-gray-600": gridView,
-                }
-              )}
-              onClick={() => setGridView(false)}
-            >
-              <MdList className="text-xl" />
-            </button>
+          <Select
+            options={filterOptions}
+            value={filterBy}
+            onValueChange={setFilterBy}
+          />
+          <div className="flex-1 flex justify-end items-center gap-4">
+            <Select
+              options={orderOptions}
+              value={orderBy}
+              onValueChange={setOrderBy}
+            />
+            <div className="flex -space-x-[1px]">
+              <button
+                className={classNames(
+                  "h-10 w-10 flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
+                  {
+                    "text-gray-900 dark:text-white": gridView,
+                    "text-gray-400 dark:text-gray-600": !gridView,
+                  }
+                )}
+                onClick={() => setGridView(true)}
+              >
+                <MdGridView className="text-xl" />
+              </button>
+              <button
+                className={classNames(
+                  "h-10 w-10 flex items-center justify-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
+                  {
+                    "text-gray-900 dark:text-white": !gridView,
+                    "text-gray-400 dark:text-gray-600": gridView,
+                  }
+                )}
+                onClick={() => setGridView(false)}
+              >
+                <MdList className="text-xl" />
+              </button>
+            </div>
           </div>
         </div>
         <div
