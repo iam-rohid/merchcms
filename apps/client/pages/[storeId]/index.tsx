@@ -1,7 +1,6 @@
 import SEO from "components/SEO";
 import StoreDashboardLayout from "layouts/common-layouts/store-dashboard-layout";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { useRouter } from "next/router";
 import { CustomNextPage } from "types/next.type";
 import StoreOverviewPage from "./overview";
 
