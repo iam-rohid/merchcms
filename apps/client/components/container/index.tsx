@@ -19,7 +19,7 @@ export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
 
 const Container = ({
   className,
-  maxWidth = "5xl",
+  maxWidth = "6xl",
   ...props
 }: ContainerProps) => {
   return (
