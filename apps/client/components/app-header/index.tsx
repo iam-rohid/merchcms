@@ -155,7 +155,7 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
       <Container className="h-full flex items-center">
         <ul className="flex flex-row gap-2 items-center flex-1">
           <li>
-            <Link href={`/`}>
+            <Link href="/dashboard">
               <a className="text-lg font-semibold">MerchCMS</a>
             </Link>
           </li>

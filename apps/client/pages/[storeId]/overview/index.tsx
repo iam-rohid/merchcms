@@ -121,7 +121,7 @@ const StoreOverviewPage: CustomNextPage = () => {
           </Link>
         </Container>
       </div>
-      <Container className="space-y-4 md:space-y-8 my-4 md:my-8">
+      <Container className="space-y-4 md:space-y-8 py-4 md:py-8">
         <section id="stack" className="grid md:grid-cols-3 gap-4 md:gap-8">
           <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-4">
             <MdShoppingCart className="text-4xl" />

@@ -17,8 +17,15 @@ const DashboardLayout = ({
 }: DashboardLayoutProps) => {
   return (
     <>
-      <NavigationRow sticky={stickyNav} menu={menu} active={active} />
-      {children}
+      <NavigationRow
+        sticky={stickyNav}
+        menu={menu}
+        active={active}
+        className="-mt-3"
+      />
+      <main className="min-h-[calc(100vh-3.5rem-3rem+0.75rem)]">
+        {children}
+      </main>
     </>
   );
 };

@@ -33,7 +33,7 @@ const NewStorePage: CustomNextPage = () => {
               id="store-name-input"
               type="text"
               placeholder="My Store"
-              className="w-full h-10 px-4 bg-white dark:bg-gray-800 outline-none border border-gray-200 dark:border-gray-700 focus:border-gray-400 dark:focus:border-gray-500 placeholder-gray-400 dark:placeholder-gray-500"
+              className="w-full h-10 px-4 bg-gray-50 dark:bg-gray-800 outline-none border border-gray-200 dark:border-gray-700 focus:border-gray-400 dark:focus:border-gray-500 placeholder-gray-400 dark:placeholder-gray-500"
             />
           </div>
           <div className="space-y-4">
@@ -50,7 +50,7 @@ const NewStorePage: CustomNextPage = () => {
               id="store-id-input"
               type="text"
               placeholder="my-store123"
-              className="w-full h-10 px-4 bg-white dark:bg-gray-800 outline-none border border-gray-200 dark:border-gray-700 focus:border-gray-400 dark:focus:border-gray-500 placeholder-gray-400 dark:placeholder-gray-500 flex-1"
+              className="w-full h-10 px-4 bg-gray-50 dark:bg-gray-800 outline-none border border-gray-200 dark:border-gray-700 focus:border-gray-400 dark:focus:border-gray-500 placeholder-gray-400 dark:placeholder-gray-500 flex-1"
             />
           </div>
           <div className="space-y-4">
@@ -63,7 +63,7 @@ const NewStorePage: CustomNextPage = () => {
             <textarea
               id="description-input"
               placeholder="Your store description..."
-              className="w-full h-24 p-4 bg-white dark:bg-gray-800 outline-none border border-gray-200 dark:border-gray-700 focus:border-gray-400 dark:focus:border-gray-500 placeholder-gray-400 dark:placeholder-gray-500 flex-1"
+              className="w-full h-24 p-4 bg-gray-50 dark:bg-gray-800 outline-none border border-gray-200 dark:border-gray-700 focus:border-gray-400 dark:focus:border-gray-500 placeholder-gray-400 dark:placeholder-gray-500 flex-1"
             />
           </div>
           <Button type="submit" className="ml-auto">

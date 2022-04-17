@@ -27,7 +27,7 @@ const SettingsLayout = ({
   const { query } = useRouter();
   return (
     <Container className={classNames("px-0", className)} {...props}>
-      <div className="relative min-h-screen">
+      <div className="relative min-h-[calc(100vh-3.5rem-3rem+0.75rem)]">
         <div className="absolute w-64 left-0 top-0 py-8 h-full border-r border-gray-200 dark:border-gray-700 md:block hidden">
           <div className="bg-gray-50 dark:bg-gray-800 absolute right-0 top-0 h-full w-screen -z-20" />
           <NavigationColumn menu={menu} active={active} />

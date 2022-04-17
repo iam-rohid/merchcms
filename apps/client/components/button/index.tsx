@@ -10,6 +10,7 @@ export interface ButtonProps<T extends ElementType> {
   variant?: "solid" | "outline" | "ghost";
   colorScheme?: "primary" | "secondary" | "success" | "danger" | "warning";
   truncate?: boolean;
+  iconsOnTheEdge?: boolean;
 }
 
 const Button = <T extends ElementType = "button">({
@@ -22,6 +23,7 @@ const Button = <T extends ElementType = "button">({
   className,
   children,
   truncate,
+  iconsOnTheEdge,
   ...props
 }: ButtonProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>) => {
@@ -29,7 +31,7 @@ const Button = <T extends ElementType = "button">({
   return (
     <Component
       className={classNames(
-        "cursor-pointer select-none flex items-center justify-center overflow-hidden border",
+        "cursor-pointer select-none flex items-center justify-center overflow-hidden border relative",
         {
           "bg-gray-900 dark:bg-gray-50 border-gray-900 dark:border-gray-50":
             colorScheme === "primary",
@@ -63,12 +65,19 @@ const Button = <T extends ElementType = "button">({
             "text-lg": size === "small",
             "text-xl": size === "medium",
             "text-2xl": size === "large",
+            "absolute left-4 top-1/2 -translate-y-1/2": iconsOnTheEdge,
           })}
         >
           {leftIcon}
         </span>
       )}
-      <span className={classNames("whitespace-nowrap", { truncate: truncate })}>
+      <span
+        className={classNames("whitespace-nowrap", {
+          truncate: truncate,
+          "pl-8": iconsOnTheEdge,
+          "pr-8": iconsOnTheEdge,
+        })}
+      >
         {children}
       </span>
       {rightIcon && (
@@ -77,6 +86,7 @@ const Button = <T extends ElementType = "button">({
             "text-lg": size === "small",
             "text-xl": size === "medium",
             "text-2xl": size === "large",
+            "absolute right-4 top-1/2 -translate-y-1/2": iconsOnTheEdge,
           })}
         >
           {rightIcon}

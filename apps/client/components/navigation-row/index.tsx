@@ -22,7 +22,7 @@ const NavigationRow = ({
   return (
     <nav
       className={classNames(
-        "bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 -mt-3 h-12 w-full overflow-x-auto",
+        "bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-12 w-full overflow-x-auto",
         {
           "sticky top-0 left-0 right-0 z-20": sticky,
         },

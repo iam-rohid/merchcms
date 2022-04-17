@@ -79,7 +79,7 @@ const OverviewPage: CustomNextPage = () => {
   );
 
   return (
-    <Container className="space-y-4 md:space-y-8 my-8">
+    <Container className="space-y-4 md:space-y-8 py-8">
       <section id="search" className="flex gap-4 h-12">
         <div className="relative flex-1 h-full">
           <label
