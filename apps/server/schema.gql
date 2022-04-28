@@ -90,7 +90,7 @@ type Mutation {
 }
 
 type Query {
-  getHello: String!
+  currentUser: User!
 }
 
 type ResendVerificationEmailFailure {
