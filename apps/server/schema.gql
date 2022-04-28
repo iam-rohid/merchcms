@@ -2,6 +2,82 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type EmailPasswordSignInFailure {
+  email: String
+  other: String
+  password: String
+}
+
+input EmailPasswordSignInInput {
+  email: String!
+  password: String!
+}
+
+union EmailPasswordSignInResult = EmailPasswordSignInFailure | EmailPasswordSignInSuccess
+
+type EmailPasswordSignInSuccess {
+  token: String!
+  user: User!
+}
+
+type EmailPasswordSignUpFailure {
+  email: String
+  other: String
+  password: String
+  username: String
+}
+
+input EmailPasswordSignUpInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+union EmailPasswordSignUpResult = EmailPasswordSignUpFailure | EmailPasswordSignUpSuccess
+
+type EmailPasswordSignUpSuccess {
+  message: String!
+}
+
+type EmailVerificationFailure {
+  emailError: String
+  otherError: String
+  tokenError: String
+}
+
+input EmailVerificationInput {
+  email: String!
+  token: String!
+}
+
+union EmailVerificationResult = EmailVerificationFailure | EmailVerificationSuccess
+
+type EmailVerificationSuccess {
+  message: String!
+  token: String!
+  user: User!
+}
+
+type Mutation {
+  eamilPasswordSignIn(input: EmailPasswordSignInInput!): EmailPasswordSignInResult!
+  eamilPasswordSignUp(input: EmailPasswordSignUpInput!): EmailPasswordSignUpResult!
+  verifyEmail(input: EmailVerificationInput!): EmailVerificationResult!
+}
+
 type Query {
   getHello: String!
+}
+
+type User {
+  createdAt: DateTime!
+  email: String!
+  emailVerified: Boolean!
+  id: String!
+  updatedAt: DateTime!
+  username: String!
 }

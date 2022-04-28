@@ -1,4 +1,7 @@
-import { Resolver } from '@nestjs/graphql';
+import { Resolver } from "@nestjs/graphql";
+import { SessionService } from "./session.service";
 
 @Resolver()
-export class SessionResolver {}
+export class SessionResolver {
+  constructor(private readonly sessionService: SessionService) {}
+}
