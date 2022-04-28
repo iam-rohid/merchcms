@@ -36,47 +36,6 @@ export class EmailPasswordSignInFailure {
     this.emailError = emailError;
     this.otherError = otherError;
   }
-  static requiredFields({
-    password,
-    email,
-  }: {
-    email?: boolean;
-    password?: boolean;
-  }): EmailPasswordSignInFailure {
-    return new EmailPasswordSignInFailure({
-      emailError: email && "Email is required",
-      passwordError: password && "Password is required",
-    });
-  }
-
-  static invalidEmail(): EmailPasswordSignInFailure {
-    return new EmailPasswordSignInFailure({
-      emailError: "Email is invalid",
-    });
-  }
-
-  static invalidPassword(): EmailPasswordSignInFailure {
-    return new EmailPasswordSignInFailure({
-      passwordError: "Password is invalid",
-    });
-  }
-
-  static userNotFound(): EmailPasswordSignInFailure {
-    return new EmailPasswordSignInFailure({
-      emailError: "No user found with this email",
-    });
-  }
-  static userIsNotVerified(): EmailPasswordSignInFailure {
-    return new EmailPasswordSignInFailure({
-      emailError: "User is not verified",
-    });
-  }
-
-  static otherError(error: string): EmailPasswordSignInFailure {
-    return new EmailPasswordSignInFailure({
-      otherError: error,
-    });
-  }
 }
 
 export const EmailPasswordSignInResultUnion = createUnionType({

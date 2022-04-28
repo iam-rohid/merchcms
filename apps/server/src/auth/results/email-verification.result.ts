@@ -36,44 +36,6 @@ export class EmailVerificationFailure {
     this.otherError = other;
     this.tokenError = token;
   }
-  static requiredFields({
-    email,
-    token,
-  }: {
-    email?: boolean;
-    token?: boolean;
-  }): EmailVerificationFailure {
-    return new EmailVerificationFailure({
-      emailError: email && "Email is required",
-      tokenError: token && "Token is required",
-    });
-  }
-
-  static invalidEmail(): EmailVerificationFailure {
-    return new EmailVerificationFailure({
-      emailError: "Email is invalid",
-    });
-  }
-  static userNotFound(): EmailVerificationFailure {
-    return new EmailVerificationFailure({
-      emailError: "No user found",
-    });
-  }
-  static userIsAlreadyVeirfied(): EmailVerificationFailure {
-    return new EmailVerificationFailure({
-      emailError: "The user with this email is already verified",
-    });
-  }
-  static invalidToken(): EmailVerificationFailure {
-    return new EmailVerificationFailure({
-      tokenError: "Token is invalid",
-    });
-  }
-  static other(other = "Something went wrong"): EmailVerificationFailure {
-    return new EmailVerificationFailure({
-      otherError: other,
-    });
-  }
 }
 
 export const EmailVerificationResultUnion = createUnionType({

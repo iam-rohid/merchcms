@@ -37,52 +37,6 @@ export class EmailPasswordSignUpFailure {
     this.emailError = emailError;
     this.otherError = otherError;
   }
-
-  static invalidEmail(): EmailPasswordSignUpFailure {
-    return new EmailPasswordSignUpFailure({
-      emailError: "Email is not valid",
-    });
-  }
-
-  static emailAlreadyExists(): EmailPasswordSignUpFailure {
-    return new EmailPasswordSignUpFailure({
-      emailError: "Email already exists",
-    });
-  }
-
-  static usernameAlreadyExists(): EmailPasswordSignUpFailure {
-    return new EmailPasswordSignUpFailure({
-      usernameError: "Username already taken",
-    });
-  }
-
-  static passwordIsNotStrong(): EmailPasswordSignUpFailure {
-    return new EmailPasswordSignUpFailure({
-      passwordError: "Password is not strong",
-    });
-  }
-
-  static otherError(error: string): EmailPasswordSignUpFailure {
-    return new EmailPasswordSignUpFailure({
-      otherError: error,
-    });
-  }
-
-  static requiredFields({
-    username,
-    password,
-    email,
-  }: {
-    username?: boolean;
-    password?: boolean;
-    email?: boolean;
-  }): EmailPasswordSignUpFailure {
-    return new EmailPasswordSignUpFailure({
-      passwordError: password && "Password is required",
-      emailError: email && "Email is required",
-      usernameError: username && "Username is required",
-    });
-  }
 }
 
 export const EmailPasswordSignUpResultUnion = createUnionType({

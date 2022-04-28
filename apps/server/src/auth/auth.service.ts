@@ -1,7 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/global/prisma/prisma.service";
 import * as argon from "argon2";
+import { JwtService } from "@nestjs/jwt";
+import { ConfigService } from "@nestjs/config";
+import { User } from "src/user/models";
+import { Payload } from "src/types";
 import { isValidEmail, getRandomCode, isStrongPassword } from "src/utilities";
+import { JWT_SECRET_KEY } from "src/utilities/constants";
+import { EmailService } from "src/global/email/email.service";
 import {
   ChangePasswordInput,
   EmailPasswordSignInInput,
@@ -26,12 +32,6 @@ import {
   ChangePasswordFailure,
   ChangePasswordSuccess,
 } from "./results";
-import { JwtService } from "@nestjs/jwt";
-import { ConfigService } from "@nestjs/config";
-import { User } from "src/user/models";
-import { Payload } from "src/types";
-import { JWT_SECRET_KEY } from "src/utilities/constants";
-import { EmailService } from "src/global/email/email.service";
 
 @Injectable()
 export class AuthService {
@@ -49,10 +49,10 @@ export class AuthService {
   }: EmailPasswordSignUpInput): Promise<EmailPasswordSignUpResult> {
     // CHECK REQUIRE FIELDS
     if (!username || !email || !password) {
-      return EmailPasswordSignUpFailure.requiredFields({
-        username: !username || undefined,
-        email: !email || undefined,
-        password: !password || undefined,
+      return new EmailPasswordSignUpFailure({
+        usernameError: !username ? "Username is required" : undefined,
+        emailError: !email ? "Email is required" : undefined,
+        passwordError: !password ? "Password is required" : undefined,
       });
     }
 
@@ -64,12 +64,16 @@ export class AuthService {
       },
     });
     if (!!userWithUsername) {
-      return EmailPasswordSignUpFailure.usernameAlreadyExists();
+      return new EmailPasswordSignUpFailure({
+        usernameError: "Username is already taken",
+      });
     }
 
     // CHECK IF VALID EMAIL
     if (!isValidEmail(email)) {
-      return EmailPasswordSignUpFailure.invalidEmail();
+      return new EmailPasswordSignUpFailure({
+        emailError: "Email is not valid",
+      });
     }
 
     // CHECK IF ALREADY EMAIL EXISTS
@@ -80,12 +84,16 @@ export class AuthService {
       },
     });
     if (!!userWithEmail) {
-      return EmailPasswordSignUpFailure.emailAlreadyExists();
+      return new EmailPasswordSignUpFailure({
+        emailError: "Email already exists",
+      });
     }
 
     // CHECK IF PASSWORD IS STRONG
     if (!isStrongPassword(password)) {
-      return EmailPasswordSignUpFailure.passwordIsNotStrong();
+      return new EmailPasswordSignUpFailure({
+        passwordError: "Password is not strong enough",
+      });
     }
 
     // HASH PASSWORD
@@ -109,14 +117,18 @@ export class AuthService {
           user.emailVerificationToken
         );
       } catch {
-        return EmailPasswordSignUpFailure.otherError("Failed to send email");
+        return new EmailPasswordSignUpFailure({
+          otherError: "Failed to send verification email",
+        });
       }
 
       // RETURN SUCCESS
       return new EmailPasswordSignUpSuccess(user.email);
     } catch {
       // RETURN FAILURE
-      return EmailPasswordSignUpFailure.otherError("Sign up failed");
+      return new EmailPasswordSignUpFailure({
+        otherError: "Failed to create user",
+      });
     }
   }
 
@@ -126,9 +138,9 @@ export class AuthService {
   }: EmailVerificationInput): Promise<EmailVerificationResult> {
     // CHECK REQUIRE FIELDS
     if (!email || !token) {
-      return EmailVerificationFailure.requiredFields({
-        email: !email || undefined,
-        token: !token || undefined,
+      return new EmailVerificationFailure({
+        emailError: !email ? "Email is required" : undefined,
+        tokenError: !token ? "Token is required" : undefined,
       });
     }
 
@@ -142,17 +154,23 @@ export class AuthService {
       },
     });
     if (!userWithEmail) {
-      return EmailVerificationFailure.userNotFound();
+      return new EmailVerificationFailure({
+        emailError: "No user with this email",
+      });
     }
 
     // CHECK IF USER IS ALREADY VERIFIED OR NOT
     if (userWithEmail.emailVerified) {
-      return EmailVerificationFailure.userIsAlreadyVeirfied();
+      return new EmailVerificationFailure({
+        emailError: "User is already verified",
+      });
     }
 
     // CHECK IF TOKEN IS CORRECT
     if (userWithEmail.emailVerificationToken !== token) {
-      return EmailVerificationFailure.invalidToken();
+      return new EmailVerificationFailure({
+        emailError: "Invalid verification token",
+      });
     }
 
     // VERIFY EMAIL
@@ -172,7 +190,9 @@ export class AuthService {
       return new EmailVerificationSuccess(user, token);
     } catch {
       // RETURN FAILURE
-      return EmailVerificationFailure.other();
+      return new EmailVerificationFailure({
+        otherError: "Failed to verify email",
+      });
     }
   }
 
@@ -182,14 +202,16 @@ export class AuthService {
   }: EmailPasswordSignInInput): Promise<EmailPasswordSignInResult> {
     // CHECK REQUIRE FIELDS
     if (!email || !password) {
-      return EmailPasswordSignInFailure.requiredFields({
-        email: !email || undefined,
-        password: !password || undefined,
+      return new EmailPasswordSignInFailure({
+        emailError: !email ? "Email is required" : undefined,
+        passwordError: !password ? "Password is required" : undefined,
       });
     }
 
     if (!isValidEmail(email)) {
-      return EmailPasswordSignInFailure.invalidEmail();
+      return new EmailPasswordSignInFailure({
+        emailError: "Email is not valid",
+      });
     }
 
     // CHECK IF USER EXISTS
@@ -197,12 +219,16 @@ export class AuthService {
       where: { email },
     });
     if (!userWithEmail) {
-      return EmailPasswordSignInFailure.userNotFound();
+      return new EmailPasswordSignInFailure({
+        emailError: "No user with this email",
+      });
     }
 
     // CHECK IF USER IS VERIFIED
     if (!userWithEmail.emailVerified) {
-      return EmailPasswordSignInFailure.userIsNotVerified();
+      return new EmailPasswordSignInFailure({
+        emailError: "User is not verified",
+      });
     }
 
     // CHECK IF PASSWORD IS CORRECT
@@ -211,7 +237,9 @@ export class AuthService {
       password
     );
     if (!isPasswordCorrect) {
-      return EmailPasswordSignInFailure.invalidPassword();
+      return new EmailPasswordSignInFailure({
+        passwordError: "Password is not correct",
+      });
     }
 
     // TODO: GENERATE TOKEN
