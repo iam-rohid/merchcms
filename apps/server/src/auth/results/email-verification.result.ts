@@ -3,23 +3,12 @@ import { User } from "src/user/models";
 
 @ObjectType()
 export class EmailVerificationSuccess {
-  @Field(() => String)
-  message: string;
   @Field(() => User)
   user: User;
   @Field(() => String)
   token: string;
 
-  constructor({
-    message,
-    user,
-    token,
-  }: {
-    message: string;
-    user: User;
-    token: string;
-  }) {
-    this.message = message;
+  constructor(user: User, token: string) {
     this.token = token;
     this.user = user;
   }
@@ -47,16 +36,17 @@ export class EmailVerificationFailure {
     this.otherError = other;
     this.tokenError = token;
   }
-  static requiredFields(fields: {
-    [key: string]: boolean;
+  static requiredFields({
+    email,
+    token,
+  }: {
+    email?: boolean;
+    token?: boolean;
   }): EmailVerificationFailure {
-    const failure = new EmailVerificationFailure({});
-    Object.keys(fields).forEach((field) => {
-      if (fields[field]) {
-        failure[field] = field;
-      }
+    return new EmailVerificationFailure({
+      emailError: email && "Email is required",
+      tokenError: token && "Token is required",
     });
-    return failure;
   }
 
   static invalidEmail(): EmailVerificationFailure {

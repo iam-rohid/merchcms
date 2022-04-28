@@ -17,24 +17,65 @@ export class EmailPasswordSignInSuccess {
 @ObjectType()
 export class EmailPasswordSignInFailure {
   @Field(() => String, { nullable: true })
-  email?: string;
+  emailError?: string;
   @Field(() => String, { nullable: true })
-  password?: string;
+  passwordError?: string;
   @Field(() => String, { nullable: true })
-  other?: string;
+  otherError?: string;
 
   constructor({
-    email,
-    password,
-    other,
+    emailError,
+    passwordError,
+    otherError,
   }: {
-    email?: string;
-    password?: string;
-    other?: string;
+    emailError?: string;
+    passwordError?: string;
+    otherError?: string;
   }) {
-    this.password = password;
-    this.email = email;
-    this.other = other;
+    this.passwordError = passwordError;
+    this.emailError = emailError;
+    this.otherError = otherError;
+  }
+  static requiredFields({
+    password,
+    email,
+  }: {
+    email?: boolean;
+    password?: boolean;
+  }): EmailPasswordSignInFailure {
+    return new EmailPasswordSignInFailure({
+      emailError: email && "Email is required",
+      passwordError: password && "Password is required",
+    });
+  }
+
+  static invalidEmail(): EmailPasswordSignInFailure {
+    return new EmailPasswordSignInFailure({
+      emailError: "Email is invalid",
+    });
+  }
+
+  static invalidPassword(): EmailPasswordSignInFailure {
+    return new EmailPasswordSignInFailure({
+      passwordError: "Password is invalid",
+    });
+  }
+
+  static userNotFound(): EmailPasswordSignInFailure {
+    return new EmailPasswordSignInFailure({
+      emailError: "No user found with this email",
+    });
+  }
+  static userIsNotVerified(): EmailPasswordSignInFailure {
+    return new EmailPasswordSignInFailure({
+      emailError: "User is not verified",
+    });
+  }
+
+  static otherError(error: string): EmailPasswordSignInFailure {
+    return new EmailPasswordSignInFailure({
+      otherError: error,
+    });
   }
 }
 

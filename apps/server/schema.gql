@@ -8,9 +8,9 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type EmailPasswordSignInFailure {
-  email: String
-  other: String
-  password: String
+  emailError: String
+  otherError: String
+  passwordError: String
 }
 
 input EmailPasswordSignInInput {
@@ -26,10 +26,10 @@ type EmailPasswordSignInSuccess {
 }
 
 type EmailPasswordSignUpFailure {
-  email: String
-  other: String
-  password: String
-  username: String
+  emailError: String
+  otherError: String
+  passwordError: String
+  usernameError: String
 }
 
 input EmailPasswordSignUpInput {
@@ -41,7 +41,7 @@ input EmailPasswordSignUpInput {
 union EmailPasswordSignUpResult = EmailPasswordSignUpFailure | EmailPasswordSignUpSuccess
 
 type EmailPasswordSignUpSuccess {
-  message: String!
+  email: String!
 }
 
 type EmailVerificationFailure {
@@ -58,7 +58,6 @@ input EmailVerificationInput {
 union EmailVerificationResult = EmailVerificationFailure | EmailVerificationSuccess
 
 type EmailVerificationSuccess {
-  message: String!
   token: String!
   user: User!
 }

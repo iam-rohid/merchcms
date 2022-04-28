@@ -3,66 +3,71 @@ import { createUnionType, Field, ObjectType } from "@nestjs/graphql";
 @ObjectType()
 export class EmailPasswordSignUpSuccess {
   @Field(() => String)
-  message: string;
+  email: string;
 
-  constructor(message: string) {
-    this.message = message;
+  constructor(email: string) {
+    this.email = email;
   }
 }
 
 @ObjectType()
 export class EmailPasswordSignUpFailure {
   @Field(() => String, { nullable: true })
-  username?: string;
+  usernameError?: string;
   @Field(() => String, { nullable: true })
-  email?: string;
+  emailError?: string;
   @Field(() => String, { nullable: true })
-  password?: string;
+  passwordError?: string;
   @Field(() => String, { nullable: true })
-  other?: string;
+  otherError?: string;
 
   constructor({
-    username,
-    email,
-    password,
-    other,
+    usernameError,
+    emailError,
+    passwordError,
+    otherError,
   }: {
-    username?: string;
-    email?: string;
-    password?: string;
-    other?: string;
+    usernameError?: string;
+    emailError?: string;
+    passwordError?: string;
+    otherError?: string;
   }) {
-    this.username = username;
-    this.password = password;
-    this.email = email;
-    this.other = other;
+    this.usernameError = usernameError;
+    this.passwordError = passwordError;
+    this.emailError = emailError;
+    this.otherError = otherError;
   }
 
   static invalidEmail(): EmailPasswordSignUpFailure {
     return new EmailPasswordSignUpFailure({
-      email: "Invalid email",
+      emailError: "Invalid email",
     });
   }
+
   static emailAlreadyExists(): EmailPasswordSignUpFailure {
     return new EmailPasswordSignUpFailure({
-      email: "Email already exists",
+      emailError: "Email already exists",
     });
   }
+
   static usernameAlreadyExists(): EmailPasswordSignUpFailure {
     return new EmailPasswordSignUpFailure({
-      username: "Username already exists",
+      usernameError: "Username already exists",
     });
   }
+
   static passwordIsNotStrong(): EmailPasswordSignUpFailure {
     return new EmailPasswordSignUpFailure({
-      password: "Password is not strong",
+      passwordError: "Password is not strong",
     });
   }
-  static other(other: string): EmailPasswordSignUpFailure {
+
+  static otherError(error: string): EmailPasswordSignUpFailure {
     return new EmailPasswordSignUpFailure({
-      other,
+      otherError: error,
     });
   }
+
   static requiredFields({
     username,
     password,
@@ -73,9 +78,9 @@ export class EmailPasswordSignUpFailure {
     email?: boolean;
   }): EmailPasswordSignUpFailure {
     return new EmailPasswordSignUpFailure({
-      password: password && "Password is required",
-      email: email && "Email is required",
-      username: username && "Username is required",
+      passwordError: password && "Password is required",
+      emailError: email && "Email is required",
+      usernameError: username && "Username is required",
     });
   }
 }

@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/global/prisma/prisma.service";
+import * as argon from "argon2";
+import { isValidEmail, getRandomCode } from "src/utilities";
 import {
   EmailPasswordSignInInput,
   EmailPasswordSignUpInput,
@@ -8,6 +10,7 @@ import {
 import {
   EmailPasswordSignInFailure,
   EmailPasswordSignInResult,
+  EmailPasswordSignInSuccess,
   EmailPasswordSignUpFailure,
   EmailPasswordSignUpResult,
   EmailPasswordSignUpSuccess,
@@ -15,8 +18,6 @@ import {
   EmailVerificationResult,
   EmailVerificationSuccess,
 } from "./results";
-import * as argon from "argon2";
-import { isValidEmail, getRandomCode } from "src/utilities";
 
 @Injectable()
 export class AuthService {
@@ -92,12 +93,10 @@ export class AuthService {
       console.log("User Code", user.emailVerificationToken);
 
       // RETURN SUCCESS
-      return new EmailPasswordSignUpSuccess(
-        "Sign up successful. We sent you an email to verify your account."
-      );
+      return new EmailPasswordSignUpSuccess(user.email);
     } catch {
       // RETURN FAILURE
-      return EmailPasswordSignUpFailure.other("Sign up failed");
+      return EmailPasswordSignUpFailure.otherError("Sign up failed");
     }
   }
 
@@ -153,30 +152,64 @@ export class AuthService {
         },
       });
 
-      // TOOD: GENERATE TOKEN
+      // TODO: GENERATE TOKEN
       const token = "SecretToken";
       // RETURN SUCCESS
-      return new EmailVerificationSuccess({
-        token,
-        user,
-        message: "Email verified successfully",
-      });
+      return new EmailVerificationSuccess(user, token);
     } catch {
       // RETURN FAILURE
-      return EmailVerificationFailure.other("Email verification failed");
+      return EmailVerificationFailure.other();
     }
   }
 
-  async eamilPasswordSignIn(
-    input: EmailPasswordSignInInput
-  ): Promise<EmailPasswordSignInResult> {
-    // CHECK IF EMAIL EXISTS
-    // CHECK IF PASSWORD IS CORRECT
-    // GENERATE TOKEN
-    // RETURN SUCCESS
-    // RETURN FAILURE
-    return new EmailPasswordSignInFailure({
-      email: "Email not found",
+  async eamilPasswordSignIn({
+    email,
+    password,
+  }: EmailPasswordSignInInput): Promise<EmailPasswordSignInResult> {
+    // CHECK REQUIRE FIELDS
+    if (!email) {
+      return EmailPasswordSignInFailure.requiredFields({
+        email: true,
+      });
+    }
+    if (!password) {
+      return EmailPasswordSignInFailure.requiredFields({
+        password: true,
+      });
+    }
+
+    // CHECK IF USER EXISTS
+    const userWithEmail = await this.prisma.user.findUnique({
+      where: { email },
     });
+    if (!userWithEmail) {
+      return EmailPasswordSignInFailure.userNotFound();
+    }
+
+    // CHECK IF USER IS VERIFIED
+    if (!userWithEmail.emailVerified) {
+      return EmailPasswordSignInFailure.userIsNotVerified();
+    }
+
+    // CHECK IF PASSWORD IS CORRECT
+    const isPasswordCorrect = await argon.verify(
+      userWithEmail.password,
+      password
+    );
+    if (!isPasswordCorrect) {
+      return EmailPasswordSignInFailure.invalidPassword();
+    }
+
+    // TODO: GENERATE TOKEN
+    const token = "SecretToken";
+
+    // RETURN SUCCESS
+    return new EmailPasswordSignInSuccess(userWithEmail, token);
   }
 }
+
+// TODO's
+// 1. Send verification code to email
+// 2. Generate token
+// 3. Verify token
+// 4. Check password strength
