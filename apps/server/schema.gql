@@ -84,6 +84,7 @@ type Mutation {
   eamilPasswordSignIn(input: EmailPasswordSignInInput!): EmailPasswordSignInResult!
   eamilPasswordSignUp(input: EmailPasswordSignUpInput!): EmailPasswordSignUpResult!
   resendVerificationEmail(input: ResendVerificationEmailInput!): ResendVerificationEmailResult!
+  sendResetPasswordEmail(input: SendResetPasswordEmailInput!): SendResetPasswordEmailResult!
   verifyEmail(input: EmailVerificationInput!): EmailVerificationResult!
 }
 
@@ -102,6 +103,21 @@ input ResendVerificationEmailInput {
 union ResendVerificationEmailResult = ResendVerificationEmailFailure | ResendVerificationEmailSuccess
 
 type ResendVerificationEmailSuccess {
+  message: String!
+}
+
+type SendResetPasswordEmailFailure {
+  emailError: String
+  otherError: String
+}
+
+input SendResetPasswordEmailInput {
+  email: String!
+}
+
+union SendResetPasswordEmailResult = SendResetPasswordEmailFailure | SendResetPasswordEmailSuccess
+
+type SendResetPasswordEmailSuccess {
   message: String!
 }
 

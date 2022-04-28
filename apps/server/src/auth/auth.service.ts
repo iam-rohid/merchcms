@@ -6,7 +6,7 @@ import { ConfigService } from "@nestjs/config";
 import { User } from "src/user/models";
 import { Payload } from "src/types";
 import { isValidEmail, getRandomCode, isStrongPassword } from "src/utilities";
-import { JWT_SECRET_KEY } from "src/utilities/constants";
+import { APP_URL_KEY, JWT_SECRET_KEY } from "src/utilities/constants";
 import { EmailService } from "src/global/email/email.service";
 import {
   ChangePasswordInput,
@@ -14,6 +14,7 @@ import {
   EmailPasswordSignUpInput,
   EmailVerificationInput,
   ResendVerificationEmailInput,
+  SendResetPasswordEmailInput,
 } from "./input";
 import {
   EmailPasswordSignInFailure,
@@ -31,6 +32,9 @@ import {
   ChangePasswordResult,
   ChangePasswordFailure,
   ChangePasswordSuccess,
+  SendResetPasswordEmailSuccess,
+  SendResetPasswordEmailResult,
+  SendResetPasswordEmailFailure,
 } from "./results";
 
 @Injectable()
@@ -355,6 +359,70 @@ export class AuthService {
       });
     }
   }
+
+  async sendResetPasswordEmail({
+    email,
+  }: SendResetPasswordEmailInput): Promise<SendResetPasswordEmailResult> {
+    // Field validation
+    if (!email) {
+      return new SendResetPasswordEmailFailure({
+        emailError: "Email is required",
+      });
+    }
+    if (!isValidEmail(email)) {
+      return new SendResetPasswordEmailFailure({
+        emailError: "Email is not valid",
+      });
+    }
+
+    // CHECK IF USER EXISTS
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        emailVerified: true,
+      },
+    });
+
+    if (!user) {
+      return new SendResetPasswordEmailFailure({
+        emailError: "No user with this email",
+      });
+    }
+
+    // CHECK IF USER IS VERIFIED
+    if (!user.emailVerified) {
+      return new SendResetPasswordEmailFailure({
+        otherError: "User is not verified",
+      });
+    }
+
+    // GENERATE TOKEN
+    const resetPasswordToken = await this.prisma.resetPasswordToken.create({
+      data: {
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
+    });
+
+    // SEND EMAIL
+    try {
+      await this.emailService.sendResetPasswordEmail(
+        resetPasswordToken.token,
+        email
+      );
+      return new SendResetPasswordEmailSuccess(
+        "Forgot password email sent successfully"
+      );
+    } catch {
+      return new SendResetPasswordEmailFailure({
+        otherError: "Failed to send email",
+      });
+    }
+  }
 }
 
 // TODO's
@@ -366,4 +434,5 @@ export class AuthService {
 // 7. Sign in ✅
 // 8. Sign up ✅
 // 9. Change password ✅
-// 10. Forgot password
+// 10. Send reset password email with token ✅
+// 10. Reset password

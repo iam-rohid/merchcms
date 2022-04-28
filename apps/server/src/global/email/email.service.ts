@@ -1,9 +1,10 @@
 import * as nodemailer from "nodemailer";
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { emailVerificationTemplate } from "./templates";
+import { emailVerificationTemplate, resetPasswordTemplate } from "./templates";
 import { SendMailOptions, Transporter } from "nodemailer";
 import {
+  APP_URL_KEY,
   SMTP_HOST,
   SMTP_PASSWORD,
   SMTP_PORT,
@@ -43,6 +44,15 @@ export class EmailService {
       to,
       subject: "Verify your email",
       html: emailVerificationTemplate(token),
+    });
+  }
+
+  async sendResetPasswordEmail(token: string, to: string) {
+    const url = `${this.config.get(APP_URL_KEY)}/auth/reset-password/${token}`;
+    return this.sendEmail({
+      to,
+      subject: "Reset your password",
+      html: resetPasswordTemplate(url),
     });
   }
 }
