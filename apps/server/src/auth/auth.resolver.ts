@@ -10,6 +10,7 @@ import {
   EmailPasswordSignUpInput,
   EmailVerificationInput,
   ResendVerificationEmailInput,
+  ResetPasswordInput,
   SendResetPasswordEmailInput,
 } from "./input";
 import {
@@ -25,6 +26,8 @@ import {
   ChangePasswordResult,
   SendResetPasswordEmailResultUnion,
   SendResetPasswordEmailResult,
+  ResetPasswordResultUnion,
+  ResetPasswordResult,
 } from "./results";
 
 @Resolver()
@@ -75,10 +78,10 @@ export class AuthResolver {
     return this.authService.sendResetPasswordEmail(input);
   }
 
-  // @Mutation(() => ForgotPasswordResultUnion)
-  // forgotPassword(
-  //   @Args("input") input: ForgotPasswordInput
-  // ): Promise<ForgotPasswordResult> {
-  //   return this.authService.forgotPassword(input);
-  // }
+  @Mutation(() => ResetPasswordResultUnion)
+  resetPassword(
+    @Args("input") input: ResetPasswordInput
+  ): Promise<ResetPasswordResult> {
+    return this.authService.resetPassword(input);
+  }
 }

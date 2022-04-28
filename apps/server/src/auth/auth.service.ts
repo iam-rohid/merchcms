@@ -6,7 +6,7 @@ import { ConfigService } from "@nestjs/config";
 import { User } from "src/user/models";
 import { Payload } from "src/types";
 import { isValidEmail, getRandomCode, isStrongPassword } from "src/utilities";
-import { APP_URL_KEY, JWT_SECRET_KEY } from "src/utilities/constants";
+import { JWT_SECRET_KEY } from "src/utilities/constants";
 import { EmailService } from "src/global/email/email.service";
 import {
   ChangePasswordInput,
@@ -14,6 +14,7 @@ import {
   EmailPasswordSignUpInput,
   EmailVerificationInput,
   ResendVerificationEmailInput,
+  ResetPasswordInput,
   SendResetPasswordEmailInput,
 } from "./input";
 import {
@@ -35,6 +36,9 @@ import {
   SendResetPasswordEmailSuccess,
   SendResetPasswordEmailResult,
   SendResetPasswordEmailFailure,
+  ResetPasswordResult,
+  ResetPasswordFailure,
+  ResetPasswordSuccess,
 } from "./results";
 
 @Injectable()
@@ -423,6 +427,99 @@ export class AuthService {
       });
     }
   }
+
+  async resetPassword({
+    token,
+    newPassword,
+  }: ResetPasswordInput): Promise<ResetPasswordResult> {
+    // CHECK REQUIRE FIELDS
+    if (!token || !newPassword) {
+      return new ResetPasswordFailure({
+        tokenError: !token ? "Token is required" : undefined,
+        newPasswordError: !newPassword ? "New Password is required" : undefined,
+      });
+    }
+
+    // CHECK IF TOKEN EXISTS
+    const resetPasswordToken = await this.prisma.resetPasswordToken.findUnique({
+      where: { token },
+      select: {
+        id: true,
+        user: {
+          select: {
+            id: true,
+          },
+        },
+        isValid: true,
+      },
+    });
+
+    if (!resetPasswordToken) {
+      return new ResetPasswordFailure({
+        tokenError: "Token not found",
+      });
+    }
+
+    // CHECK IF TOKEN IS VALID
+    if (!resetPasswordToken.isValid) {
+      return new ResetPasswordFailure({
+        tokenError: "Token is not valid",
+      });
+    }
+
+    // CHECK IF USER EXISTS
+    const user = await this.prisma.user.findUnique({
+      where: { id: resetPasswordToken.user.id },
+      select: {
+        id: true,
+        emailVerified: true,
+      },
+    });
+
+    if (!user) {
+      return new ResetPasswordFailure({
+        otherError: "User not found",
+      });
+    }
+
+    // CHECK IF USER IS VERIFIED
+    if (!user.emailVerified) {
+      return new ResetPasswordFailure({
+        otherError: "User is not verified",
+      });
+    }
+
+    // IS NEW PASSWORD STRONG
+    if (!isStrongPassword(newPassword)) {
+      return new ResetPasswordFailure({
+        newPasswordError: "Password is not strong enough",
+      });
+    }
+
+    // CHANGE PASSWORD
+    try {
+      const passwordHash = await argon.hash(newPassword);
+      await this.prisma.user.update({
+        where: { id: user.id },
+        data: {
+          password: passwordHash,
+        },
+      });
+
+      // Make Reset Password Token inactive
+      await this.prisma.resetPasswordToken.update({
+        where: { id: resetPasswordToken.id },
+        data: {
+          isValid: false,
+        },
+      });
+      return new ResetPasswordSuccess("Password changed successfully");
+    } catch {
+      return new ResetPasswordFailure({
+        otherError: "Failed to reset password",
+      });
+    }
+  }
 }
 
 // TODO's
@@ -435,4 +532,4 @@ export class AuthService {
 // 8. Sign up ✅
 // 9. Change password ✅
 // 10. Send reset password email with token ✅
-// 10. Reset password
+// 10. Reset password ✅
