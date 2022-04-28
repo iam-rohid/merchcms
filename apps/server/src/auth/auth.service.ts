@@ -3,6 +3,7 @@ import { PrismaService } from "src/global/prisma/prisma.service";
 import * as argon from "argon2";
 import { isValidEmail, getRandomCode, isStrongPassword } from "src/utilities";
 import {
+  ChangePasswordInput,
   EmailPasswordSignInInput,
   EmailPasswordSignUpInput,
   EmailVerificationInput,
@@ -21,6 +22,9 @@ import {
   ResendVerificationEmailFailure,
   ResendVerificationEmailSuccess,
   ResendVerificationEmailResult,
+  ChangePasswordResult,
+  ChangePasswordFailure,
+  ChangePasswordSuccess,
 } from "./results";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
@@ -264,6 +268,65 @@ export class AuthService {
     await this.emailService.sendEmailVerificationUrl(token, email);
     console.log("Verification Code Sent to ", email, token);
   }
+
+  async changePassword(
+    { oldPassword, newPassword }: ChangePasswordInput,
+    userId: string
+  ): Promise<ChangePasswordResult> {
+    // CHECK REQUIRE FIELDS
+    if (!oldPassword || !newPassword) {
+      return new ChangePasswordFailure({
+        oldPasswordError: !oldPassword ? "Old password is required" : undefined,
+        newPasswordError: !newPassword ? "New Password is required" : undefined,
+      });
+    }
+
+    // CHECK IF USER EXISTS
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: {
+        id: true,
+        password: true,
+      },
+    });
+    if (!user) {
+      return new ChangePasswordFailure({
+        otherError: "User not found",
+      });
+    }
+
+    // CHECK IF PASSWORD IS CORRECT
+    const isPasswordCorrect = await argon.verify(user.password, oldPassword);
+
+    if (!isPasswordCorrect) {
+      return new ChangePasswordFailure({
+        oldPasswordError: "Invalid password",
+      });
+    }
+
+    // IS NEW PASSWORD STRONG
+    if (!isStrongPassword(newPassword)) {
+      return new ChangePasswordFailure({
+        newPasswordError: "Password is not strong enough",
+      });
+    }
+
+    // CHANGE PASSWORD
+    try {
+      const passwordHash = await argon.hash(newPassword);
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: {
+          password: passwordHash,
+        },
+      });
+      return new ChangePasswordSuccess("Password changed successfully");
+    } catch {
+      return new ChangePasswordFailure({
+        otherError: "Failed to change password",
+      });
+    }
+  }
 }
 
 // TODO's
@@ -271,3 +334,8 @@ export class AuthService {
 // 2. Generate token ✅
 // 4. Check password strength ✅
 // 5. Resend verification code ✅
+// 6. Verify email ✅
+// 7. Sign in ✅
+// 8. Sign up ✅
+// 9. Change password ✅
+// 10. Forgot password

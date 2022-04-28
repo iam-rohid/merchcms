@@ -1,6 +1,11 @@
+import { UseGuards } from "@nestjs/common";
 import { Args, Mutation, Resolver } from "@nestjs/graphql";
+import { User } from "src/user/models";
+import { CurrentUser } from "src/utilities/decorators/current-user.decorator";
 import { AuthService } from "./auth.service";
+import { JwtAuthGuard } from "./gourds/jwt-auth.gourds";
 import {
+  ChangePasswordInput,
   EmailPasswordSignInInput,
   EmailPasswordSignUpInput,
   EmailVerificationInput,
@@ -15,6 +20,8 @@ import {
   EmailVerificationResult,
   ResendVerificationEmailResultUnion,
   ResendVerificationEmailResult,
+  ChangePasswordResultUnion,
+  ChangePasswordResult,
 } from "./results";
 
 @Resolver()
@@ -47,5 +54,14 @@ export class AuthResolver {
     @Args("input") input: ResendVerificationEmailInput
   ): Promise<ResendVerificationEmailResult> {
     return this.authService.resendVerificationEmail(input);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => ChangePasswordResultUnion)
+  changePassword(
+    @Args("input") input: ChangePasswordInput,
+    @CurrentUser() { id }: User
+  ): Promise<ChangePasswordResult> {
+    return this.authService.changePassword(input, id);
   }
 }
