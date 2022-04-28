@@ -29,19 +29,11 @@ export class AuthService {
     username,
   }: EmailPasswordSignUpInput): Promise<EmailPasswordSignUpResult> {
     // CHECK REQUIRE FIELDS
-    if (!username) {
+    if (!username || !email || !password) {
       return EmailPasswordSignUpFailure.requiredFields({
-        username: true,
-      });
-    }
-    if (!email) {
-      return EmailPasswordSignUpFailure.requiredFields({
-        email: true,
-      });
-    }
-    if (!password) {
-      return EmailPasswordSignUpFailure.requiredFields({
-        password: true,
+        username: !username || undefined,
+        email: !email || undefined,
+        password: !password || undefined,
       });
     }
 
@@ -108,14 +100,10 @@ export class AuthService {
     token,
   }: EmailVerificationInput): Promise<EmailVerificationResult> {
     // CHECK REQUIRE FIELDS
-    if (!email) {
+    if (!email || !token) {
       return EmailVerificationFailure.requiredFields({
-        email: true,
-      });
-    }
-    if (!token) {
-      return EmailVerificationFailure.requiredFields({
-        token: true,
+        email: !email || undefined,
+        token: !token || undefined,
       });
     }
 
@@ -168,14 +156,10 @@ export class AuthService {
     password,
   }: EmailPasswordSignInInput): Promise<EmailPasswordSignInResult> {
     // CHECK REQUIRE FIELDS
-    if (!email) {
+    if (!email || !password) {
       return EmailPasswordSignInFailure.requiredFields({
-        email: true,
-      });
-    }
-    if (!password) {
-      return EmailPasswordSignInFailure.requiredFields({
-        password: true,
+        email: !email || undefined,
+        password: !password || undefined,
       });
     }
 
