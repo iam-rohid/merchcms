@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/global/prisma/prisma.service";
 import * as argon from "argon2";
-import { isValidEmail, getRandomCode } from "src/utilities";
+import { isValidEmail, getRandomCode, isStrongPassword } from "src/utilities";
 import {
   EmailPasswordSignInInput,
   EmailPasswordSignUpInput,
@@ -80,9 +80,9 @@ export class AuthService {
     }
 
     // CHECK IF PASSWORD IS STRONG
-    // if (!isStrongPassword(password)) {
-    //   return EmailPasswordSignUpFailure.passwordIsNotStrong();
-    // }
+    if (!isStrongPassword(password)) {
+      return EmailPasswordSignUpFailure.passwordIsNotStrong();
+    }
 
     // HASH PASSWORD
     const passwordHash = await argon.hash(password);
@@ -269,5 +269,5 @@ export class AuthService {
 // TODO's
 // 1. Send verification code to email ✅
 // 2. Generate token ✅
-// 4. Check password strength
+// 4. Check password strength ✅
 // 5. Resend verification code ✅
