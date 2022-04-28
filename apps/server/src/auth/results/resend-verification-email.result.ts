@@ -11,10 +11,19 @@ export class ResendVerificationEmailSuccess {
 
 @ObjectType()
 export class ResendVerificationEmailFailure {
-  @Field(() => String)
-  message: string;
-  constructor(message: string) {
-    this.message = message;
+  @Field(() => String, { nullable: true })
+  emailError?: string;
+  @Field(() => String, { nullable: true })
+  otherError?: string;
+  constructor({
+    emailError,
+    otherError,
+  }: {
+    emailError?: string;
+    otherError?: string;
+  }) {
+    this.emailError = emailError;
+    this.otherError = otherError;
   }
 }
 

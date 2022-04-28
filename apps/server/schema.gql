@@ -94,7 +94,8 @@ type Query {
 }
 
 type ResendVerificationEmailFailure {
-  message: String!
+  emailError: String
+  otherError: String
 }
 
 input ResendVerificationEmailInput {

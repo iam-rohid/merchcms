@@ -1,13 +1,14 @@
 import { Injectable } from "@nestjs/common";
-import { PrismaService } from "src/global/prisma/prisma.service";
-import * as argon from "argon2";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
+import { EmailVerificationToken } from "@prisma/client";
+import * as argon from "argon2";
 import { User } from "src/user/models";
 import { Payload } from "src/types";
 import { isValidEmail, getRandomCode, isStrongPassword } from "src/utilities";
 import { JWT_SECRET_KEY } from "src/utilities/constants";
 import { EmailService } from "src/global/email/email.service";
+import { PrismaService } from "src/global/prisma/prisma.service";
 import {
   ChangePasswordInput,
   EmailPasswordSignInInput,
@@ -40,7 +41,6 @@ import {
   ResetPasswordFailure,
   ResetPasswordSuccess,
 } from "./results";
-import { EmailVerificationToken } from "@prisma/client";
 
 @Injectable()
 export class AuthService {
@@ -318,11 +318,15 @@ export class AuthService {
     });
 
     if (!user) {
-      return new ResendVerificationEmailFailure("User not found");
+      return new ResendVerificationEmailFailure({
+        emailError: "User not found",
+      });
     }
 
     if (user.emailVerified) {
-      return new ResendVerificationEmailFailure("User is already verified");
+      return new ResendVerificationEmailFailure({
+        emailError: "User is already verified",
+      });
     }
 
     try {
@@ -337,7 +341,9 @@ export class AuthService {
       );
       return new ResendVerificationEmailSuccess("Email sent successfully");
     } catch {
-      return new ResendVerificationEmailFailure("Failed to send email");
+      return new ResendVerificationEmailFailure({
+        otherError: "Failed to send verification email",
+      });
     }
   }
 
