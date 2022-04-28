@@ -4,6 +4,7 @@ import {
   EmailPasswordSignInInput,
   EmailPasswordSignUpInput,
   EmailVerificationInput,
+  ResendVerificationEmailInput,
 } from "./input";
 import {
   EmailPasswordSignUpResult,
@@ -12,6 +13,8 @@ import {
   EmailPasswordSignInResult,
   EmailVerificationResultUnion,
   EmailVerificationResult,
+  ResendVerificationEmailResultUnion,
+  ResendVerificationEmailResult,
 } from "./results";
 
 @Resolver()
@@ -37,5 +40,12 @@ export class AuthResolver {
     @Args("input") input: EmailVerificationInput
   ): Promise<EmailVerificationResult> {
     return this.authService.verifyEmail(input);
+  }
+
+  @Mutation(() => ResendVerificationEmailResultUnion)
+  resendVerificationEmail(
+    @Args("input") input: ResendVerificationEmailInput
+  ): Promise<ResendVerificationEmailResult> {
+    return this.authService.resendVerificationEmail(input);
   }
 }

@@ -65,11 +65,26 @@ type EmailVerificationSuccess {
 type Mutation {
   eamilPasswordSignIn(input: EmailPasswordSignInInput!): EmailPasswordSignInResult!
   eamilPasswordSignUp(input: EmailPasswordSignUpInput!): EmailPasswordSignUpResult!
+  resendVerificationEmail(input: ResendVerificationEmailInput!): ResendVerificationEmailResult!
   verifyEmail(input: EmailVerificationInput!): EmailVerificationResult!
 }
 
 type Query {
   getHello: String!
+}
+
+type ResendVerificationEmailFailure {
+  message: String!
+}
+
+input ResendVerificationEmailInput {
+  email: String!
+}
+
+union ResendVerificationEmailResult = ResendVerificationEmailFailure | ResendVerificationEmailSuccess
+
+type ResendVerificationEmailSuccess {
+  message: String!
 }
 
 type User {

@@ -6,6 +6,7 @@ import {
   EmailPasswordSignInInput,
   EmailPasswordSignUpInput,
   EmailVerificationInput,
+  ResendVerificationEmailInput,
 } from "./input";
 import {
   EmailPasswordSignInFailure,
@@ -17,19 +18,24 @@ import {
   EmailVerificationFailure,
   EmailVerificationResult,
   EmailVerificationSuccess,
+  ResendVerificationEmailFailure,
+  ResendVerificationEmailSuccess,
+  ResendVerificationEmailResult,
 } from "./results";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
 import { User } from "src/user/models";
 import { Payload } from "src/types";
 import { JWT_SECRET_KEY } from "src/utilities/constants";
+import { EmailService } from "src/global/email/email.service";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwtService: JwtService,
-    private readonly config: ConfigService
+    private readonly config: ConfigService,
+    private readonly emailService: EmailService
   ) {}
 
   async eamilPasswordSignUp({
@@ -93,8 +99,14 @@ export class AuthService {
       });
 
       // TODO: SEND VERIFICATION CODE TO EMAIL
-      console.log("User created", user);
-      console.log("User Code", user.emailVerificationToken);
+      try {
+        await this.sendVerificationEmail(
+          user.email,
+          user.emailVerificationToken
+        );
+      } catch {
+        return EmailPasswordSignUpFailure.otherError("Failed to send email");
+      }
 
       // RETURN SUCCESS
       return new EmailPasswordSignUpSuccess(user.email);
@@ -218,10 +230,44 @@ export class AuthService {
     });
     return token;
   }
+
+  async resendVerificationEmail({
+    email,
+  }: ResendVerificationEmailInput): Promise<ResendVerificationEmailResult> {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+      select: {
+        id: true,
+        email: true,
+        emailVerificationToken: true,
+        emailVerified: true,
+      },
+    });
+
+    if (!user) {
+      return new ResendVerificationEmailFailure("User not found");
+    }
+
+    if (user.emailVerified) {
+      return new ResendVerificationEmailFailure("User is already verified");
+    }
+
+    try {
+      await this.sendVerificationEmail(user.email, user.emailVerificationToken);
+      return new ResendVerificationEmailSuccess("Email sent successfully");
+    } catch {
+      return new ResendVerificationEmailFailure("Failed to send email");
+    }
+  }
+
+  async sendVerificationEmail(email: string, token: string): Promise<void> {
+    await this.emailService.sendEmailVerificationUrl(token, email);
+    console.log("Verification Code Sent to ", email, token);
+  }
 }
 
 // TODO's
-// 1. Send verification code to email
+// 1. Send verification code to email ✅
 // 2. Generate token ✅
-// 3. Verify token
 // 4. Check password strength
+// 5. Resend verification code ✅
