@@ -40,6 +40,7 @@ import {
   ResetPasswordFailure,
   ResetPasswordSuccess,
 } from "./results";
+import { EmailVerificationToken } from "@prisma/client";
 
 @Injectable()
 export class AuthService {
@@ -114,15 +115,19 @@ export class AuthService {
           username,
           email,
           password: passwordHash,
-          emailVerificationToken: getRandomCode(),
         },
       });
 
-      // TODO: SEND VERIFICATION CODE TO EMAIL
+      // GENERATE TOKEN
+      const emailVerificationToken = await this.createEmailVerificationToken(
+        userWithEmail.id
+      );
+
+      // SEND VERIFICATION CODE TO EMAIL
       try {
         await this.sendVerificationEmail(
           user.email,
-          user.emailVerificationToken
+          emailVerificationToken.token
         );
       } catch {
         return new EmailPasswordSignUpFailure({
@@ -157,10 +162,10 @@ export class AuthService {
       where: { email },
       select: {
         id: true,
-        emailVerificationToken: true,
         emailVerified: true,
       },
     });
+
     if (!userWithEmail) {
       return new EmailVerificationFailure({
         emailError: "No user with this email",
@@ -175,9 +180,28 @@ export class AuthService {
     }
 
     // CHECK IF TOKEN IS CORRECT
-    if (userWithEmail.emailVerificationToken !== token) {
+    const emailVerificationToken =
+      await this.prisma.emailVerificationToken.findUnique({
+        where: {
+          token,
+        },
+        select: {
+          isValid: true,
+          user: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+
+    if (
+      !emailVerificationToken ||
+      emailVerificationToken.user.id !== userWithEmail.id ||
+      !emailVerificationToken.isValid
+    ) {
       return new EmailVerificationFailure({
-        emailError: "Invalid verification token",
+        tokenError: "Token is not valid",
       });
     }
 
@@ -192,10 +216,20 @@ export class AuthService {
         },
       });
 
-      // TODO: GENERATE TOKEN
-      const token = await this.signToken(user);
+      // MAKE TOKEN INVALID
+      await this.prisma.emailVerificationToken.update({
+        where: {
+          token,
+        },
+        data: {
+          isValid: false,
+        },
+      });
+
+      // TODO: GENERATE ACCESS TOKEN
+      const accessToken = await this.signToken(user);
       // RETURN SUCCESS
-      return new EmailVerificationSuccess(user, token);
+      return new EmailVerificationSuccess(user, accessToken);
     } catch {
       // RETURN FAILURE
       return new EmailVerificationFailure({
@@ -279,7 +313,6 @@ export class AuthService {
       select: {
         id: true,
         email: true,
-        emailVerificationToken: true,
         emailVerified: true,
       },
     });
@@ -293,11 +326,36 @@ export class AuthService {
     }
 
     try {
-      await this.sendVerificationEmail(user.email, user.emailVerificationToken);
+      // GENERATE TOKEN
+      const emailVerificationToken = await this.createEmailVerificationToken(
+        user.id
+      );
+
+      await this.sendVerificationEmail(
+        user.email,
+        emailVerificationToken.token
+      );
       return new ResendVerificationEmailSuccess("Email sent successfully");
     } catch {
       return new ResendVerificationEmailFailure("Failed to send email");
     }
+  }
+
+  async createEmailVerificationToken(
+    userId: string
+  ): Promise<EmailVerificationToken> {
+    const emailVerificationToken =
+      await this.prisma.emailVerificationToken.create({
+        data: {
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+          token: getRandomCode(5),
+        },
+      });
+    return emailVerificationToken;
   }
 
   async sendVerificationEmail(email: string, token: string): Promise<void> {
@@ -521,15 +579,3 @@ export class AuthService {
     }
   }
 }
-
-// TODO's
-// 1. Send verification code to email ✅
-// 2. Generate token ✅
-// 4. Check password strength ✅
-// 5. Resend verification code ✅
-// 6. Verify email ✅
-// 7. Sign in ✅
-// 8. Sign up ✅
-// 9. Change password ✅
-// 10. Send reset password email with token ✅
-// 10. Reset password ✅

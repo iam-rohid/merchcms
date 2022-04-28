@@ -11,18 +11,30 @@ datasource db {
 }
 
 model User {
-  id                     String               @id @default(cuid())
-  createdAt              DateTime             @default(now())
-  updatedAt              DateTime             @updatedAt
+  id                      String                   @id @default(cuid())
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
   // Fields
-  username               String               @unique
-  email                  String               @unique
-  password               String
-  emailVerified          Boolean              @default(false)
-  emailVerificationToken String               @default(cuid())
+  username                String                   @unique
+  email                   String                   @unique
+  password                String
+  emailVerified           Boolean                  @default(false)
   // Relations
-  profile                Profile?
-  resetPasswordTokens    ResetPasswordToken[]
+  profile                 Profile?
+  eamilVerificationTokens EmailVerificationToken[]
+  resetPasswordTokens     ResetPasswordToken[]
+}
+
+model EmailVerificationToken {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // Fields
+  token     String   @unique @default(cuid())
+  isValid   Boolean  @default(true)
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
 }
 
 model ResetPasswordToken {
@@ -33,7 +45,7 @@ model ResetPasswordToken {
   token     String   @unique @default(cuid())
   isValid   Boolean  @default(true)
   // Relations
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 }
 
@@ -44,6 +56,6 @@ model Profile {
   // Fields
   name      String
   // Relations
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String   @unique
 }

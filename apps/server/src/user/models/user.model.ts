@@ -15,5 +15,4 @@ export class User {
   @Field(() => Boolean)
   emailVerified: boolean;
   password: string;
-  emailVerificationToken: string;
 }
