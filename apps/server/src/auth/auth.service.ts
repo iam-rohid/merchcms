@@ -28,10 +28,20 @@ export class AuthService {
     password,
     username,
   }: EmailPasswordSignUpInput): Promise<EmailPasswordSignUpResult> {
-    // CHECK IF USERNAME PROVIDED
+    // CHECK REQUIRE FIELDS
     if (!username) {
       return EmailPasswordSignUpFailure.requiredFields({
         username: true,
+      });
+    }
+    if (!email) {
+      return EmailPasswordSignUpFailure.requiredFields({
+        email: true,
+      });
+    }
+    if (!password) {
+      return EmailPasswordSignUpFailure.requiredFields({
+        password: true,
       });
     }
 
@@ -44,13 +54,6 @@ export class AuthService {
     });
     if (!!userWithUsername) {
       return EmailPasswordSignUpFailure.usernameAlreadyExists();
-    }
-
-    // CHECK IF EMAIL PROVIDED
-    if (!email) {
-      return EmailPasswordSignUpFailure.requiredFields({
-        email: true,
-      });
     }
 
     // CHECK IF VALID EMAIL
@@ -104,14 +107,12 @@ export class AuthService {
     email,
     token,
   }: EmailVerificationInput): Promise<EmailVerificationResult> {
-    // CHECK IF EMAIL PROVIDED
+    // CHECK REQUIRE FIELDS
     if (!email) {
       return EmailVerificationFailure.requiredFields({
         email: true,
       });
     }
-
-    // CHECK IF TOKEN PROVIDED
     if (!token) {
       return EmailVerificationFailure.requiredFields({
         token: true,
