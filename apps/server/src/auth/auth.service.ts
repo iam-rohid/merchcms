@@ -120,7 +120,7 @@ export class AuthService {
 
       // GENERATE TOKEN
       const emailVerificationToken = await this.createEmailVerificationToken(
-        userWithEmail.id
+        user.id
       );
 
       // SEND VERIFICATION CODE TO EMAIL
@@ -186,7 +186,7 @@ export class AuthService {
           token,
         },
         select: {
-          isValid: true,
+          expiresAt: true,
           user: {
             select: {
               id: true,
@@ -198,7 +198,7 @@ export class AuthService {
     if (
       !emailVerificationToken ||
       emailVerificationToken.user.id !== userWithEmail.id ||
-      !emailVerificationToken.isValid
+      emailVerificationToken.expiresAt < new Date()
     ) {
       return new EmailVerificationFailure({
         tokenError: "Token is not valid",
@@ -222,7 +222,7 @@ export class AuthService {
           token,
         },
         data: {
-          isValid: false,
+          expiresAt: new Date(Date.now() - 1),
         },
       });
 
@@ -353,6 +353,7 @@ export class AuthService {
             },
           },
           token: getRandomCode(5),
+          expiresAt: new Date(Date.now() + 86400), // 1 day,
         },
       });
     return emailVerificationToken;
@@ -467,6 +468,7 @@ export class AuthService {
             id: user.id,
           },
         },
+        expiresAt: new Date(Date.now() + 86400), // 1 day,
       },
     });
 
@@ -508,7 +510,7 @@ export class AuthService {
             id: true,
           },
         },
-        isValid: true,
+        expiresAt: true,
       },
     });
 
@@ -519,9 +521,9 @@ export class AuthService {
     }
 
     // CHECK IF TOKEN IS VALID
-    if (!resetPasswordToken.isValid) {
+    if (resetPasswordToken.expiresAt < new Date()) {
       return new ResetPasswordFailure({
-        tokenError: "Token is not valid",
+        tokenError: "Token has expired",
       });
     }
 
@@ -568,7 +570,7 @@ export class AuthService {
       await this.prisma.resetPasswordToken.update({
         where: { id: resetPasswordToken.id },
         data: {
-          isValid: false,
+          expiresAt: new Date(Date.now() - 1),
         },
       });
       return new ResetPasswordSuccess("Password changed successfully");

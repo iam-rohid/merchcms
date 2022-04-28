@@ -31,7 +31,7 @@ model EmailVerificationToken {
   updatedAt DateTime @updatedAt
   // Fields
   token     String   @unique @default(cuid())
-  isValid   Boolean  @default(true)
+  expiresAt DateTime
   // Relations
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
@@ -43,7 +43,7 @@ model ResetPasswordToken {
   updatedAt DateTime @updatedAt
   // Fields
   token     String   @unique @default(cuid())
-  isValid   Boolean  @default(true)
+  expiresAt DateTime
   // Relations
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
