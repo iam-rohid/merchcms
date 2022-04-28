@@ -40,7 +40,7 @@ export class EmailPasswordSignUpFailure {
 
   static invalidEmail(): EmailPasswordSignUpFailure {
     return new EmailPasswordSignUpFailure({
-      emailError: "Invalid email",
+      emailError: "Email is not valid",
     });
   }
 
@@ -52,7 +52,7 @@ export class EmailPasswordSignUpFailure {
 
   static usernameAlreadyExists(): EmailPasswordSignUpFailure {
     return new EmailPasswordSignUpFailure({
-      usernameError: "Username already exists",
+      usernameError: "Username already taken",
     });
   }
 

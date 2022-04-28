@@ -18,10 +18,19 @@ import {
   EmailVerificationResult,
   EmailVerificationSuccess,
 } from "./results";
+import { JwtService } from "@nestjs/jwt";
+import { ConfigService } from "@nestjs/config";
+import { User } from "src/user/models";
+import { Payload } from "src/types";
+import { JWT_SECRET_KEY } from "src/utilities/constants";
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+    private readonly config: ConfigService
+  ) {}
 
   async eamilPasswordSignUp({
     email,
@@ -142,7 +151,7 @@ export class AuthService {
       });
 
       // TODO: GENERATE TOKEN
-      const token = "SecretToken";
+      const token = await this.signToken(user);
       // RETURN SUCCESS
       return new EmailVerificationSuccess(user, token);
     } catch {
@@ -161,6 +170,10 @@ export class AuthService {
         email: !email || undefined,
         password: !password || undefined,
       });
+    }
+
+    if (!isValidEmail(email)) {
+      return EmailPasswordSignInFailure.invalidEmail();
     }
 
     // CHECK IF USER EXISTS
@@ -186,15 +199,29 @@ export class AuthService {
     }
 
     // TODO: GENERATE TOKEN
-    const token = "SecretToken";
+    const token = await this.signToken(userWithEmail);
 
     // RETURN SUCCESS
     return new EmailPasswordSignInSuccess(userWithEmail, token);
+  }
+
+  async signToken(user: User): Promise<string> {
+    const payload: Payload = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    };
+
+    const token = await this.jwtService.sign(payload, {
+      expiresIn: 3.154e10, // 1 years
+      secret: this.config.get(JWT_SECRET_KEY),
+    });
+    return token;
   }
 }
 
 // TODO's
 // 1. Send verification code to email
-// 2. Generate token
+// 2. Generate token ✅
 // 3. Verify token
 // 4. Check password strength
