@@ -5,7 +5,6 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { join } from "path";
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
-import { SessionModule } from "./session/session.module";
 import { GlobalModule } from "./global/global.module";
 import { PassportModule } from "@nestjs/passport";
 
@@ -25,7 +24,6 @@ import { PassportModule } from "@nestjs/passport";
     }),
     UserModule,
     AuthModule,
-    SessionModule,
     GlobalModule,
     PassportModule,
   ],
