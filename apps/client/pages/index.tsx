@@ -1,16 +1,46 @@
+import {
+  useFindProfileQuery,
+  useFindUserQuery,
+  useSignUpWithEmailPasswordMutation,
+} from "generated/graphql";
 import HomeLayout from "layouts/home-layout";
-import { GetServerSideProps } from "next";
+import { useEffect } from "react";
 import { CustomNextPage } from "types/next.type";
 
 const Index: CustomNextPage = () => {
+  useFindProfileQuery({
+    variables: {
+      input: {
+        username: "rohid",
+      },
+    },
+    onCompleted: ({ findProfile }) => {
+      console.log(findProfile);
+    },
+  });
+  useFindUserQuery({
+    variables: {
+      input: {
+        username: "rohid",
+      },
+    },
+    onCompleted: ({ findUser }) => {
+      console.log(findUser);
+    },
+  });
+
+  const [singUpMutation, { data, loading }] =
+    useSignUpWithEmailPasswordMutation({
+      onCompleted: ({ eamilPasswordSignUp }) => {
+        console.log(eamilPasswordSignUp);
+      },
+    });
+
+  useEffect(() => {}, []);
+
   return <div>Home Page</div>;
 };
 
-export default Index;
-Index.getLayout = (page) => <HomeLayout children={page} />;
+Index.getLayout = (page) => <HomeLayout>{page}</HomeLayout>;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {
-    props: {},
-  };
-};
+export default Index;

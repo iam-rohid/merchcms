@@ -1,0 +1,132 @@
+mutation SignInWithEmailPassword(
+  $emailPasswordSignInInput: EmailPasswordSignInInput!
+) {
+  eamilPasswordSignIn(input: $emailPasswordSignInInput) {
+    __typename
+    ... on EmailPasswordSignInFailure {
+      emailError
+      passwordError
+      otherError
+    }
+    ... on EmailPasswordSignInSuccess {
+      user {
+        id
+        username
+        email
+      }
+      token
+    }
+  }
+}
+
+mutation SignUpWithEmailPassword(
+  $emailPasswordSignUpInput: EmailPasswordSignUpInput!
+) {
+  eamilPasswordSignUp(input: $emailPasswordSignUpInput) {
+    __typename
+    ... on EmailPasswordSignUpFailure {
+      usernameError
+      emailError
+      passwordError
+      otherError
+    }
+    ... on EmailPasswordSignUpSuccess {
+      email
+    }
+  }
+}
+
+mutation ResendVerificationEmail(
+  $resendVerificationEmailInput: ResendVerificationEmailInput!
+) {
+  resendVerificationEmail(input: $resendVerificationEmailInput) {
+    __typename
+    ... on ResendVerificationEmailFailure {
+      emailError
+      otherError
+    }
+    ... on ResendVerificationEmailSuccess {
+      message
+    }
+  }
+}
+
+mutation VerifyEmail($verifyEmailInput: EmailVerificationInput!) {
+  verifyEmail(input: $verifyEmailInput) {
+    __typename
+    ... on EmailVerificationFailure {
+      tokenError
+      emailError
+      otherError
+    }
+    ... on EmailVerificationSuccess {
+      user {
+        id
+        username
+        email
+        emailVerified
+      }
+      token
+    }
+  }
+}
+
+mutation ChangePassword($changePasswordInput: ChangePasswordInput!) {
+  changePassword(input: $changePasswordInput) {
+    __typename
+    ... on ChangePasswordFailure {
+      newPasswordError
+      oldPasswordError
+      otherError
+    }
+    ... on ChangePasswordSuccess {
+      message
+    }
+  }
+}
+
+mutation SendResetPasswordEmail(
+  $sendResetPasswordEmailInput: SendResetPasswordEmailInput!
+) {
+  sendResetPasswordEmail(input: $sendResetPasswordEmailInput) {
+    __typename
+    ... on SendResetPasswordEmailFailure {
+      emailError
+      otherError
+    }
+    ... on SendResetPasswordEmailSuccess {
+      message
+    }
+  }
+}
+
+mutation ResetPassword($resetPasswordInput: ResetPasswordInput!) {
+  resetPassword(input: $resetPasswordInput) {
+    __typename
+    ... on ResetPasswordFailure {
+      tokenError
+      newPasswordError
+      otherError
+    }
+    ... on ResetPasswordSuccess {
+      message
+    }
+  }
+}
+
+mutation UpdateProfile($updateProfileInput: UpdateProfileInput!) {
+  updateProfile(input: $updateProfileInput) {
+    __typename
+    ... on UpdateProfileFailure {
+      nameError
+      otherError
+    }
+    ... on UpdateProfileSuccess {
+      updatedProfile {
+        id
+        name
+        bio
+      }
+    }
+  }
+}

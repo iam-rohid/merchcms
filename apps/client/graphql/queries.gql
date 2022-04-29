@@ -1,0 +1,30 @@
+query FindProfile($input: FindProfileInput!) {
+  findProfile(input: $input) {
+    __typename
+    ... on FindProfileFailure {
+      message
+    }
+    ... on FindProfileSuccess {
+      profile {
+        id
+        name
+        bio
+      }
+    }
+  }
+}
+
+query FindUser($input: FindUserInput!) {
+  findUser(input: $input) {
+    __typename
+    ... on FindUserFailure {
+      message
+    }
+    ... on FindUserSuccess {
+      user {
+        id
+        username
+      }
+    }
+  }
+}
