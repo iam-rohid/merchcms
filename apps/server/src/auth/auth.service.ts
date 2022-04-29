@@ -118,6 +118,17 @@ export class AuthService {
         },
       });
 
+      // CREATE PROFILE FOR USER
+      await this.prisma.profile.create({
+        data: {
+          user: {
+            connect: {
+              id: user.id,
+            },
+          },
+        },
+      });
+
       // GENERATE TOKEN
       const emailVerificationToken = await this.createEmailVerificationToken(
         user.id

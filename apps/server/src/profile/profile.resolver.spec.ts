@@ -1,7 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ProfileResolver } from './profile.resolver';
+import { Test, TestingModule } from "@nestjs/testing";
+import { ProfileResolver } from "./profile.resolver";
 
-describe('ProfileResolver', () => {
+describe("ProfileResolver", () => {
   let resolver: ProfileResolver;
 
   beforeEach(async () => {
@@ -12,7 +12,7 @@ describe('ProfileResolver', () => {
     resolver = module.get<ProfileResolver>(ProfileResolver);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(resolver).toBeDefined();
   });
 });

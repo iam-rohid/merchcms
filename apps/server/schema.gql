@@ -79,6 +79,22 @@ type EmailVerificationSuccess {
   user: User!
 }
 
+type FindProfileFailure {
+  message: String!
+}
+
+input FindProfileInput {
+  id: ID
+  userId: ID
+  username: String
+}
+
+union FindProfileResult = FindProfileFailure | FindProfileSuccess
+
+type FindProfileSuccess {
+  profile: Profile!
+}
+
 type Mutation {
   changePassword(input: ChangePasswordInput!): ChangePasswordResult!
   eamilPasswordSignIn(input: EmailPasswordSignInInput!): EmailPasswordSignInResult!
@@ -89,8 +105,19 @@ type Mutation {
   verifyEmail(input: EmailVerificationInput!): EmailVerificationResult!
 }
 
+type Profile {
+  createdAt: DateTime!
+  id: ID!
+  name: String
+  updatedAt: DateTime!
+  user: User
+  userId: ID!
+}
+
 type Query {
+  currentProfile: Profile!
   currentUser: User!
+  findProfile(input: FindProfileInput!): FindProfileResult!
 }
 
 type ResendVerificationEmailFailure {
@@ -145,6 +172,7 @@ type User {
   email: String!
   emailVerified: Boolean!
   id: String!
+  profile: Profile
   updatedAt: DateTime!
   username: String!
 }
