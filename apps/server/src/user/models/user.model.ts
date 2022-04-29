@@ -1,9 +1,10 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Profile } from "src/profile/models";
+import { Role } from "src/utilities/enums";
 
 @ObjectType()
 export class User {
-  @Field(() => String)
+  @Field(() => ID)
   id: string;
   @Field(() => Date)
   createdAt: Date;
@@ -16,6 +17,8 @@ export class User {
   email: string;
   @Field(() => Boolean)
   emailVerified: boolean;
+  @Field(() => Role)
+  role: string;
 
   password: string;
 

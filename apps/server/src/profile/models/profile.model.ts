@@ -12,6 +12,8 @@ export class Profile {
 
   @Field(() => String, { nullable: true })
   name?: string;
+  @Field(() => String, { nullable: true })
+  bio?: string;
 
   @Field(() => User, { nullable: true })
   user?: User;

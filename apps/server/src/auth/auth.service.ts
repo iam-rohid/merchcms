@@ -4,7 +4,7 @@ import { ConfigService } from "@nestjs/config";
 import { EmailVerificationToken } from "@prisma/client";
 import * as argon from "argon2";
 import { User } from "src/user/models";
-import { Payload } from "src/types";
+import { Payload } from "src/utilities/types";
 import { isValidEmail, getRandomCode, isStrongPassword } from "src/utilities";
 import { JWT_SECRET_KEY } from "src/utilities/constants";
 import { EmailService } from "src/global/email/email.service";

@@ -4,7 +4,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JWT, JWT_SECRET_KEY } from "src/utilities/constants";
 import { PrismaService } from "src/global/prisma/prisma.service";
-import { Payload } from "src/types";
+import { Payload } from "src/utilities/types";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, JWT) {

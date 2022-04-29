@@ -102,10 +102,12 @@ type Mutation {
   resendVerificationEmail(input: ResendVerificationEmailInput!): ResendVerificationEmailResult!
   resetPassword(input: ResetPasswordInput!): ResetPasswordResult!
   sendResetPasswordEmail(input: SendResetPasswordEmailInput!): SendResetPasswordEmailResult!
+  updateProfile(input: UpdateProfileInput!): UpdateProfileResult!
   verifyEmail(input: EmailVerificationInput!): EmailVerificationResult!
 }
 
 type Profile {
+  bio: String
   createdAt: DateTime!
   id: ID!
   name: String
@@ -152,6 +154,11 @@ type ResetPasswordSuccess {
   message: String!
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 type SendResetPasswordEmailFailure {
   emailError: String
   otherError: String
@@ -167,12 +174,30 @@ type SendResetPasswordEmailSuccess {
   message: String!
 }
 
+type UpdateProfileFailure {
+  nameError: String
+  otherError: String
+}
+
+input UpdateProfileInput {
+  bio: String
+  id: ID!
+  name: String
+}
+
+union UpdateProfileResult = UpdateProfileFailure | UpdateProfileSuccess
+
+type UpdateProfileSuccess {
+  updatedProfile: Profile!
+}
+
 type User {
   createdAt: DateTime!
   email: String!
   emailVerified: Boolean!
-  id: String!
+  id: ID!
   profile: Profile
+  role: Role!
   updatedAt: DateTime!
   username: String!
 }

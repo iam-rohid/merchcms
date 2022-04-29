@@ -1,12 +1,24 @@
 import { UseGuards } from "@nestjs/common";
-import { Args, Parent, Query, ResolveField, Resolver } from "@nestjs/graphql";
+import {
+  Args,
+  Mutation,
+  Parent,
+  Query,
+  ResolveField,
+  Resolver,
+} from "@nestjs/graphql";
 import { JwtAuthGuard } from "src/auth/gourds/jwt-auth.gourds";
 import { User } from "src/user/models";
 import { CurrentUser } from "src/utilities/decorators/current-user.decorator";
-import { FindProfileInput } from "./inputs";
+import { FindProfileInput, UpdateProfileInput } from "./inputs";
 import { Profile } from "./models";
 import { ProfileService } from "./profile.service";
-import { FindProfileResult, FindProfileResultUnion } from "./results";
+import {
+  FindProfileResult,
+  FindProfileResultUnion,
+  UpdateProfileResult,
+  UpdateProfileResultUnion,
+} from "./results";
 
 @Resolver(() => Profile)
 export class ProfileResolver {
@@ -23,6 +35,15 @@ export class ProfileResolver {
     @Args("input") input: FindProfileInput
   ): Promise<FindProfileResult> {
     return this.profileService.findProfile(input);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Mutation(() => UpdateProfileResultUnion)
+  async updateProfile(
+    @CurrentUser() user: User,
+    @Args("input") input: UpdateProfileInput
+  ): Promise<UpdateProfileResult> {
+    return this.profileService.updateProfile(input, user.id);
   }
 
   @ResolveField(() => User)
