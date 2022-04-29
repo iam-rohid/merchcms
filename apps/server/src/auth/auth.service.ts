@@ -299,7 +299,7 @@ export class AuthService {
     };
 
     const token = await this.jwtService.sign(payload, {
-      expiresIn: 3.154e10, // 1 years
+      expiresIn: "1y",
       secret: this.config.get(JWT_SECRET_KEY),
     });
     return token;
