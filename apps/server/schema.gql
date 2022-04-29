@@ -95,6 +95,22 @@ type FindProfileSuccess {
   profile: Profile!
 }
 
+type FindUserFailure {
+  message: String!
+}
+
+input FindUserInput {
+  email: String
+  id: ID
+  username: String
+}
+
+union FindUserResult = FindUserFailure | FindUserSuccess
+
+type FindUserSuccess {
+  user: User!
+}
+
 type Mutation {
   changePassword(input: ChangePasswordInput!): ChangePasswordResult!
   eamilPasswordSignIn(input: EmailPasswordSignInInput!): EmailPasswordSignInResult!
@@ -120,6 +136,7 @@ type Query {
   currentProfile: Profile!
   currentUser: User!
   findProfile(input: FindProfileInput!): FindProfileResult!
+  findUser(input: FindUserInput!): FindUserResult!
 }
 
 type ResendVerificationEmailFailure {
