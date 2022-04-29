@@ -4,7 +4,7 @@ import React, { HTMLAttributes, ReactNode } from "react";
 import { MdArrowBackIosNew } from "react-icons/md";
 import Container from "components/container";
 import NavigationColumn from "components/navigation-column";
-import { Menu } from "types";
+import { Menu } from "src/types";
 import { useRouter } from "next/router";
 
 export type SettingsLayoutProps = HTMLAttributes<HTMLDivElement> & {

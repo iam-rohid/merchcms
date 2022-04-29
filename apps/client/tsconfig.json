@@ -5,9 +5,7 @@
     "paths": {
       "pages/*": ["pages/*"],
       "components/*": ["components/*"],
-      "data/*": ["data/*"],
-      "layouts/*": ["layouts/*"],
-      "types/*": ["types/*"]
+      "src/*": ["src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

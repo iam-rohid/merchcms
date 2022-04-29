@@ -1,8 +1,8 @@
 import { ApolloProvider } from "@apollo/client";
 import SEO from "components/SEO";
-import { ColorSchemeProvider } from "hooks/color-scheme";
+import { ColorSchemeProvider } from "src/hooks/color-scheme";
 import { apolloClient } from "src/utils/apollo-client";
-import { CustomAppProps } from "types";
+import { CustomAppProps } from "src/types";
 import "./app.css";
 
 const App = ({ Component, pageProps }: CustomAppProps) => {

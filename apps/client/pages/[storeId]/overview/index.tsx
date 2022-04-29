@@ -4,7 +4,7 @@ import ProductCard from "components/cards/product-card";
 import Container from "components/container";
 import Select from "components/select";
 import SEO from "components/SEO";
-import StoreDashboardLayout from "layouts/common-layouts/store-dashboard-layout";
+import StoreDashboardLayout from "components/layouts/common-layouts/store-dashboard-layout";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
@@ -18,8 +18,8 @@ import {
   MdSearch,
   MdShoppingCart,
 } from "react-icons/md";
-import { CustomNextPage } from "types/next.type";
-import { Product } from "types/product.type";
+import { CustomNextPage } from "src/types/next.type";
+import { Product } from "src/types/product.type";
 
 const products: Product[] = [
   {

@@ -1,4 +1,4 @@
-import HomeLayout from "layouts/home-layout";
+import HomeLayout from "components/layouts/home-layout";
 import React, { ReactNode } from "react";
 
 export type LoginLayoutProps = {

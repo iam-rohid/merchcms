@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import Link from "next/link";
 import React, { HTMLAttributes } from "react";
-import { Menu } from "types";
+import { Menu } from "src/types";
 import Container from "components/container";
 import { useRouter } from "next/router";
 

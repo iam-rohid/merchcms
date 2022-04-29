@@ -5,7 +5,7 @@ import {
   Item,
   Root,
 } from "@radix-ui/react-dropdown-menu";
-import { DropdownItemType } from "types/dropdown-menu.type";
+import { DropdownItemType } from "src/types/dropdown-menu.type";
 import DropdownContent from "./dropdown-content";
 import { MdChevronRight } from "react-icons/md";
 import classNames from "classnames";

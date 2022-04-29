@@ -1,5 +1,5 @@
-import { CustomNextPage } from "types";
-import AppSettingsLayout from "layouts/common-layouts/app-settings-layout";
+import { CustomNextPage } from "src/types";
+import AppSettingsLayout from "components/layouts/common-layouts/app-settings-layout";
 import SEO from "components/SEO";
 
 const BillingPage: CustomNextPage = () => {

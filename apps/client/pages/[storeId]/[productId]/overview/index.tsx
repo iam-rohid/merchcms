@@ -1,6 +1,6 @@
-import ProductDashboardLayout from "layouts/common-layouts/product-dashboard-layout";
+import ProductDashboardLayout from "components/layouts/common-layouts/product-dashboard-layout";
 import React from "react";
-import { CustomNextPage } from "types/next.type";
+import { CustomNextPage } from "src/types/next.type";
 
 const ProductOverviewPage: CustomNextPage = () => {
   return <div>ProductOverviewPage</div>;

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { HTMLAttributes } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
-import { Menu } from "types";
+import { Menu } from "src/types";
 
 export interface FullScreenMenuProps extends HTMLAttributes<HTMLDivElement> {
   menu: Menu;

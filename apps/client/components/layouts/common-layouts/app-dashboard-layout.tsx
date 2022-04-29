@@ -1,6 +1,6 @@
-import { userDashboardMenu } from "data/app-dashboard-menu";
-import AppLayout from "layouts/app-layout";
-import DashboardLayout from "layouts/dashbaord-layout";
+import { userDashboardMenu } from "src/data/app-dashboard-menu";
+import AppLayout from "components/layouts/app-layout";
+import DashboardLayout from "components/layouts/dashbaord-layout";
 import React, { ReactNode } from "react";
 
 const AppDashboardLayout = ({

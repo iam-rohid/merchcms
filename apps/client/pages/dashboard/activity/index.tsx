@@ -1,5 +1,5 @@
-import { CustomNextPage } from "types";
-import AppDashboardLayout from "layouts/common-layouts/app-dashboard-layout";
+import { CustomNextPage } from "src/types";
+import AppDashboardLayout from "components/layouts/common-layouts/app-dashboard-layout";
 import SEO from "components/SEO";
 
 const ActivityPage: CustomNextPage = () => {

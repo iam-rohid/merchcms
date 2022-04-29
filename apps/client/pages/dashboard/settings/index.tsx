@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MenuList from "components/menu-list";
-import { appSettingsMenu } from "data/app-settings-menu";
-import { CustomNextPage } from "types";
+import { appSettingsMenu } from "src/data/app-settings-menu";
+import { CustomNextPage } from "src/types";
 import GeneralPage from "./general";
-import AppSettingsLayout from "layouts/common-layouts/app-settings-layout";
+import AppSettingsLayout from "components/layouts/common-layouts/app-settings-layout";
 import SEO from "components/SEO";
 
 const SettingsPage: CustomNextPage = () => {

@@ -1,5 +1,5 @@
-import { appSettingsMenu, appSettingsPath } from "data/app-settings-menu";
-import SettingsLayout from "layouts/settings-layout";
+import { appSettingsMenu, appSettingsPath } from "src/data/app-settings-menu";
+import SettingsLayout from "components/layouts/settings-layout";
 import React, { ReactNode } from "react";
 import AppDashboardLayout from "./app-dashboard-layout";
 

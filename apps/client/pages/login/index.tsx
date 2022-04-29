@@ -1,9 +1,9 @@
 import Button from "components/button";
 import Container from "components/container";
 import SEO from "components/SEO";
-import LoginLayout from "layouts/login-layout";
+import LoginLayout from "components/layouts/login-layout";
 import React from "react";
-import { CustomNextPage } from "types/next.type";
+import { CustomNextPage } from "src/types/next.type";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 
 const LogInPage: CustomNextPage = () => {

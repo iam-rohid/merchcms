@@ -1,6 +1,6 @@
-import { storeDashboardMenu } from "data/store-dashboard-menu";
-import AppLayout from "layouts/app-layout";
-import DashboardLayout from "layouts/dashbaord-layout";
+import { storeDashboardMenu } from "src/data/store-dashboard-menu";
+import AppLayout from "components/layouts/app-layout";
+import DashboardLayout from "components/layouts/dashbaord-layout";
 import { useRouter } from "next/router";
 import React, { ReactNode } from "react";
 

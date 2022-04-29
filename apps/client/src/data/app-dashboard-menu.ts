@@ -1,4 +1,4 @@
-import { Menu } from "types";
+import { Menu } from "src/types";
 
 export const appDashboardPath = "/dashboard";
 

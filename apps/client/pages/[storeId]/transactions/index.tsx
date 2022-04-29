@@ -1,5 +1,5 @@
 import SEO from "components/SEO";
-import StoreDashboardLayout from "layouts/common-layouts/store-dashboard-layout";
+import StoreDashboardLayout from "components/layouts/common-layouts/store-dashboard-layout";
 import React, { ReactElement } from "react";
 
 const TransactionsPage = () => {

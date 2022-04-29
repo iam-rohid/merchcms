@@ -1,7 +1,17 @@
-mutation SignInWithEmailPassword(
-  $emailPasswordSignInInput: EmailPasswordSignInInput!
-) {
-  eamilPasswordSignIn(input: $emailPasswordSignInInput) {
+query CheckUserExistsWithEmail($email: String!) {
+  findUser(input: { email: $email }) {
+    __typename
+  }
+}
+
+query CheckUserExistsWithUsername($username: String!) {
+  findUser(input: { username: $username }) {
+    __typename
+  }
+}
+
+mutation SignInWithEmailPassword($input: EmailPasswordSignInInput!) {
+  eamilPasswordSignIn(input: $input) {
     __typename
     ... on EmailPasswordSignInFailure {
       emailError
@@ -19,10 +29,8 @@ mutation SignInWithEmailPassword(
   }
 }
 
-mutation SignUpWithEmailPassword(
-  $emailPasswordSignUpInput: EmailPasswordSignUpInput!
-) {
-  eamilPasswordSignUp(input: $emailPasswordSignUpInput) {
+mutation SignUpWithEmailPassword($input: EmailPasswordSignUpInput!) {
+  eamilPasswordSignUp(input: $input) {
     __typename
     ... on EmailPasswordSignUpFailure {
       usernameError
@@ -36,10 +44,8 @@ mutation SignUpWithEmailPassword(
   }
 }
 
-mutation ResendVerificationEmail(
-  $resendVerificationEmailInput: ResendVerificationEmailInput!
-) {
-  resendVerificationEmail(input: $resendVerificationEmailInput) {
+mutation ResendVerificationEmail($input: ResendVerificationEmailInput!) {
+  resendVerificationEmail(input: $input) {
     __typename
     ... on ResendVerificationEmailFailure {
       emailError
@@ -51,8 +57,8 @@ mutation ResendVerificationEmail(
   }
 }
 
-mutation VerifyEmail($verifyEmailInput: EmailVerificationInput!) {
-  verifyEmail(input: $verifyEmailInput) {
+mutation VerifyEmail($input: EmailVerificationInput!) {
+  verifyEmail(input: $input) {
     __typename
     ... on EmailVerificationFailure {
       tokenError
@@ -71,8 +77,8 @@ mutation VerifyEmail($verifyEmailInput: EmailVerificationInput!) {
   }
 }
 
-mutation ChangePassword($changePasswordInput: ChangePasswordInput!) {
-  changePassword(input: $changePasswordInput) {
+mutation ChangePassword($input: ChangePasswordInput!) {
+  changePassword(input: $input) {
     __typename
     ... on ChangePasswordFailure {
       newPasswordError
@@ -85,10 +91,8 @@ mutation ChangePassword($changePasswordInput: ChangePasswordInput!) {
   }
 }
 
-mutation SendResetPasswordEmail(
-  $sendResetPasswordEmailInput: SendResetPasswordEmailInput!
-) {
-  sendResetPasswordEmail(input: $sendResetPasswordEmailInput) {
+mutation SendResetPasswordEmail($input: SendResetPasswordEmailInput!) {
+  sendResetPasswordEmail(input: $input) {
     __typename
     ... on SendResetPasswordEmailFailure {
       emailError
@@ -100,8 +104,8 @@ mutation SendResetPasswordEmail(
   }
 }
 
-mutation ResetPassword($resetPasswordInput: ResetPasswordInput!) {
-  resetPassword(input: $resetPasswordInput) {
+mutation ResetPassword($input: ResetPasswordInput!) {
+  resetPassword(input: $input) {
     __typename
     ... on ResetPasswordFailure {
       tokenError
@@ -114,8 +118,8 @@ mutation ResetPassword($resetPasswordInput: ResetPasswordInput!) {
   }
 }
 
-mutation UpdateProfile($updateProfileInput: UpdateProfileInput!) {
-  updateProfile(input: $updateProfileInput) {
+mutation UpdateProfile($input: UpdateProfileInput!) {
+  updateProfile(input: $input) {
     __typename
     ... on UpdateProfileFailure {
       nameError

@@ -1,4 +1,4 @@
-import { Menu } from "types";
+import { Menu } from "src/types";
 import { storeDashboardPath } from "./store-dashboard-menu";
 
 export const storeSettingsPath = `${storeDashboardPath}/settings`;

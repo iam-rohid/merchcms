@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { HTMLAttributes } from "react";
-import { Menu } from "types";
+import { Menu } from "src/types";
 
 export interface NavigationColumnProps extends HTMLAttributes<HTMLDivElement> {
   menu: Menu;

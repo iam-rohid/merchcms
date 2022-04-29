@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { HTMLAttributes } from "react";
-import { Product } from "types/product.type";
+import { Product } from "src/types/product.type";
 import Image from "next/image";
 import Link from "next/link";
 

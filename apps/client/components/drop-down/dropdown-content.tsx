@@ -4,7 +4,7 @@ import {
 } from "@radix-ui/react-dropdown-menu";
 import classNames from "classnames";
 import React from "react";
-import { DropdownMenuType } from "types/dropdown-menu.type";
+import { DropdownMenuType } from "src/types/dropdown-menu.type";
 import DropdownItem from "./dropdown-item";
 import DropdownLabel from "./dropdown-label";
 import DropdownSeparator from "./dropdown-separator";

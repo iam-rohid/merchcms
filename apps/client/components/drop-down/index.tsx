@@ -1,7 +1,7 @@
 import React from "react";
 import * as DropdownPrimitives from "@radix-ui/react-dropdown-menu";
 import { ReactNode } from "react";
-import { DropdownMenuType } from "types/dropdown-menu.type";
+import { DropdownMenuType } from "src/types/dropdown-menu.type";
 import DropdownContent from "./dropdown-content";
 
 export type DropdownProps = DropdownPrimitives.DropdownMenuProps & {

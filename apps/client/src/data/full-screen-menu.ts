@@ -1,4 +1,4 @@
-import { Menu } from "types";
+import { Menu } from "src/types";
 import { appDashboardPath } from "./app-dashboard-menu";
 import { appSettingsPath } from "./app-settings-menu";
 

@@ -1,5 +1,8 @@
-import { storeSettingsMenu, storeSettingsPath } from "data/store-settings-menu";
-import SettingsLayout from "layouts/settings-layout";
+import {
+  storeSettingsMenu,
+  storeSettingsPath,
+} from "src/data/store-settings-menu";
+import SettingsLayout from "components/layouts/settings-layout";
 import React from "react";
 import { ReactNode } from "react";
 import StoreDashboardLayout from "./store-dashboard-layout";

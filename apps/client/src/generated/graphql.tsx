@@ -303,57 +303,71 @@ export type User = {
   username: Scalars['String'];
 };
 
+export type CheckUserExistsWithEmailQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type CheckUserExistsWithEmailQuery = { __typename?: 'Query', findUser: { __typename: 'FindUserFailure' } | { __typename: 'FindUserSuccess' } };
+
+export type CheckUserExistsWithUsernameQueryVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+
+export type CheckUserExistsWithUsernameQuery = { __typename?: 'Query', findUser: { __typename: 'FindUserFailure' } | { __typename: 'FindUserSuccess' } };
+
 export type SignInWithEmailPasswordMutationVariables = Exact<{
-  emailPasswordSignInInput: EmailPasswordSignInInput;
+  input: EmailPasswordSignInInput;
 }>;
 
 
 export type SignInWithEmailPasswordMutation = { __typename?: 'Mutation', eamilPasswordSignIn: { __typename: 'EmailPasswordSignInFailure', emailError?: string | null, passwordError?: string | null, otherError?: string | null } | { __typename: 'EmailPasswordSignInSuccess', token: string, user: { __typename?: 'User', id: string, username: string, email: string } } };
 
 export type SignUpWithEmailPasswordMutationVariables = Exact<{
-  emailPasswordSignUpInput: EmailPasswordSignUpInput;
+  input: EmailPasswordSignUpInput;
 }>;
 
 
 export type SignUpWithEmailPasswordMutation = { __typename?: 'Mutation', eamilPasswordSignUp: { __typename: 'EmailPasswordSignUpFailure', usernameError?: string | null, emailError?: string | null, passwordError?: string | null, otherError?: string | null } | { __typename: 'EmailPasswordSignUpSuccess', email: string } };
 
 export type ResendVerificationEmailMutationVariables = Exact<{
-  resendVerificationEmailInput: ResendVerificationEmailInput;
+  input: ResendVerificationEmailInput;
 }>;
 
 
 export type ResendVerificationEmailMutation = { __typename?: 'Mutation', resendVerificationEmail: { __typename: 'ResendVerificationEmailFailure', emailError?: string | null, otherError?: string | null } | { __typename: 'ResendVerificationEmailSuccess', message: string } };
 
 export type VerifyEmailMutationVariables = Exact<{
-  verifyEmailInput: EmailVerificationInput;
+  input: EmailVerificationInput;
 }>;
 
 
 export type VerifyEmailMutation = { __typename?: 'Mutation', verifyEmail: { __typename: 'EmailVerificationFailure', tokenError?: string | null, emailError?: string | null, otherError?: string | null } | { __typename: 'EmailVerificationSuccess', token: string, user: { __typename?: 'User', id: string, username: string, email: string, emailVerified: boolean } } };
 
 export type ChangePasswordMutationVariables = Exact<{
-  changePasswordInput: ChangePasswordInput;
+  input: ChangePasswordInput;
 }>;
 
 
 export type ChangePasswordMutation = { __typename?: 'Mutation', changePassword: { __typename: 'ChangePasswordFailure', newPasswordError?: string | null, oldPasswordError?: string | null, otherError?: string | null } | { __typename: 'ChangePasswordSuccess', message: string } };
 
 export type SendResetPasswordEmailMutationVariables = Exact<{
-  sendResetPasswordEmailInput: SendResetPasswordEmailInput;
+  input: SendResetPasswordEmailInput;
 }>;
 
 
 export type SendResetPasswordEmailMutation = { __typename?: 'Mutation', sendResetPasswordEmail: { __typename: 'SendResetPasswordEmailFailure', emailError?: string | null, otherError?: string | null } | { __typename: 'SendResetPasswordEmailSuccess', message: string } };
 
 export type ResetPasswordMutationVariables = Exact<{
-  resetPasswordInput: ResetPasswordInput;
+  input: ResetPasswordInput;
 }>;
 
 
 export type ResetPasswordMutation = { __typename?: 'Mutation', resetPassword: { __typename: 'ResetPasswordFailure', tokenError?: string | null, newPasswordError?: string | null, otherError?: string | null } | { __typename: 'ResetPasswordSuccess', message: string } };
 
 export type UpdateProfileMutationVariables = Exact<{
-  updateProfileInput: UpdateProfileInput;
+  input: UpdateProfileInput;
 }>;
 
 
@@ -374,9 +388,79 @@ export type FindUserQueryVariables = Exact<{
 export type FindUserQuery = { __typename?: 'Query', findUser: { __typename: 'FindUserFailure', message: string } | { __typename: 'FindUserSuccess', user: { __typename?: 'User', id: string, username: string } } };
 
 
+export const CheckUserExistsWithEmailDocument = gql`
+    query CheckUserExistsWithEmail($email: String!) {
+  findUser(input: {email: $email}) {
+    __typename
+  }
+}
+    `;
+
+/**
+ * __useCheckUserExistsWithEmailQuery__
+ *
+ * To run a query within a React component, call `useCheckUserExistsWithEmailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckUserExistsWithEmailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckUserExistsWithEmailQuery({
+ *   variables: {
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useCheckUserExistsWithEmailQuery(baseOptions: Apollo.QueryHookOptions<CheckUserExistsWithEmailQuery, CheckUserExistsWithEmailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CheckUserExistsWithEmailQuery, CheckUserExistsWithEmailQueryVariables>(CheckUserExistsWithEmailDocument, options);
+      }
+export function useCheckUserExistsWithEmailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckUserExistsWithEmailQuery, CheckUserExistsWithEmailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CheckUserExistsWithEmailQuery, CheckUserExistsWithEmailQueryVariables>(CheckUserExistsWithEmailDocument, options);
+        }
+export type CheckUserExistsWithEmailQueryHookResult = ReturnType<typeof useCheckUserExistsWithEmailQuery>;
+export type CheckUserExistsWithEmailLazyQueryHookResult = ReturnType<typeof useCheckUserExistsWithEmailLazyQuery>;
+export type CheckUserExistsWithEmailQueryResult = Apollo.QueryResult<CheckUserExistsWithEmailQuery, CheckUserExistsWithEmailQueryVariables>;
+export const CheckUserExistsWithUsernameDocument = gql`
+    query CheckUserExistsWithUsername($username: String!) {
+  findUser(input: {username: $username}) {
+    __typename
+  }
+}
+    `;
+
+/**
+ * __useCheckUserExistsWithUsernameQuery__
+ *
+ * To run a query within a React component, call `useCheckUserExistsWithUsernameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckUserExistsWithUsernameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckUserExistsWithUsernameQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useCheckUserExistsWithUsernameQuery(baseOptions: Apollo.QueryHookOptions<CheckUserExistsWithUsernameQuery, CheckUserExistsWithUsernameQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CheckUserExistsWithUsernameQuery, CheckUserExistsWithUsernameQueryVariables>(CheckUserExistsWithUsernameDocument, options);
+      }
+export function useCheckUserExistsWithUsernameLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CheckUserExistsWithUsernameQuery, CheckUserExistsWithUsernameQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CheckUserExistsWithUsernameQuery, CheckUserExistsWithUsernameQueryVariables>(CheckUserExistsWithUsernameDocument, options);
+        }
+export type CheckUserExistsWithUsernameQueryHookResult = ReturnType<typeof useCheckUserExistsWithUsernameQuery>;
+export type CheckUserExistsWithUsernameLazyQueryHookResult = ReturnType<typeof useCheckUserExistsWithUsernameLazyQuery>;
+export type CheckUserExistsWithUsernameQueryResult = Apollo.QueryResult<CheckUserExistsWithUsernameQuery, CheckUserExistsWithUsernameQueryVariables>;
 export const SignInWithEmailPasswordDocument = gql`
-    mutation SignInWithEmailPassword($emailPasswordSignInInput: EmailPasswordSignInInput!) {
-  eamilPasswordSignIn(input: $emailPasswordSignInInput) {
+    mutation SignInWithEmailPassword($input: EmailPasswordSignInInput!) {
+  eamilPasswordSignIn(input: $input) {
     __typename
     ... on EmailPasswordSignInFailure {
       emailError
@@ -409,7 +493,7 @@ export type SignInWithEmailPasswordMutationFn = Apollo.MutationFunction<SignInWi
  * @example
  * const [signInWithEmailPasswordMutation, { data, loading, error }] = useSignInWithEmailPasswordMutation({
  *   variables: {
- *      emailPasswordSignInInput: // value for 'emailPasswordSignInInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -421,8 +505,8 @@ export type SignInWithEmailPasswordMutationHookResult = ReturnType<typeof useSig
 export type SignInWithEmailPasswordMutationResult = Apollo.MutationResult<SignInWithEmailPasswordMutation>;
 export type SignInWithEmailPasswordMutationOptions = Apollo.BaseMutationOptions<SignInWithEmailPasswordMutation, SignInWithEmailPasswordMutationVariables>;
 export const SignUpWithEmailPasswordDocument = gql`
-    mutation SignUpWithEmailPassword($emailPasswordSignUpInput: EmailPasswordSignUpInput!) {
-  eamilPasswordSignUp(input: $emailPasswordSignUpInput) {
+    mutation SignUpWithEmailPassword($input: EmailPasswordSignUpInput!) {
+  eamilPasswordSignUp(input: $input) {
     __typename
     ... on EmailPasswordSignUpFailure {
       usernameError
@@ -451,7 +535,7 @@ export type SignUpWithEmailPasswordMutationFn = Apollo.MutationFunction<SignUpWi
  * @example
  * const [signUpWithEmailPasswordMutation, { data, loading, error }] = useSignUpWithEmailPasswordMutation({
  *   variables: {
- *      emailPasswordSignUpInput: // value for 'emailPasswordSignUpInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -463,8 +547,8 @@ export type SignUpWithEmailPasswordMutationHookResult = ReturnType<typeof useSig
 export type SignUpWithEmailPasswordMutationResult = Apollo.MutationResult<SignUpWithEmailPasswordMutation>;
 export type SignUpWithEmailPasswordMutationOptions = Apollo.BaseMutationOptions<SignUpWithEmailPasswordMutation, SignUpWithEmailPasswordMutationVariables>;
 export const ResendVerificationEmailDocument = gql`
-    mutation ResendVerificationEmail($resendVerificationEmailInput: ResendVerificationEmailInput!) {
-  resendVerificationEmail(input: $resendVerificationEmailInput) {
+    mutation ResendVerificationEmail($input: ResendVerificationEmailInput!) {
+  resendVerificationEmail(input: $input) {
     __typename
     ... on ResendVerificationEmailFailure {
       emailError
@@ -491,7 +575,7 @@ export type ResendVerificationEmailMutationFn = Apollo.MutationFunction<ResendVe
  * @example
  * const [resendVerificationEmailMutation, { data, loading, error }] = useResendVerificationEmailMutation({
  *   variables: {
- *      resendVerificationEmailInput: // value for 'resendVerificationEmailInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -503,8 +587,8 @@ export type ResendVerificationEmailMutationHookResult = ReturnType<typeof useRes
 export type ResendVerificationEmailMutationResult = Apollo.MutationResult<ResendVerificationEmailMutation>;
 export type ResendVerificationEmailMutationOptions = Apollo.BaseMutationOptions<ResendVerificationEmailMutation, ResendVerificationEmailMutationVariables>;
 export const VerifyEmailDocument = gql`
-    mutation VerifyEmail($verifyEmailInput: EmailVerificationInput!) {
-  verifyEmail(input: $verifyEmailInput) {
+    mutation VerifyEmail($input: EmailVerificationInput!) {
+  verifyEmail(input: $input) {
     __typename
     ... on EmailVerificationFailure {
       tokenError
@@ -538,7 +622,7 @@ export type VerifyEmailMutationFn = Apollo.MutationFunction<VerifyEmailMutation,
  * @example
  * const [verifyEmailMutation, { data, loading, error }] = useVerifyEmailMutation({
  *   variables: {
- *      verifyEmailInput: // value for 'verifyEmailInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -550,8 +634,8 @@ export type VerifyEmailMutationHookResult = ReturnType<typeof useVerifyEmailMuta
 export type VerifyEmailMutationResult = Apollo.MutationResult<VerifyEmailMutation>;
 export type VerifyEmailMutationOptions = Apollo.BaseMutationOptions<VerifyEmailMutation, VerifyEmailMutationVariables>;
 export const ChangePasswordDocument = gql`
-    mutation ChangePassword($changePasswordInput: ChangePasswordInput!) {
-  changePassword(input: $changePasswordInput) {
+    mutation ChangePassword($input: ChangePasswordInput!) {
+  changePassword(input: $input) {
     __typename
     ... on ChangePasswordFailure {
       newPasswordError
@@ -579,7 +663,7 @@ export type ChangePasswordMutationFn = Apollo.MutationFunction<ChangePasswordMut
  * @example
  * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
  *   variables: {
- *      changePasswordInput: // value for 'changePasswordInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -591,8 +675,8 @@ export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswo
 export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const SendResetPasswordEmailDocument = gql`
-    mutation SendResetPasswordEmail($sendResetPasswordEmailInput: SendResetPasswordEmailInput!) {
-  sendResetPasswordEmail(input: $sendResetPasswordEmailInput) {
+    mutation SendResetPasswordEmail($input: SendResetPasswordEmailInput!) {
+  sendResetPasswordEmail(input: $input) {
     __typename
     ... on SendResetPasswordEmailFailure {
       emailError
@@ -619,7 +703,7 @@ export type SendResetPasswordEmailMutationFn = Apollo.MutationFunction<SendReset
  * @example
  * const [sendResetPasswordEmailMutation, { data, loading, error }] = useSendResetPasswordEmailMutation({
  *   variables: {
- *      sendResetPasswordEmailInput: // value for 'sendResetPasswordEmailInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -631,8 +715,8 @@ export type SendResetPasswordEmailMutationHookResult = ReturnType<typeof useSend
 export type SendResetPasswordEmailMutationResult = Apollo.MutationResult<SendResetPasswordEmailMutation>;
 export type SendResetPasswordEmailMutationOptions = Apollo.BaseMutationOptions<SendResetPasswordEmailMutation, SendResetPasswordEmailMutationVariables>;
 export const ResetPasswordDocument = gql`
-    mutation ResetPassword($resetPasswordInput: ResetPasswordInput!) {
-  resetPassword(input: $resetPasswordInput) {
+    mutation ResetPassword($input: ResetPasswordInput!) {
+  resetPassword(input: $input) {
     __typename
     ... on ResetPasswordFailure {
       tokenError
@@ -660,7 +744,7 @@ export type ResetPasswordMutationFn = Apollo.MutationFunction<ResetPasswordMutat
  * @example
  * const [resetPasswordMutation, { data, loading, error }] = useResetPasswordMutation({
  *   variables: {
- *      resetPasswordInput: // value for 'resetPasswordInput'
+ *      input: // value for 'input'
  *   },
  * });
  */
@@ -672,8 +756,8 @@ export type ResetPasswordMutationHookResult = ReturnType<typeof useResetPassword
 export type ResetPasswordMutationResult = Apollo.MutationResult<ResetPasswordMutation>;
 export type ResetPasswordMutationOptions = Apollo.BaseMutationOptions<ResetPasswordMutation, ResetPasswordMutationVariables>;
 export const UpdateProfileDocument = gql`
-    mutation UpdateProfile($updateProfileInput: UpdateProfileInput!) {
-  updateProfile(input: $updateProfileInput) {
+    mutation UpdateProfile($input: UpdateProfileInput!) {
+  updateProfile(input: $input) {
     __typename
     ... on UpdateProfileFailure {
       nameError
@@ -704,7 +788,7 @@ export type UpdateProfileMutationFn = Apollo.MutationFunction<UpdateProfileMutat
  * @example
  * const [updateProfileMutation, { data, loading, error }] = useUpdateProfileMutation({
  *   variables: {
- *      updateProfileInput: // value for 'updateProfileInput'
+ *      input: // value for 'input'
  *   },
  * });
  */

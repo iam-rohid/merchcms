@@ -21,15 +21,18 @@ import {
   MdSearch,
   MdSettings,
 } from "react-icons/md";
-import { fullScreenMenu } from "data/full-screen-menu";
+import { fullScreenMenu } from "src/data/full-screen-menu";
 import MenuList from "components/menu-list";
 import Dropdown from "components/drop-down";
-import { DropdownMenuType } from "types/dropdown-menu.type";
+import { DropdownMenuType } from "src/types/dropdown-menu.type";
 import { useRouter } from "next/router";
-import { appDashboardPath, userDashboardMenu } from "data/app-dashboard-menu";
-import { appSettingsPath } from "data/app-settings-menu";
+import {
+  appDashboardPath,
+  userDashboardMenu,
+} from "src/data/app-dashboard-menu";
+import { appSettingsPath } from "src/data/app-settings-menu";
 import Select from "components/select";
-import { ColorScheme, useColorScheme } from "hooks/color-scheme";
+import { ColorScheme, useColorScheme } from "src/hooks/color-scheme";
 
 export type AppHeaderProps = HTMLAttributes<HTMLDivElement> & {
   sticky?: boolean;

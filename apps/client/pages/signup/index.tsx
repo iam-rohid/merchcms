@@ -1,9 +1,9 @@
 import Button from "components/button";
 import SEO from "components/SEO";
-import SignUpLayout from "layouts/signup-layout";
+import SignUpLayout from "components/layouts/signup-layout";
 import React from "react";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
-import { CustomNextPage } from "types/next.type";
+import { CustomNextPage } from "src/types/next.type";
 
 const SignUpPage: CustomNextPage = () => {
   return (

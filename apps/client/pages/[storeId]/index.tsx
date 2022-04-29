@@ -1,7 +1,7 @@
 import SEO from "components/SEO";
-import StoreDashboardLayout from "layouts/common-layouts/store-dashboard-layout";
+import StoreDashboardLayout from "components/layouts/common-layouts/store-dashboard-layout";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { CustomNextPage } from "types/next.type";
+import { CustomNextPage } from "src/types/next.type";
 import StoreOverviewPage from "./overview";
 
 const StorePage: CustomNextPage = () => {
