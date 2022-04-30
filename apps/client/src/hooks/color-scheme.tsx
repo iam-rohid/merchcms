@@ -1,12 +1,10 @@
-import { ReactNode } from "react";
-import { createContext, FC, useCallback, useContext, useEffect } from "react";
+import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
+import { ReactNode, useMemo } from "react";
+import { createContext, FC, useCallback, useContext } from "react";
+import { getTheme } from "src/theme";
 import { useLocalStorage } from "./local-storage";
 
-export enum ColorScheme {
-  DARK = "dark",
-  LIGHT = "light",
-  SYSTEM = "system",
-}
+export type ColorScheme = "light" | "dark" | "system";
 
 export type ColorSchemeContextType = {
   colorScheme: ColorScheme;
@@ -23,27 +21,13 @@ export type ColorSchemeProps = {
 
 export const ColorSchemeProvider: FC<ColorSchemeProps> = ({
   children,
-  initialColorScheme = ColorScheme.SYSTEM,
+  initialColorScheme = "system",
 }) => {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "color-scheme",
     value: initialColorScheme,
   });
-
-  const updateDom = useCallback((scheme: "dark" | "light") => {
-    document.documentElement.classList.toggle("dark", scheme === "dark");
-  }, []);
-
-  const getSystemColorScheme = useCallback(() => {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? ColorScheme.DARK
-      : ColorScheme.LIGHT;
-  }, []);
-
-  const onSystemColorSchemeChange = useCallback(() => {
-    const scheme = getSystemColorScheme();
-    updateDom(scheme);
-  }, [getSystemColorScheme, updateDom]);
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const toggleTheme: ColorSchemeContextType["toggleTheme"] = useCallback(
     (scheme) => {
@@ -51,17 +35,17 @@ export const ColorSchemeProvider: FC<ColorSchemeProps> = ({
         setColorScheme(scheme);
       } else {
         switch (scheme || colorScheme) {
-          case ColorScheme.SYSTEM:
-            setColorScheme(ColorScheme.LIGHT);
+          case "system":
+            setColorScheme("light");
             break;
-          case ColorScheme.LIGHT:
-            setColorScheme(ColorScheme.DARK);
+          case "light":
+            setColorScheme("dark");
             break;
-          case ColorScheme.DARK:
-            setColorScheme(ColorScheme.SYSTEM);
+          case "dark":
+            setColorScheme("system");
             break;
           default:
-            setColorScheme(ColorScheme.SYSTEM);
+            setColorScheme("system");
             break;
         }
       }
@@ -69,29 +53,29 @@ export const ColorSchemeProvider: FC<ColorSchemeProps> = ({
     [colorScheme, setColorScheme]
   );
 
-  useEffect(() => {
-    updateDom(
-      !!colorScheme && colorScheme !== ColorScheme.SYSTEM
-        ? colorScheme
-        : getSystemColorScheme()
-    );
-    const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-    if (colorScheme === ColorScheme.SYSTEM) {
-      matchMedia.addEventListener("change", onSystemColorSchemeChange);
-    }
-    return () => {
-      matchMedia.removeEventListener("change", onSystemColorSchemeChange);
-    };
-  }, [updateDom, colorScheme, onSystemColorSchemeChange, getSystemColorScheme]);
-
   const value: ColorSchemeContextType = {
-    colorScheme: colorScheme || ColorScheme.SYSTEM,
+    colorScheme,
     toggleTheme,
   };
 
+  const theme = useMemo(
+    () =>
+      getTheme(
+        !colorScheme || colorScheme === "system"
+          ? prefersDarkMode
+            ? "dark"
+            : "light"
+          : colorScheme
+      ),
+    [colorScheme, prefersDarkMode]
+  );
+
   return (
     <ColorSchemeContext.Provider value={value}>
-      {children}
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
     </ColorSchemeContext.Provider>
   );
 };
@@ -99,6 +83,6 @@ export const ColorSchemeProvider: FC<ColorSchemeProps> = ({
 export const useColorScheme = () => {
   const context = useContext(ColorSchemeContext);
   if (!context)
-    throw new Error("useColorScheme must be used inside a ColorSchemeProvider");
+    throw new Error("useColorScheme must be used within a ColorSchemeProvider");
   return context;
 };

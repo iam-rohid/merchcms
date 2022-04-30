@@ -1,0 +1,78 @@
+.button {
+  position: relative;
+  padding: 0.625rem 2.5rem;
+  border-radius: 0.5rem;
+  transition: box-shadow ease-in-out 0.15s, background-color ease-in-out 0.15s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  overflow: hidden;
+  .label {
+    font-size: 1rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 500;
+    line-height: 1.5rem;
+  }
+
+  &.full-width {
+    width: 100%;
+    flex: 1;
+  }
+  .icon-left,
+  .icon-right {
+    line-height: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .icon-left {
+    left: 0.625rem;
+  }
+  .icon-right {
+    right: 0.625rem;
+  }
+  svg {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+}
+
+.button.primary {
+  background-color: #6366f1;
+  color: #fff;
+  &:hover,
+  &:focus-visible {
+    background-color: #4f46e5;
+  }
+  &:active {
+    background-color: #4338ca;
+  }
+}
+
+.button.google {
+  background-color: #ea4536;
+  color: #fff;
+  &:hover,
+  &:focus-visible {
+    background-color: #dd4335;
+  }
+  &:active {
+    background-color: #d03d30;
+  }
+}
+
+.button.facebook {
+  background-color: #3395f5;
+  color: #fff;
+  &:hover,
+  &:focus-visible {
+    background-color: #2a86e3;
+  }
+  &:active {
+    background-color: #257bd1;
+  }
+}

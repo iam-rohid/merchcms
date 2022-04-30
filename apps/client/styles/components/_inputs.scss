@@ -1,0 +1,68 @@
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  margin-block: 1.5rem;
+  &.text-input {
+    .input-label {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+    .input-field {
+      font-size: 1rem;
+      display: block;
+      padding: 0.625rem 1rem;
+      line-height: 1.5rem;
+      width: 100%;
+      background-color: #f1f5f9;
+      border-radius: 0.5rem;
+      transition: box-shadow ease-in-out 0.15s,
+        background-color ease-in-out 0.15s;
+      &::placeholder {
+        color: #94a3b8;
+      }
+      &:hover {
+        box-shadow: 0 0 0 5px rgba(#6366f1, 0.2);
+      }
+      &:focus {
+        box-shadow: 0 0 0 5px rgba(#6366f1, 0.2), 0 0 0 1px rgba(#6366f1, 0.4);
+        background-color: #fff;
+      }
+      &:active {
+        box-shadow: 0 0 0 1px rgba(#6366f1, 0.4);
+        background-color: #fff;
+      }
+    }
+  }
+
+  .hint-text {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  &.checkbox-input {
+    .checkbox {
+      margin-right: 0.5rem;
+    }
+  }
+
+  &.error {
+    .input-field,
+    .input-field:hover {
+      box-shadow: 0 0 0 1px rgba(#ef4444, 0.4);
+    }
+    .input-field {
+      &:focus {
+        box-shadow: 0 0 0 5px rgba(#ef4444, 0.2), 0 0 0 1px rgba(#ef4444, 0.4);
+        background-color: #fff;
+      }
+      &:active {
+        box-shadow: 0 0 0 1px rgba(#ef4444, 0.4);
+        background-color: #fff;
+      }
+    }
+    .hint-text {
+      color: #ef4444;
+    }
+  }
+}

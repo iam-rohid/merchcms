@@ -1,0 +1,56 @@
+.signup-page {
+  transition: padding-left ease-in-out 0.3s;
+  padding-left: 0;
+  .cover-image-wrapper {
+    position: fixed;
+    overflow: hidden;
+    width: 0px;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    transition: all ease-in-out 0.3s;
+  }
+  .signup-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 4rem;
+  }
+  .auth-providers {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .signup-page {
+    padding-left: 24rem;
+    .cover-image-wrapper {
+      width: 24rem;
+    }
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .signup-page {
+    padding-left: 32rem;
+    .cover-image-wrapper {
+      width: 30rem;
+      top: 2rem;
+      left: 2rem;
+      bottom: 2rem;
+      border-radius: 1rem;
+    }
+    .auth-providers {
+      flex-direction: row;
+    }
+  }
+}
+@media only screen and (min-width: 1280px) {
+  .signup-page {
+    padding-left: 50vw;
+    .cover-image-wrapper {
+      width: calc(50vw - 2rem);
+    }
+  }
+}

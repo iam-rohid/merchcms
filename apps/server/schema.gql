@@ -113,8 +113,8 @@ type FindUserSuccess {
 
 type Mutation {
   changePassword(input: ChangePasswordInput!): ChangePasswordResult!
-  eamilPasswordSignIn(input: EmailPasswordSignInInput!): EmailPasswordSignInResult!
-  eamilPasswordSignUp(input: EmailPasswordSignUpInput!): EmailPasswordSignUpResult!
+  emailPasswordSignIn(input: EmailPasswordSignInInput!): EmailPasswordSignInResult!
+  emailPasswordSignUp(input: EmailPasswordSignUpInput!): EmailPasswordSignUpResult!
   resendVerificationEmail(input: ResendVerificationEmailInput!): ResendVerificationEmailResult!
   resetPassword(input: ResetPasswordInput!): ResetPasswordResult!
   sendResetPasswordEmail(input: SendResetPasswordEmailInput!): SendResetPasswordEmailResult!

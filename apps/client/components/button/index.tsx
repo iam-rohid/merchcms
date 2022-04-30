@@ -31,10 +31,9 @@ const Button = <T extends ElementType = "button">({
   return (
     <Component
       className={classNames(
-        "cursor-pointer select-none flex items-center justify-center overflow-hidden border relative",
+        "cursor-pointer select-none flex items-center justify-center overflow-hidden ring-1 relative outline-none",
         {
-          "bg-gray-900 dark:bg-gray-50 border-gray-900 dark:border-gray-50":
-            colorScheme === "primary",
+          "bg-primary-500 dark:bg-primary-400": colorScheme === "primary",
           "text-gray-50 dark:text-gray-900":
             colorScheme === "primary" && variant === "solid",
           "dark:text-gray-50 text-gray-900":

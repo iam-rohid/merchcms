@@ -136,8 +136,8 @@ export type FindUserSuccess = {
 export type Mutation = {
   __typename?: 'Mutation';
   changePassword: ChangePasswordResult;
-  eamilPasswordSignIn: EmailPasswordSignInResult;
-  eamilPasswordSignUp: EmailPasswordSignUpResult;
+  emailPasswordSignIn: EmailPasswordSignInResult;
+  emailPasswordSignUp: EmailPasswordSignUpResult;
   resendVerificationEmail: ResendVerificationEmailResult;
   resetPassword: ResetPasswordResult;
   sendResetPasswordEmail: SendResetPasswordEmailResult;
@@ -151,12 +151,12 @@ export type MutationChangePasswordArgs = {
 };
 
 
-export type MutationEamilPasswordSignInArgs = {
+export type MutationEmailPasswordSignInArgs = {
   input: EmailPasswordSignInInput;
 };
 
 
-export type MutationEamilPasswordSignUpArgs = {
+export type MutationEmailPasswordSignUpArgs = {
   input: EmailPasswordSignUpInput;
 };
 
@@ -322,14 +322,14 @@ export type SignInWithEmailPasswordMutationVariables = Exact<{
 }>;
 
 
-export type SignInWithEmailPasswordMutation = { __typename?: 'Mutation', eamilPasswordSignIn: { __typename: 'EmailPasswordSignInFailure', emailError?: string | null, passwordError?: string | null, otherError?: string | null } | { __typename: 'EmailPasswordSignInSuccess', token: string, user: { __typename?: 'User', id: string, username: string, email: string } } };
+export type SignInWithEmailPasswordMutation = { __typename?: 'Mutation', emailPasswordSignIn: { __typename: 'EmailPasswordSignInFailure', emailError?: string | null, passwordError?: string | null, otherError?: string | null } | { __typename: 'EmailPasswordSignInSuccess', token: string, user: { __typename?: 'User', id: string, username: string, email: string } } };
 
 export type SignUpWithEmailPasswordMutationVariables = Exact<{
   input: EmailPasswordSignUpInput;
 }>;
 
 
-export type SignUpWithEmailPasswordMutation = { __typename?: 'Mutation', eamilPasswordSignUp: { __typename: 'EmailPasswordSignUpFailure', usernameError?: string | null, emailError?: string | null, passwordError?: string | null, otherError?: string | null } | { __typename: 'EmailPasswordSignUpSuccess', email: string } };
+export type SignUpWithEmailPasswordMutation = { __typename?: 'Mutation', emailPasswordSignUp: { __typename: 'EmailPasswordSignUpFailure', usernameError?: string | null, emailError?: string | null, passwordError?: string | null, otherError?: string | null } | { __typename: 'EmailPasswordSignUpSuccess', email: string } };
 
 export type ResendVerificationEmailMutationVariables = Exact<{
   input: ResendVerificationEmailInput;
@@ -460,7 +460,7 @@ export type CheckUserExistsWithUsernameLazyQueryHookResult = ReturnType<typeof u
 export type CheckUserExistsWithUsernameQueryResult = Apollo.QueryResult<CheckUserExistsWithUsernameQuery, CheckUserExistsWithUsernameQueryVariables>;
 export const SignInWithEmailPasswordDocument = gql`
     mutation SignInWithEmailPassword($input: EmailPasswordSignInInput!) {
-  eamilPasswordSignIn(input: $input) {
+  emailPasswordSignIn(input: $input) {
     __typename
     ... on EmailPasswordSignInFailure {
       emailError
@@ -506,7 +506,7 @@ export type SignInWithEmailPasswordMutationResult = Apollo.MutationResult<SignIn
 export type SignInWithEmailPasswordMutationOptions = Apollo.BaseMutationOptions<SignInWithEmailPasswordMutation, SignInWithEmailPasswordMutationVariables>;
 export const SignUpWithEmailPasswordDocument = gql`
     mutation SignUpWithEmailPassword($input: EmailPasswordSignUpInput!) {
-  eamilPasswordSignUp(input: $input) {
+  emailPasswordSignUp(input: $input) {
     __typename
     ... on EmailPasswordSignUpFailure {
       usernameError

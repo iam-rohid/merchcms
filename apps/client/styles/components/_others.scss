@@ -1,0 +1,18 @@
+.separator {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+  margin-block: 2rem;
+  .separator-line {
+    flex: 1;
+    border: none;
+    height: 1px;
+    width: 100%;
+    background-color: #cbd5e1;
+  }
+  .separator-text {
+    font-size: 1rem;
+    color: #475569;
+  }
+}

@@ -35,17 +35,17 @@ export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
   @Mutation(() => EmailPasswordSignUpResultUnion)
-  eamilPasswordSignUp(
+  emailPasswordSignUp(
     @Args("input") input: EmailPasswordSignUpInput
   ): Promise<EmailPasswordSignUpResult> {
-    return this.authService.eamilPasswordSignUp(input);
+    return this.authService.emailPasswordSignUp(input);
   }
 
   @Mutation(() => EmailPasswordSignInResultUnion)
-  eamilPasswordSignIn(
+  emailPasswordSignIn(
     @Args("input") input: EmailPasswordSignInInput
   ): Promise<EmailPasswordSignInResult> {
-    return this.authService.eamilPasswordSignIn(input);
+    return this.authService.emailPasswordSignIn(input);
   }
 
   @Mutation(() => EmailVerificationResultUnion)

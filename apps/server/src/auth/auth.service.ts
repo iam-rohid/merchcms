@@ -51,7 +51,7 @@ export class AuthService {
     private readonly emailService: EmailService
   ) {}
 
-  async eamilPasswordSignUp({
+  async emailPasswordSignUp({
     email,
     password,
     username,
@@ -249,7 +249,7 @@ export class AuthService {
     }
   }
 
-  async eamilPasswordSignIn({
+  async emailPasswordSignIn({
     email,
     password,
   }: EmailPasswordSignInInput): Promise<EmailPasswordSignInResult> {

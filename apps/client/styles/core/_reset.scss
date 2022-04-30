@@ -1,0 +1,17 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+input,
+button,
+a,
+select,
+textarea {
+  outline: none;
+  background-color: transparent;
+  border: none;
+}

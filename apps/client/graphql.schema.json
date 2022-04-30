@@ -933,7 +933,7 @@
             "deprecationReason": null
           },
           {
-            "name": "eamilPasswordSignIn",
+            "name": "emailPasswordSignIn",
             "description": null,
             "args": [
               {
@@ -966,7 +966,7 @@
             "deprecationReason": null
           },
           {
-            "name": "eamilPasswordSignUp",
+            "name": "emailPasswordSignUp",
             "description": null,
             "args": [
               {

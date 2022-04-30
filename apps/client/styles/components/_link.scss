@@ -1,0 +1,15 @@
+.link {
+  text-decoration: none;
+  text-transform: none;
+  background-color: transparent;
+  font-weight: 500;
+  transition: box-shadow ease-in-out 0.15s;
+}
+
+.link.primary {
+  color: #6366f1;
+  &:focus-visible,
+  &:hover {
+    box-shadow: 0 2px 0 #6366f1;
+  }
+}

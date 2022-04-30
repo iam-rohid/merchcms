@@ -37,14 +37,7 @@ export class ProfileService {
     try {
       const profile = await this.prisma.profile.findFirst({
         where: {
-          AND: [
-            {
-              user: { emailVerified: true },
-            },
-            {
-              OR: [{ id }, { userId }, { user: { username } }],
-            },
-          ],
+          OR: [{ id }, { userId }, { user: { username } }],
         },
       });
       if (!profile) {

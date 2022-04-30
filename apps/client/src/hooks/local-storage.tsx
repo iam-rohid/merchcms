@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export type UseLocalStorageProps<T> = {
   key: string;
@@ -6,7 +6,7 @@ export type UseLocalStorageProps<T> = {
 };
 
 export type UseLocalStorageReturn<T> = [
-  state: T | null,
+  state: T,
   setState: (newState: T) => void
 ];
 
@@ -14,7 +14,7 @@ export function useLocalStorage<T>({
   key,
   value,
 }: UseLocalStorageProps<T>): UseLocalStorageReturn<T> {
-  const [state, setState] = useState<T | null>(value);
+  const [state, setState] = useState<T>(value);
 
   useEffect(() => {
     const lsstate = localStorage.getItem(key);

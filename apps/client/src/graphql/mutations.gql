@@ -11,7 +11,7 @@ query CheckUserExistsWithUsername($username: String!) {
 }
 
 mutation SignInWithEmailPassword($input: EmailPasswordSignInInput!) {
-  eamilPasswordSignIn(input: $input) {
+  emailPasswordSignIn(input: $input) {
     __typename
     ... on EmailPasswordSignInFailure {
       emailError
@@ -30,7 +30,7 @@ mutation SignInWithEmailPassword($input: EmailPasswordSignInInput!) {
 }
 
 mutation SignUpWithEmailPassword($input: EmailPasswordSignUpInput!) {
-  eamilPasswordSignUp(input: $input) {
+  emailPasswordSignUp(input: $input) {
     __typename
     ... on EmailPasswordSignUpFailure {
       usernameError

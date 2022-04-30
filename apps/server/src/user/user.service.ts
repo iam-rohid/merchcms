@@ -29,10 +29,7 @@ export class UserService {
     try {
       const user = await this.prisma.user.findFirst({
         where: {
-          AND: [
-            { emailVerified: true },
-            { OR: [{ id }, { username }, { email }] },
-          ],
+          OR: [{ id }, { username }, { email }],
         },
       });
       if (!user) {
