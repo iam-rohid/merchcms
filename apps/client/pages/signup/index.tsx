@@ -10,7 +10,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback } from "react";
 import { Google, Facebook } from "@mui/icons-material";
-import classNames from "classnames";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  Divider,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Heading,
+  Input,
+  Text,
+} from "@chakra-ui/react";
 
 type FormFields = {
   username: string;
@@ -115,8 +128,22 @@ const SignUpPage: CustomNextPage = () => {
   return (
     <>
       <SEO title="Sign Up" />
-      <div className="signup-page">
-        <div className="cover-image-wrapper">
+      <Box
+        pl={[0, 0, 320 + 32, 480 + 32, 640 + 32]}
+        transition={"padding-left"}
+        transitionDuration="0.3s"
+      >
+        <Box
+          width={[0, 0, 320, 480, 640]}
+          position="fixed"
+          left={[0, 0, 0, 8]}
+          top={[0, 0, 0, 8]}
+          bottom={[0, 0, 0, 8]}
+          borderRadius={[0, 0, 0, "xl", "2xl"]}
+          overflow="hidden"
+          transition={"width"}
+          transitionDuration="0.3s"
+        >
           <Image
             src={
               "https://images.unsplash.com/photo-1619727574607-f43bb24f1c6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
@@ -124,53 +151,62 @@ const SignUpPage: CustomNextPage = () => {
             layout="fill"
             objectFit="cover"
           />
-        </div>
-        <div className="container signup-page-header">
-          <p>
+        </Box>
+        <Flex
+          as="header"
+          width="full"
+          justifyContent="flex-end"
+          alignItems="center"
+          height={14}
+          px={4}
+        >
+          <Text>
             Already have an account?{" "}
             <Link href="/login" passHref>
-              <a className="link primary">Log In</a>
+              <Button as="a" variant="link" colorScheme="blue">
+                Log In
+              </Button>
             </Link>
-          </p>
-        </div>
-        <div className="container sm">
-          <h1 className="heading-1">Sign Up to MerchCMS</h1>
+          </Text>
+        </Flex>
 
-          <div className="auth-providers">
-            <button className="button solid full-width google">
-              <span className="icon-left">
-                <Google />
-              </span>
-              <p className="label">Continue with Google</p>
-            </button>
+        <Container maxWidth="xl" my={8}>
+          <Heading as="h1" size="lg" mb={8}>
+            Sign Up to MerchCMS
+          </Heading>
 
-            <button className="button solid full-width facebook">
-              <span className="icon-left">
-                <Facebook />
-              </span>
-              <p className="label">Continue with Facebook</p>
-            </button>
-          </div>
+          <Flex direction={"column"} gap={4}>
+            <Button
+              variant="outline"
+              isFullWidth
+              colorScheme="red"
+              leftIcon={<Google />}
+            >
+              Continue with Google
+            </Button>
 
-          <div className="separator">
-            <hr className="separator-line" />
-            <p className="separator-text">Or Sign Up with your Email</p>
-            <hr className="separator-line" />
-          </div>
+            <Button
+              variant="outline"
+              isFullWidth
+              colorScheme="blue"
+              leftIcon={<Facebook />}
+            >
+              Continue with Facebook
+            </Button>
+          </Flex>
+
+          <Flex direction="row" gap={4} my={8} alignItems="center">
+            <Divider flex={1} />
+            <Text color="GrayText">Or Sign Up with your Email</Text>
+            <Divider flex={1} />
+          </Flex>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div
-              className={classNames("input-wrapper text-input", {
-                error: !!errors.username,
-              })}
-            >
-              <label htmlFor="username-input-field" className="input-label">
-                Username
-              </label>
-              <input
+            <FormControl isInvalid={!!errors.username} mb={4}>
+              <FormLabel htmlFor="username-input-field">Username</FormLabel>
+              <Input
                 type="text"
                 id="username-input-field"
-                className="input-field"
                 placeholder="johndoe123"
                 {...register("username", {
                   required: {
@@ -185,22 +221,15 @@ const SignUpPage: CustomNextPage = () => {
                 })}
               />
               {errors.username && (
-                <p className="hint-text">{errors.username.message}</p>
+                <FormErrorMessage>{errors.username.message}</FormErrorMessage>
               )}
-            </div>
+            </FormControl>
 
-            <div
-              className={classNames("input-wrapper text-input", {
-                error: !!errors.email,
-              })}
-            >
-              <label htmlFor="email-input-field" className="input-label">
-                Email
-              </label>
-              <input
-                type="text"
+            <FormControl isInvalid={!!errors.email} mb={4}>
+              <FormLabel htmlFor="email-input-field">Email</FormLabel>
+              <Input
+                type="email"
                 id="email-input-field"
-                className="input-field"
                 placeholder="johndoe@example.com"
                 {...register("email", {
                   required: {
@@ -215,86 +244,76 @@ const SignUpPage: CustomNextPage = () => {
                 })}
               />
               {errors.email && (
-                <p className="hint-text">{errors.email.message}</p>
+                <FormErrorMessage>{errors.email.message}</FormErrorMessage>
               )}
-            </div>
+            </FormControl>
 
-            <div
-              className={classNames("input-wrapper text-input", {
-                error: !!errors.password,
-              })}
-            >
-              <label htmlFor="password-input-field" className="input-label">
-                Password
-              </label>
-              <input
-                type="text"
+            <FormControl isInvalid={!!errors.password} mb={4}>
+              <FormLabel htmlFor="password-input-field">Password</FormLabel>
+              <Input
+                type="password"
                 id="password-input-field"
-                className="input-field"
-                placeholder="8-16 characters"
+                placeholder="johndoe@example.com"
                 {...register("password", {
                   required: {
                     value: true,
                     message: "Password is required",
                   },
-                  minLength: {
-                    value: 8,
-                    message: "Password must be at least 8 characters",
-                  },
-                  maxLength: {
-                    value: 16,
-                    message: "Password must be at most 16 characters",
-                  },
                 })}
               />
               {errors.password && (
-                <p className="hint-text">{errors.password.message}</p>
+                <FormErrorMessage>{errors.password.message}</FormErrorMessage>
               )}
-            </div>
+            </FormControl>
 
-            <div
-              className={classNames("input-wrapper checkbox-input", {
-                error: errors.agree,
-              })}
-            >
-              <label htmlFor="agreement-checkbox" className="input-label">
-                <input
-                  type="checkbox"
-                  id="agreement-checkbox"
-                  className="checkbox"
-                  {...register("agree", {
-                    required: {
-                      value: true,
-                      message: "You must agree to the terms and conditions",
-                    },
-                  })}
-                />
+            <FormControl isInvalid={!!errors.agree} mb={8}>
+              <Checkbox
+                type="checkbox"
+                id="agreement-checkbox"
+                {...register("agree", {
+                  required: {
+                    value: true,
+                    message: "You must agree to the terms and conditions",
+                  },
+                })}
+              >
                 Yes, I understand and agree to the{" "}
-                <Link href={"#"}>
-                  <a className="link primary">Terms of Service</a>
+                <Link href="/" passHref>
+                  <Button as="a" variant="link" colorScheme="blue">
+                    Terms of Service
+                  </Button>
                 </Link>
                 , including the{" "}
-                <Link href={"#"}>
-                  <a className="link primary">User Agreement</a>
+                <Link href="/" passHref>
+                  <Button as="a" variant="link" colorScheme="blue">
+                    User Agreement
+                  </Button>
                 </Link>{" "}
                 and{" "}
-                <Link href={"#"}>
-                  <a className="link primary">Privacy Policy</a>
+                <Link href="/" passHref>
+                  <Button as="a" variant="link" colorScheme="blue">
+                    Privacy Policy
+                  </Button>
                 </Link>
-              </label>
+              </Checkbox>
               {errors.agree && (
-                <p className="hint-text">{errors.agree.message}</p>
+                <FormErrorMessage>{errors.agree.message}</FormErrorMessage>
               )}
-            </div>
+            </FormControl>
 
-            <button className="button solid primary full-width" type="submit">
-              <p className="label">
-                {isSubmitting ? "Signing up..." : "Sign Up"}
-              </p>
-            </button>
+            <Button
+              type="submit"
+              variant="solid"
+              colorScheme="blue"
+              isFullWidth
+              isLoading={isSubmitting}
+              isDisabled={isSubmitting}
+            >
+              Sign Up
+            </Button>
           </form>
-        </div>
-      </div>
+        </Container>
+      </Box>
     </>
   );
 };
