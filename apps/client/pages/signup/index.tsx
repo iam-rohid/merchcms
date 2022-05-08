@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback } from "react";
-import { Google, Facebook } from "@mui/icons-material";
+import { FaGoogle, FaFacebook } from "react-icons/fa";
 import {
   Box,
   Button,
@@ -180,7 +180,7 @@ const SignUpPage: CustomNextPage = () => {
               variant="outline"
               isFullWidth
               colorScheme="red"
-              leftIcon={<Google />}
+              leftIcon={<FaGoogle />}
             >
               Continue with Google
             </Button>
@@ -189,7 +189,7 @@ const SignUpPage: CustomNextPage = () => {
               variant="outline"
               isFullWidth
               colorScheme="blue"
-              leftIcon={<Facebook />}
+              leftIcon={<FaFacebook />}
             >
               Continue with Facebook
             </Button>

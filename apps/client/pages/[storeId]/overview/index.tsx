@@ -1,25 +1,34 @@
 import classNames from "classnames";
-import Button from "components/button";
-import ProductCard from "components/cards/product-card";
-import Container from "components/container";
-import Select from "components/select";
 import SEO from "components/SEO";
 import StoreDashboardLayout from "components/layouts/common-layouts/store-dashboard-layout";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { useState } from "react";
-import {
-  MdAdd,
-  MdAttachMoney,
-  MdCreditCard,
-  MdGridView,
-  MdList,
-  MdSearch,
-  MdShoppingCart,
-} from "react-icons/md";
+import { MdAdd, MdGridView, MdList, MdSearch } from "react-icons/md";
+import { FiExternalLink } from "react-icons/fi";
 import { CustomNextPage } from "src/types/next.type";
 import { Product } from "src/types/product.type";
+import {
+  Box,
+  Button,
+  Container,
+  Icon,
+  Input,
+  useColorMode,
+  Select,
+  IconButton,
+  ButtonGroup,
+  Flex,
+  Grid,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
+import ProductCard from "components/cards/product-card";
 
 const products: Product[] = [
   {
@@ -85,6 +94,7 @@ const StoreOverviewPage: CustomNextPage = () => {
   const [gridView, setGridView] = useState(true);
   const [filterBy, setFilterBy] = useState(filterOptions[0].id);
   const [orderBy, setOrderBy] = useState(orderOptions[0].id);
+  const { colorMode } = useColorMode();
   const {
     query: { storeId },
   } = useRouter();
@@ -106,131 +116,182 @@ const StoreOverviewPage: CustomNextPage = () => {
 
   return (
     <>
-      <div className="w-full py-8 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        <Container className="flex gap-8 items-center">
-          <div className="flex-1">
-            <h1 className="text-xl font-semibold">My Store</h1>
-            <p className="text-gray-500 dark:text-gray-400">
-              {storeId}.merchcms.com
-            </p>
-          </div>
-          <Link href={`/`}>
-            <a target="_blank">
-              <Button as="span">Visit Store</Button>
-            </a>
-          </Link>
+      <Box
+        as="section"
+        id="landing"
+        py={8}
+        borderBottom="1px solid"
+        borderColor={colorMode === "light" ? "gray.200" : "gray.700"}
+      >
+        <Container maxW="container.lg">
+          <Flex>
+            <Box flex={1}>
+              <Heading as="h1" size="md">
+                {storeId}
+              </Heading>
+              <Text>{storeId}.merchcms.com</Text>
+            </Box>
+            <Link href={`#`} passHref>
+              <Button
+                as="a"
+                rightIcon={<Icon as={FiExternalLink} fontSize={20} />}
+              >
+                Visit
+              </Button>
+            </Link>
+          </Flex>
         </Container>
-      </div>
-      <Container className="space-y-4 md:space-y-8 py-4 md:py-8">
-        <section id="stack" className="grid md:grid-cols-3 gap-4 md:gap-8">
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-4">
-            <MdShoppingCart className="text-4xl" />
-            <div>
-              <p className="font-semibold">1223</p>
-              <p className="text-gray-500 dark:text-gray-400">
-                Products Ordered
-              </p>
-            </div>
-          </div>
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-4">
-            <MdAttachMoney className="text-4xl" />
-            <div>
-              <p className="font-semibold">$ 313</p>
-              <p className="text-gray-500 dark:text-gray-400">Profit</p>
-            </div>
-          </div>
-          <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 flex items-center gap-4">
-            <MdCreditCard className="text-4xl" />
-            <div>
-              <p className="font-semibold">$ 234</p>
-              <p className="text-gray-500 dark:text-gray-400">To be paid</p>
-            </div>
-          </div>
-        </section>
-        <section id="search" className="flex gap-4 h-12">
-          <div className="relative flex-1 h-full">
-            <label
-              htmlFor="search-input"
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-2xl text-gray-400 dark:text-gray-500"
+      </Box>
+      <Box as="section" id="stats" my={8}>
+        <Container maxW="container.lg">
+          <Grid templateColumns={["1fr", "1fr", "1fr 1fr 1fr"]} gap={4}>
+            <Stat
+              border="1px solid"
+              borderColor={colorMode === "light" ? "gray.200" : "gray.700"}
+              borderRadius="lg"
+              p={4}
             >
-              <MdSearch />
-            </label>
-            <input
+              <StatLabel>Collected Fees</StatLabel>
+              <StatNumber>£0.00</StatNumber>
+              <StatHelpText>Feb 12 - Feb 28</StatHelpText>
+            </Stat>
+            <Stat
+              border="1px solid"
+              borderColor={colorMode === "light" ? "gray.200" : "gray.700"}
+              borderRadius="lg"
+              p={4}
+            >
+              <StatLabel>Collected Fees</StatLabel>
+              <StatNumber>£0.00</StatNumber>
+              <StatHelpText>Feb 12 - Feb 28</StatHelpText>
+            </Stat>
+            <Stat
+              border="1px solid"
+              borderColor={colorMode === "light" ? "gray.200" : "gray.700"}
+              borderRadius="lg"
+              p={4}
+            >
+              <StatLabel>Collected Fees</StatLabel>
+              <StatNumber>£0.00</StatNumber>
+              <StatHelpText>Feb 12 - Feb 28</StatHelpText>
+            </Stat>
+          </Grid>
+        </Container>
+      </Box>
+      <Box as="section" id="search" my={8}>
+        <Container maxW="container.lg" display="flex" gap={4}>
+          <Box position="relative" flex={1}>
+            <Input
               id="search-input"
               type="text"
-              className="w-full h-full px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 pl-10 placeholder-gray-400 dark:placeholder-gray-600 outline-none focus:border-gray-400 dark:focus:border-gray-500"
               placeholder="Search..."
               onChange={(e) => setSearchText(e.target.value)}
+              pl={8}
             />
-          </div>
-          {/* TODO: Add new product route path */}
-          <Link href="#">
-            <a>
-              <Button leftIcon={<MdAdd />} size="large" as="span">
-                New Product
-              </Button>
-            </a>
+            <Icon
+              as={MdSearch}
+              fontSize={20}
+              position="absolute"
+              left={2}
+              top="50%"
+              transform="translateY(-50%)"
+              zIndex={2}
+              pointerEvents="none"
+              color={colorMode === "dark" ? "gray.400" : "gray.500"}
+            />
+          </Box>
+          <Link href="/new-store">
+            <Button
+              as="a"
+              variant="solid"
+              colorScheme="blue"
+              leftIcon={<Icon as={MdAdd} fontSize={20} />}
+            >
+              New Store
+            </Button>
           </Link>
-        </section>
-        <section id="filter">
-          <div className="flex gap-4 justify-between items-center">
+        </Container>
+      </Box>
+
+      <Box as="section" my={8}>
+        <Container
+          maxW="container.lg"
+          display="flex"
+          gap={4}
+          alignItems="center"
+        >
+          <Select
+            w="fit-content"
+            value={filterBy}
+            onChange={(e) => {
+              setFilterBy(e.target.value);
+            }}
+          >
+            {filterOptions.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </Select>
+
+          <Flex
+            flex={1}
+            w="full"
+            alignItems="center"
+            justifyContent="flex-end"
+            gap={4}
+          >
             <Select
-              value={filterBy}
-              onValueChange={setFilterBy}
-              options={filterOptions}
-            />
-            <div className="flex-1 flex gap-4 justify-end items-center">
-              <Select
-                value={orderBy}
-                onValueChange={setOrderBy}
-                options={orderOptions}
+              w="fit-content"
+              value={orderBy}
+              onChange={(e) => {
+                setOrderBy(e.target.value);
+              }}
+            >
+              {orderOptions.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </Select>
+            <ButtonGroup isAttached variant="outline">
+              <IconButton
+                aria-label="Grid view"
+                onClick={() => setGridView(true)}
+                icon={<Icon as={MdGridView} fontSize={20} />}
+                isActive={gridView}
               />
-              <div className="flex -space-x-[1px]">
-                <button
-                  className={classNames(
-                    "h-10 w-10 flex items-center justify-center bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
-                    {
-                      "text-gray-900 dark:text-gray-50": gridView,
-                      "text-gray-400 dark:text-gray-500": !gridView,
-                    }
-                  )}
-                  onClick={() => setGridView(true)}
-                >
-                  <MdGridView className="text-xl" />
-                </button>
-                <button
-                  className={classNames(
-                    "h-10 w-10 flex items-center justify-center bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
-                    {
-                      "text-gray-900 dark:text-gray-50": !gridView,
-                      "text-gray-400 dark:text-gray-500": gridView,
-                    }
-                  )}
-                  onClick={() => setGridView(false)}
-                >
-                  <MdList className="text-xl" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section id="stores">
-          <div
-            className={classNames("grid", {
-              "grid-cols-2 md:grid-cols-3 gap-4 md:gap-8": gridView,
-              "-space-y-[1px]": !gridView,
-            })}
+              <IconButton
+                aria-label="Grid view"
+                onClick={() => setGridView(false)}
+                icon={<Icon as={MdList} fontSize={20} />}
+                isActive={!gridView}
+              />
+            </ButtonGroup>
+          </Flex>
+        </Container>
+      </Box>
+
+      <Box as="section" id="products" my={8}>
+        <Container maxW="container.lg">
+          <Grid
+            templateColumns={
+              gridView
+                ? ["1fr", "1fr 1fr", "1fr 1fr 1fr", "1fr 1fr 1fr 1fr"]
+                : "1fr"
+            }
+            gap={4}
           >
             {filteredProducts.map((product) => (
               <ProductCard
-                key={product.id}
-                product={product}
                 gridView={gridView}
+                product={product}
+                key={product.id}
               />
             ))}
-          </div>
-        </section>
-      </Container>
+          </Grid>
+        </Container>
+      </Box>
     </>
   );
 };

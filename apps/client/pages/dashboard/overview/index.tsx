@@ -1,14 +1,23 @@
-import classNames from "classnames";
 import React, { useMemo, useState } from "react";
 import { MdAdd, MdGridView, MdList, MdSearch } from "react-icons/md";
 import StoreCard from "components/cards/store-card";
-import Container from "components/container";
 import { CustomNextPage, Store } from "src/types";
 import AppDashboardLayout from "components/layouts/common-layouts/app-dashboard-layout";
-import Select from "components/select";
-import Button from "components/button";
-import Link from "next/link";
 import SEO from "components/SEO";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Container,
+  Flex,
+  Grid,
+  Icon,
+  IconButton,
+  Input,
+  Select,
+  useColorMode,
+} from "@chakra-ui/react";
+import Link from "next/link";
 
 const stores: Store[] = [
   {
@@ -64,6 +73,7 @@ const OverviewPage: CustomNextPage = () => {
   const [searchText, setSearchText] = useState("");
   const [filterBy, setFilterBy] = useState(filterOptions[0].id);
   const [orderBy, setOrderBy] = useState(orderOptions[0].id);
+  const { colorMode } = useColorMode();
 
   const filteredStoreList = useMemo(
     () =>
@@ -79,86 +89,116 @@ const OverviewPage: CustomNextPage = () => {
   );
 
   return (
-    <Container className="space-y-4 md:space-y-8 py-8">
-      <section id="search" className="flex gap-4 h-12">
-        <div className="relative flex-1 h-full">
-          <label
-            htmlFor="search-input"
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-2xl text-gray-400 dark:text-gray-500"
-          >
-            <MdSearch />
-          </label>
-          <input
-            id="search-input"
-            type="text"
-            className="w-full h-full px-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 pl-10 placeholder-gray-400 dark:placeholder-gray-600 outline-none focus:border-gray-400 dark:focus:border-gray-500"
-            placeholder="Search..."
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-        </div>
-        <Link href="/new-store">
-          <a>
-            <Button as="span" leftIcon={<MdAdd />} size="large">
+    <>
+      <Box as="section" id="search" my={8}>
+        <Container maxW="container.lg" display="flex" gap={4}>
+          <Box position="relative" flex={1}>
+            <Input
+              id="search-input"
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => setSearchText(e.target.value)}
+              pl={8}
+            />
+            <Icon
+              as={MdSearch}
+              fontSize={20}
+              position="absolute"
+              left={2}
+              top="50%"
+              transform="translateY(-50%)"
+              zIndex={2}
+              pointerEvents="none"
+              color={colorMode === "dark" ? "gray.400" : "gray.500"}
+            />
+          </Box>
+          <Link href="/new-store">
+            <Button
+              as="a"
+              variant="solid"
+              colorScheme="blue"
+              leftIcon={<Icon as={MdAdd} fontSize={20} />}
+            >
               New Store
             </Button>
-          </a>
-        </Link>
-      </section>
-      <section>
-        <div className="flex gap-4 justify-between items-center">
-          <Select
-            options={filterOptions}
-            value={filterBy}
-            onValueChange={setFilterBy}
-          />
-          <div className="flex-1 flex justify-end items-center gap-4">
-            <Select
-              options={orderOptions}
-              value={orderBy}
-              onValueChange={setOrderBy}
-            />
-            <div className="flex -space-x-[1px]">
-              <button
-                className={classNames(
-                  "h-10 w-10 flex items-center justify-center bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
-                  {
-                    "text-gray-900 dark:text-gray-50": gridView,
-                    "text-gray-400 dark:text-gray-500": !gridView,
-                  }
-                )}
-                onClick={() => setGridView(true)}
-              >
-                <MdGridView className="text-xl" />
-              </button>
-              <button
-                className={classNames(
-                  "h-10 w-10 flex items-center justify-center bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:z-[1] focus:z-[1]",
-                  {
-                    "text-gray-900 dark:text-gray-50": !gridView,
-                    "text-gray-400 dark:text-gray-500": gridView,
-                  }
-                )}
-                onClick={() => setGridView(false)}
-              >
-                <MdList className="text-xl" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id="stores">
-        <div
-          className={classNames("grid", {
-            "grid-cols-2 md:grid-cols-3 sm:space-y-0 gap-4 md:gap-8": gridView,
-            "-space-y-[1px]": !gridView,
-          })}
+          </Link>
+        </Container>
+      </Box>
+
+      <Box as="section" my={8}>
+        <Container
+          maxW="container.lg"
+          display="flex"
+          gap={4}
+          alignItems="center"
         >
-          {filteredStoreList.map((store) => (
-            <StoreCard key={store.id} store={store} gridView={gridView} />
-          ))}
-        </div>
-      </section>
-    </Container>
+          <Select
+            w="fit-content"
+            value={filterBy}
+            onChange={(e) => {
+              setFilterBy(e.target.value);
+            }}
+          >
+            {filterOptions.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </Select>
+
+          <Flex
+            flex={1}
+            w="full"
+            alignItems="center"
+            justifyContent="flex-end"
+            gap={4}
+          >
+            <Select
+              w="fit-content"
+              value={orderBy}
+              onChange={(e) => {
+                setOrderBy(e.target.value);
+              }}
+            >
+              {orderOptions.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </Select>
+            <ButtonGroup isAttached variant="outline">
+              <IconButton
+                aria-label="Grid view"
+                onClick={() => setGridView(true)}
+                icon={<Icon as={MdGridView} fontSize={20} />}
+                isActive={gridView}
+              />
+              <IconButton
+                aria-label="Grid view"
+                onClick={() => setGridView(false)}
+                icon={<Icon as={MdList} fontSize={20} />}
+                isActive={!gridView}
+              />
+            </ButtonGroup>
+          </Flex>
+        </Container>
+      </Box>
+
+      <Box as="section" id="stores" my={8}>
+        <Container maxW="container.lg">
+          <Grid
+            gridTemplateColumns={
+              gridView ? ["1fr", "1fr 1fr", "1fr 1fr 1fr"] : "1fr"
+            }
+            gap={4}
+          >
+            {filteredStoreList.map((store) => (
+              <StoreCard key={store.id} store={store} gridView={gridView} />
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+    </>
   );
 };
 

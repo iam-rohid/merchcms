@@ -1,13 +1,12 @@
-import classNames from "classnames";
 import Link from "next/link";
-import React, { HTMLAttributes, ReactNode } from "react";
 import { MdArrowBackIosNew } from "react-icons/md";
-import Container from "components/container";
 import NavigationColumn from "components/navigation-column";
 import { Menu } from "src/types";
 import { useRouter } from "next/router";
+import { Box, Button, Container, Hide, Icon, Show } from "@chakra-ui/react";
+import { ReactNode } from "react";
 
-export type SettingsLayoutProps = HTMLAttributes<HTMLDivElement> & {
+export type SettingsLayoutProps = {
   children: ReactNode;
   active: string;
   menu: Menu;
@@ -21,34 +20,40 @@ const SettingsLayout = ({
   menu,
   backLabel,
   backLink,
-  className,
-  ...props
 }: SettingsLayoutProps) => {
   const { query } = useRouter();
   return (
-    <Container className={classNames("px-0", className)} {...props}>
-      <div className="relative min-h-[calc(100vh-3.5rem-3rem+0.75rem)]">
-        <div className="absolute w-64 left-0 top-0 py-8 h-full border-r border-gray-200 dark:border-gray-700 md:block hidden">
-          <div className="bg-gray-50 dark:bg-gray-800 absolute right-0 top-0 h-full w-screen -z-20" />
-          <NavigationColumn menu={menu} active={active} />
-        </div>
-        <div className="md:ml-64 p-4 md:p-8">
-          {backLink && (
+    <Container maxW="container.lg" position="relative" display="flex" gap={4}>
+      <Hide below="md">
+        <Box>
+          <Box width={"260px"} position="sticky" top={"64px"}>
+            <NavigationColumn menu={menu} active={active} />
+          </Box>
+        </Box>
+      </Hide>
+      <Box flex={1}>
+        {backLink && (
+          <Show below="md">
             <Link
               href={{
                 pathname: backLink,
                 query,
               }}
+              passHref
             >
-              <a className="md:hidden font-medium mb-4 flex items-center gap-2 py-4">
-                <MdArrowBackIosNew className="text-xl" />
+              <Button
+                as="a"
+                variant="ghost"
+                leftIcon={<Icon as={MdArrowBackIosNew} fontSize={20} />}
+                my={4}
+              >
                 {backLabel || "Back"}
-              </a>
+              </Button>
             </Link>
-          )}
-          {children}
-        </div>
-      </div>
+          </Show>
+        )}
+        {children}
+      </Box>
     </Container>
   );
 };

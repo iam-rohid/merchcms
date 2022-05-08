@@ -1,143 +1,52 @@
-import React, {
-  HTMLAttributes,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import Image from "next/image";
+import React, { HTMLAttributes, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import Container from "components/container";
-import classNames from "classnames";
+import { MdClose, MdMenu } from "react-icons/md";
 import {
-  MdAdd,
-  MdClose,
-  MdComputer,
-  MdDarkMode,
-  MdDashboard,
-  MdLightMode,
-  MdLogout,
-  MdMenu,
-  MdSearch,
-  MdSettings,
-} from "react-icons/md";
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Flex,
+  IconButton,
+  List,
+  ListItem,
+  Menu,
+  MenuButton,
+  MenuItem,
+  useColorMode,
+  MenuList,
+  useColorModeValue,
+  Heading,
+  Text,
+  Stack,
+  Switch,
+  FormControl,
+  FormLabel,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerBody,
+  DrawerHeader,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+} from "@chakra-ui/react";
 import { fullScreenMenu } from "src/data/full-screen-menu";
-import MenuList from "components/menu-list";
-import Dropdown from "components/drop-down";
-import { DropdownMenuType } from "src/types/dropdown-menu.type";
-import { useRouter } from "next/router";
-import {
-  appDashboardPath,
-  userDashboardMenu,
-} from "src/data/app-dashboard-menu";
-import { appSettingsPath } from "src/data/app-settings-menu";
-import Select from "components/select";
-import { ColorScheme, useColorScheme } from "src/hooks/color-scheme";
 
 export type AppHeaderProps = HTMLAttributes<HTMLDivElement> & {
   sticky?: boolean;
   paths?: string[];
 };
 
-const themeOptions = [
-  { id: "light", label: "Light" },
-  { id: "dark", label: "Dark" },
-  { id: "system", label: "System" },
-];
-
 const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
-  const router = useRouter();
   const [menuOpenOnMobile, setMenuOpenOnMobile] = useState(false);
-  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const { colorScheme, toggleTheme } = useColorScheme();
-  const dropdownMenuItems = useMemo<DropdownMenuType>(
-    () => [
-      {
-        type: "item",
-        label: "Dashbaord",
-        icon: <MdDashboard />,
-        onClick: () => router.push(appDashboardPath),
-      },
-      {
-        type: "separator",
-      },
-      {
-        type: "item",
-        label: "New Store",
-        icon: <MdAdd />,
-        onClick: () => router.push("/new-store"),
-      },
-      {
-        type: "item",
-        label: "Settings",
-        icon: <MdSettings />,
-        onClick: () => router.push(appSettingsPath),
-      },
-      {
-        type: "separator",
-      },
-      {
-        type: "item",
-        label: "Theme",
-        icon:
-          colorScheme === ColorScheme.LIGHT ? (
-            <MdLightMode />
-          ) : colorScheme === ColorScheme.DARK ? (
-            <MdDarkMode />
-          ) : (
-            <MdComputer />
-          ),
-        rightElement: (
-          <Select
-            className="h-8"
-            options={themeOptions}
-            value={colorScheme}
-            onValueChange={(value) => {
-              if (value === "system") {
-                toggleTheme(ColorScheme.SYSTEM);
-              } else if (value === "light") {
-                toggleTheme(ColorScheme.LIGHT);
-              } else if (value === "dark") {
-                toggleTheme(ColorScheme.DARK);
-              }
-            }}
-          />
-        ),
-      },
-      {
-        type: "separator",
-      },
-      {
-        type: "item",
-        label: "Search",
-        icon: <MdSearch />,
-      },
-      {
-        type: "separator",
-      },
-      {
-        type: "item",
-        label: "Logout",
-        icon: <MdLogout />,
-        onClick: () => router.push("/logout"),
-      },
-    ],
-    [router, colorScheme]
-  );
-
-  const handleMenuOpenChange = useCallback((open: boolean) => {
-    document.documentElement.classList.toggle("overflow-hidden", open);
-    setMenuOpenOnMobile(open);
-  }, []);
-
+  const backgroundColor = useColorModeValue("white", "gray.800");
+  const { colorMode } = useColorMode();
   const onWindowResize = useCallback(() => {
     if (window.innerWidth > 768 && menuOpenOnMobile) {
-      handleMenuOpenChange(false);
+      setMenuOpenOnMobile(false);
     }
-    if (window.innerWidth < 768 && userDropdownOpen) {
-      setUserDropdownOpen(false);
-    }
-  }, [menuOpenOnMobile, handleMenuOpenChange, userDropdownOpen]);
+  }, [menuOpenOnMobile, setMenuOpenOnMobile]);
 
   useEffect(() => {
     window.addEventListener("resize", onWindowResize);
@@ -147,164 +56,210 @@ const AppHeader = ({ sticky, className, paths, ...props }: AppHeaderProps) => {
   }, [onWindowResize]);
 
   return (
-    <header
-      className={classNames(
-        "bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-14",
-        { "sticky top-0 left-0 right-0 z-20": sticky },
-        className
-      )}
-      {...props}
-    >
-      <Container className="h-full flex items-center">
-        <ul className="flex flex-row gap-2 items-center flex-1">
-          <li>
-            <Link href="/dashboard">
-              <a className="text-lg font-semibold">MerchCMS</a>
-            </Link>
-          </li>
-          {paths &&
-            paths.map((path, i) => (
-              <li key={i}>
-                <span className="mr-2 text-gray-400 text-lg">/</span>
-                <Link href={i > 0 ? `/${paths[i - 1]}/${path}` : `/${path}`}>
-                  <a className="text-lg font-semibold">
-                    {i < paths.length - 1 ? `${path?.slice(0, 2)}...` : path}
-                  </a>
+    <>
+      <Box
+        as="header"
+        bg="white"
+        position={sticky ? "sticky" : "static"}
+        bgColor={backgroundColor}
+        zIndex="100"
+        borderBottom="1px solid"
+        borderColor={colorMode === "light" ? "gray.200" : "gray.700"}
+      >
+        <Container maxWidth="container.lg">
+          <Flex as="nav" alignItems="center" gap={8} height={14}>
+            <Breadcrumb flex={1}>
+              <BreadcrumbItem>
+                <Button as="a" variant="link" href="/dashboard">
+                  MerchCMS
+                </Button>
+              </BreadcrumbItem>
+              {paths &&
+                paths.map((path, i) => (
+                  <BreadcrumbItem>
+                    <Link
+                      href={i > 0 ? `/${paths[i - 1]}/${path}` : `/${path}`}
+                      passHref
+                    >
+                      <Button as="a" variant="link">
+                        {i < paths.length - 2
+                          ? `${path?.slice(0, 2)}...`
+                          : path}
+                      </Button>
+                    </Link>
+                  </BreadcrumbItem>
+                ))}
+            </Breadcrumb>
+
+            <List
+              display={["none", "none", "flex"]}
+              alignItems="center"
+              justifyContent="flex-end"
+              gap={6}
+            >
+              <ListItem>
+                <Link href={`/`} passHref>
+                  <Button
+                    variant="link"
+                    as="a"
+                    className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  >
+                    Feedback
+                  </Button>
                 </Link>
-              </li>
-            ))}
-        </ul>
-        <div className="h-full justify-end items-center gap-6 hidden md:flex">
-          <ul className="w-full flex items-center justify-end gap-4">
-            <li>
-              <Link href={`/`}>
-                <a className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
-                  Feedback
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link href={`/`}>
-                <a className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
-                  Support
-                </a>
-              </Link>
-            </li>
-            <li>
-              <Link href={`/`}>
-                <a className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50">
-                  Docs
-                </a>
-              </Link>
-            </li>
-          </ul>
-          <Dropdown
-            items={dropdownMenuItems}
-            side="bottom"
-            align="end"
-            minWidth={220}
-            open={userDropdownOpen}
-            onOpenChange={setUserDropdownOpen}
-          >
-            <button>
-              <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 relative overflow-hidden">
-                <Image
-                  src={`https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80`}
-                  alt="Avatar"
-                  layout="fill"
-                  objectFit="cover"
+              </ListItem>
+              <ListItem>
+                <Link href={`/`} passHref>
+                  <Button
+                    variant="link"
+                    as="a"
+                    className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  >
+                    Support
+                  </Button>
+                </Link>
+              </ListItem>
+              <ListItem>
+                <Link href={`/`} passHref>
+                  <Button
+                    variant="link"
+                    as="a"
+                    className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                  >
+                    Docs
+                  </Button>
+                </Link>
+              </ListItem>
+
+              <ListItem>
+                <Menu placement="bottom-end">
+                  <MenuButton>
+                    <Avatar src="" size="sm" />
+                  </MenuButton>
+
+                  <MenuList zIndex={200}>
+                    <MenuItem>Download</MenuItem>
+                    <MenuItem>Create a Copy</MenuItem>
+                    <MenuItem>Mark as Draft</MenuItem>
+                    <MenuItem>Delete</MenuItem>
+                    <MenuItem>Attend a Workshop</MenuItem>
+                  </MenuList>
+                </Menu>
+              </ListItem>
+            </List>
+
+            <List
+              display={["flex", "flex", "none"]}
+              alignItems="center"
+              justifyContent="flex-end"
+              gap={6}
+            >
+              <ListItem>
+                <IconButton
+                  aria-label="Menu Button"
+                  icon={<MdMenu fontSize="1.5rem" />}
+                  variant="ghost"
+                  onClick={() => setMenuOpenOnMobile(true)}
                 />
-              </div>
-            </button>
-          </Dropdown>
-        </div>
-        <button
-          className="w-8 h-8 flex items-center justify-center md:hidden"
-          onClick={() => handleMenuOpenChange(true)}
-        >
-          <MdMenu className="text-3xl" />
-        </button>
-      </Container>
-      {menuOpenOnMobile && (
-        <FullScreenMenu
-          paths={paths}
-          onClose={() => handleMenuOpenChange(false)}
-        />
-      )}
-    </header>
+              </ListItem>
+            </List>
+          </Flex>
+        </Container>
+      </Box>
+      <DrawerWindow
+        isOpen={menuOpenOnMobile}
+        paths={paths}
+        onClose={() => setMenuOpenOnMobile(false)}
+      />
+    </>
   );
 };
 
 export default AppHeader;
 
-type FullScreenMenuProps = {
+type DrawwerWindowProps = {
+  isOpen: boolean;
   onClose: () => void;
   paths?: string[];
 };
-const FullScreenMenu = ({ onClose, paths }: FullScreenMenuProps) => {
-  const { colorScheme, toggleTheme } = useColorScheme();
-  return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 z-30 overflow-y-scroll bg-gray-100 dark:bg-gray-900">
-      <header className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-14 sticky top-0 left-0 right-0 z-20">
-        <Container className="h-full flex items-center">
-          <ul className="flex flex-row gap-2 items-center flex-1">
-            <li>
-              <Link href={`/`}>
-                <a className="text-lg font-semibold" onClick={onClose}>
-                  MerchCMS
-                </a>
-              </Link>
-            </li>
+const DrawerWindow = ({ onClose, paths, isOpen }: DrawwerWindowProps) => {
+  const { toggleColorMode, colorMode } = useColorMode();
 
+  return (
+    <Drawer placement="left" isOpen={isOpen} onClose={onClose}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerHeader display="flex" h={14} alignItems="center" gap={6} px={4}>
+          <Breadcrumb flex={1}>
+            <BreadcrumbItem>
+              <Button as="a" variant="link" href="/dashboard">
+                MerchCMS
+              </Button>
+            </BreadcrumbItem>
             {paths &&
               paths.map((path, i) => (
-                <li key={i}>
-                  <span className="mr-2 text-gray-400 text-lg">/</span>
-                  <Link href={`/${path}`}>
-                    <a className="text-lg font-semibold" onClick={onClose}>
-                      {path}
-                    </a>
+                <BreadcrumbItem>
+                  <Link
+                    href={i > 0 ? `/${paths[i - 1]}/${path}` : `/${path}`}
+                    passHref
+                  >
+                    <Button as="a" variant="link">
+                      {i < paths.length - 2 ? `${path?.slice(0, 2)}...` : path}
+                    </Button>
                   </Link>
-                </li>
+                </BreadcrumbItem>
               ))}
-          </ul>
-          <button
-            className="w-8 h-8 flex items-center justify-center md:hidden"
+          </Breadcrumb>
+
+          <IconButton
+            aria-label="Menu Close Button"
+            icon={<MdClose fontSize="1.5rem" />}
             onClick={onClose}
-          >
-            <MdClose className="text-3xl" />
-          </button>
-        </Container>
-      </header>
-      <Container className="py-4 space-y-8">
-        {fullScreenMenu.map((section) => (
-          <section key={section.id}>
-            {section.title && (
-              <h3 className="font-medium text-lg mb-2">{section.title}</h3>
-            )}
-            <MenuList menu={section.menu} onItemClick={onClose} />
-          </section>
-        ))}
-        <section>
-          <h3 className="font-medium text-lg mb-2">Quick Settings</h3>
-          <div className="flex justify-between items-center h-12">
-            <span>Change Theme</span>
-            <Select
-              options={themeOptions}
-              value={colorScheme}
-              onValueChange={(value) => {
-                if (value === "system") {
-                  toggleTheme(ColorScheme.SYSTEM);
-                } else if (value === "light") {
-                  toggleTheme(ColorScheme.LIGHT);
-                } else if (value === "dark") {
-                  toggleTheme(ColorScheme.DARK);
-                }
-              }}
-            />
-          </div>
-        </section>
-      </Container>
-    </div>
+            variant="ghost"
+          />
+        </DrawerHeader>
+        <DrawerBody px={4}>
+          {fullScreenMenu.map((section) => (
+            <Box as="nav" id={section.id} key={section.id} mb={6}>
+              {section.title && (
+                <Heading as="h3" size="sm" mb={3} px={4}>
+                  {section.title}
+                </Heading>
+              )}
+              <List>
+                {section.menu.map((item) => (
+                  <ListItem key={item.id}>
+                    <Link href={item.href} passHref>
+                      <Button as="a" isFullWidth variant="ghost">
+                        <Text textAlign="left" w="full" whiteSpace="nowrap">
+                          {item.label}
+                        </Text>
+                      </Button>
+                    </Link>
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          ))}
+          <Box as="section">
+            <Heading as="h3" size="sm" mb={3} px={4}>
+              Quick Settings
+            </Heading>
+            <Stack direction="column" spacing={2}>
+              <FormControl display="flex" alignItems="center" px={4} py={2}>
+                <FormLabel htmlFor="email-alerts" mb="0" flex={1}>
+                  Toggle Dark Mode
+                </FormLabel>
+                <Switch
+                  id="email-alerts"
+                  isChecked={colorMode === "dark"}
+                  onChange={toggleColorMode}
+                />
+              </FormControl>
+            </Stack>
+          </Box>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
   );
 };

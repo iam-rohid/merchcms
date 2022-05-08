@@ -5,31 +5,19 @@ import { CustomNextPage } from "src/types";
 import GeneralPage from "./general";
 import AppSettingsLayout from "components/layouts/common-layouts/app-settings-layout";
 import SEO from "components/SEO";
+import { Hide, Show, useMediaQuery } from "@chakra-ui/react";
 
 const SettingsPage: CustomNextPage = () => {
-  const isMobile = useCallback(
-    () => () =>
-      (typeof window !== "undefined" && window.innerWidth < 768) || false,
-    []
+  return (
+    <>
+      <Hide below="md">
+        <GeneralPage />
+      </Hide>
+      <Show below="md">
+        <MenuList menu={appSettingsMenu} />
+      </Show>
+    </>
   );
-
-  const [mobile, setMobile] = useState(isMobile());
-  const onWindwoResize = useCallback(() => {
-    setMobile(isMobile());
-  }, [isMobile]);
-
-  useEffect(() => {
-    window.addEventListener("resize", onWindwoResize);
-    return () => {
-      window.removeEventListener("resize", onWindwoResize);
-    };
-  }, [onWindwoResize]);
-
-  if (mobile) {
-    return <MenuList menu={appSettingsMenu} />;
-  }
-
-  return <GeneralPage />;
 };
 
 export default SettingsPage;

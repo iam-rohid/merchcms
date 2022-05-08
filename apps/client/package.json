@@ -16,9 +16,6 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@graphql-codegen/cli": "^2.6.2",
-    "@mui/icons-material": "^5.6.2",
-    "@mui/material": "^5.6.3",
-    "@mui/system": "^5.6.3",
     "@radix-ui/react-dropdown-menu": "^0.1.6",
     "@radix-ui/react-select": "^0.1.1",
     "classnames": "^2.3.1",
@@ -29,8 +26,7 @@
     "react-dom": "17.0.2",
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
-    "sass": "^1.51.0",
-    "ui": "workspace:*"
+    "sass": "^1.51.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "2.6.2",
@@ -40,14 +36,9 @@
     "@graphql-codegen/typescript-react-apollo": "3.2.11",
     "@types/node": "^17.0.12",
     "@types/react": "17.0.37",
-    "autoprefixer": "^10.4.4",
     "config": "workspace:*",
     "eslint": "7.32.0",
     "next-transpile-modules": "9.0.0",
-    "postcss": "^8.4.12",
-    "prettier": "^2.6.2",
-    "prettier-plugin-tailwindcss": "^0.1.10",
-    "tailwindcss": "^3.0.24",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   }

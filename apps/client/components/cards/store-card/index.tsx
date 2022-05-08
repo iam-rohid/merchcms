@@ -1,57 +1,46 @@
-import classNames from "classnames";
+import {
+  Avatar,
+  Box,
+  Flex,
+  Heading,
+  Text,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Link from "next/link";
-import React, { HTMLAttributes } from "react";
 import { Store } from "src/types";
 
-export type StoreCardProps = HTMLAttributes<HTMLAnchorElement> & {
+export type StoreCardProps = {
   store: Store;
   gridView?: boolean;
 };
 
-const StoreCard = ({
-  store,
-  gridView = true,
-  className,
-  ...props
-}: StoreCardProps) => {
+const StoreCard = ({ store, gridView = true }: StoreCardProps) => {
+  const borderColor = useColorModeValue("gray.200", "gray.700");
+  const hoverBorderColor = useColorModeValue("gray.300", "gray.600");
   return (
-    <Link href={`/${store.id}`}>
-      <a
-        className={classNames(
-          "bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 items-center flex flex-col gap-4 hover:border-gray-400 dark:hover:border-gray-500 cursor-pointer hover:z-[1] focus:z-[1]",
-          className
-        )}
-        {...props}
+    <Link href={`/${store.id}`} passHref>
+      <Box
+        as="a"
+        p={4}
+        border="1px solid"
+        borderColor={borderColor}
+        borderRadius={6}
+        _hover={{
+          borderColor: hoverBorderColor,
+        }}
+        overflow="hidden"
       >
-        <div
-          className={classNames("flex gap-4 w-full", {
-            "flex-col md:flex-row items-start md:items-center": gridView,
-          })}
-        >
-          <div
-            className={classNames(
-              "rounded-full bg-gray-900 text-gray-50 text-lg font-semibold items-center justify-center flex",
-              {
-                "w-12 md:w-14 h-12 md:h-14": gridView,
-                "w-12 h-12": !gridView,
-              }
-            )}
-          >
-            {store.name[0]}
-          </div>
-          <div className="flex-1 flex flex-col overflow-hidden w-full">
-            <h3 className="truncate font-medium">{store.name}</h3>
-            <p className="truncate text-gray-500 dark:text-gray-400">
-              {store.id}.merchcms.com
-            </p>
-          </div>
-        </div>
-        {gridView && (
-          <p className="truncate w-full text-gray-500 dark:text-gray-400">
-            {store.description}
-          </p>
-        )}
-      </a>
+        <Flex flexDir={gridView ? "column" : "row"} gap={4}>
+          <Avatar name={store.name} />
+          <Box>
+            <Heading as="h3" size="sm" isTruncated>
+              {store.name}
+            </Heading>
+            <Text isTruncated>{store.id}.merchcms.com</Text>
+          </Box>
+        </Flex>
+        {gridView && <Text mt={2}>{store.description}</Text>}
+      </Box>
     </Link>
   );
 };
